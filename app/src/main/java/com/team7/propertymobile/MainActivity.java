@@ -11,13 +11,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     List<Property> propertyList;
 
-    private final String[] projects = {"Glades", "Chicken Rice", "Team 7"};
+    PropertyDataService propertyDataService = new PropertyDataService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +38,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         ListView propertyListView = findViewById(R.id.propertyListView);
         propertyList = Arrays.asList(
-                new Property("Glades"),
-                new Property("Chicken Rice"),
-                new Property("Team 7"),
-                new Property("Test")
+                new Property("London"),
+                new Property("Singapore"),
+                new Property("Kuala Lumpur"),
+                new Property("Paris")
         );
 
         if (propertyListView != null)
@@ -50,7 +62,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Property selectedProperty = propertyList.get(position);
         String caption = selectedProperty.getPropertyName();
 
-        Toast toast = Toast.makeText(this, caption, Toast.LENGTH_SHORT);
-        toast.show();
+//        Toast toast = Toast.makeText(this, caption, Toast.LENGTH_SHORT);
+//        toast.show();
+
+        propertyDataService.getCityID(caption, new PropertyDataService.VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast toast = Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            @Override
+            public void onResponse(String cityID) {
+                Toast toast = Toast.makeText(MainActivity.this, "Returned an ID of " + cityID, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+
+
+
     }
 }
