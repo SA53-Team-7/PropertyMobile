@@ -39,6 +39,9 @@ public class PropertyAdapter extends ArrayAdapter<Property> {
         TextView textView = view.findViewById(R.id.propertyTextView);
         textView.setText(propertyList.get(position).getPropertyName());
 
+        TextView textView1 = view.findViewById(R.id.streetTextView);
+        textView1.setText(propertyList.get(position).getStreet());
+
         return view;
     }
 }

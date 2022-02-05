@@ -12,54 +12,107 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PropertyDataService{
-    public static final String QUERY_FOR_CITY_ID = "https://www.metaweather.com/api/location/search/?query=";
+//    public static final String QUERY_FOR_CITY_ID = "https://www.metaweather.com/api/location/search/?query=";
+//    String cityID;
+
     Context context;
-    String cityID;
+    public static final String QUERY_FOR_PROPERTY_TEST = "http://10.0.2.2:8080/api/projects";
 
     public PropertyDataService(Context context) {
         this.context = context;
     }
 
-    // async callback listener
-    public interface VolleyResponseListener {
+//    // async callback listener
+//    public interface VolleyResponseListener {
+//        void onError(String message);
+//
+//        void onResponse(String cityID);
+//    }
+//
+//    public void getCityID(String cityName, VolleyResponseListener volleyResponseListener)
+//    {
+//        String url = QUERY_FOR_CITY_ID + cityName;
+//
+//        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//                cityID = "";
+//
+//                try {
+//                    JSONObject cityInfo = response.getJSONObject(0);
+//                    cityID = cityInfo.getString("woeid");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                // works
+////                Toast toast = Toast.makeText(context, "City ID = " + cityID, Toast.LENGTH_SHORT);
+////                toast.show();
+//                volleyResponseListener.onResponse(cityID);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+////                Toast toastError = Toast.makeText(context, "Error occurred", Toast.LENGTH_SHORT);
+////                toastError.show();
+//                volleyResponseListener.onError("Error occurred");
+//            }
+//        });
+//
+//
+//        DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+//
+////        return cityID;
+//    }
+
+    public interface ProjectsResponseListener {
         void onError(String message);
 
-        void onResponse(String cityID);
+        void onResponse(List<Property> projects);
     }
 
-    public void getCityID(String cityName, VolleyResponseListener volleyResponseListener)
+    public void callProjects(ProjectsResponseListener projectsResponseListener)
     {
-        String url = QUERY_FOR_CITY_ID + cityName;
+        List<Property> projects = new ArrayList<>();
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_PROPERTY_TEST, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                cityID = "";
 
                 try {
-                    JSONObject cityInfo = response.getJSONObject(0);
-                    cityID = cityInfo.getString("woeid");
+                    for (int i = 0; i < response.length(); i++)
+                    {
+                        JSONObject jsonProperty = response.getJSONObject(i);
+                        Property property = new Property();
+                        property.setProjectId(jsonProperty.getInt("projectId"));
+                        property.setPropertyName(jsonProperty.getString("name"));
+                        property.setRegion(jsonProperty.getString("segment"));
+                        property.setStreet(jsonProperty.getString("street"));
+                        property.setxCoordinates(jsonProperty.getString("x"));
+                        property.setyCoordinates(jsonProperty.getString("y"));
+
+                        projects.add(property);
+                    }
+
+                    projectsResponseListener.onResponse(projects);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                // works
-//                Toast toast = Toast.makeText(context, "City ID = " + cityID, Toast.LENGTH_SHORT);
-//                toast.show();
-                volleyResponseListener.onResponse(cityID);
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                Toast toastError = Toast.makeText(context, "Error occurred", Toast.LENGTH_SHORT);
-//                toastError.show();
-                volleyResponseListener.onError("Error occurred");
+
             }
         });
 
-
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
-
-//        return cityID;
     }
 }

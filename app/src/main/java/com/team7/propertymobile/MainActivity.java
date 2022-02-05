@@ -36,20 +36,35 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView propertyListView = findViewById(R.id.propertyListView);
-        propertyList = Arrays.asList(
-                new Property("London"),
-                new Property("Singapore"),
-                new Property("Kuala Lumpur"),
-                new Property("Paris")
-        );
+//        ListView propertyListView = findViewById(R.id.propertyListView);
+//        propertyList = Arrays.asList(
+//                new Property("London", "test"),
+//                new Property("Singapore", "test"),
+//                new Property("Kuala Lumpur", "test"),
+//                new Property("Paris", "test")
+//        );
 
-        if (propertyListView != null)
-        {
-            PropertyAdapter adapter = new PropertyAdapter(this, propertyList);
-            propertyListView.setAdapter(adapter);
-            propertyListView.setOnItemClickListener(this);
-        }
+        propertyDataService.callProjects(new PropertyDataService.ProjectsResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast toast = Toast.makeText(MainActivity.this, "something wrong", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            @Override
+            public void onResponse(List<Property> projects) {
+                ListView propertyListView = findViewById(R.id.propertyListView);
+                propertyList = projects;
+
+                if (propertyListView != null)
+                {
+                    PropertyAdapter adapter = new PropertyAdapter(MainActivity.this, propertyList);
+                    propertyListView.setAdapter(adapter);
+                    propertyListView.setOnItemClickListener(MainActivity.this);
+                }
+            }
+        });
+
 
     }
 
@@ -65,21 +80,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //        Toast toast = Toast.makeText(this, caption, Toast.LENGTH_SHORT);
 //        toast.show();
 
-        propertyDataService.getCityID(caption, new PropertyDataService.VolleyResponseListener() {
-            @Override
-            public void onError(String message) {
-                Toast toast = Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-
-            @Override
-            public void onResponse(String cityID) {
-                Toast toast = Toast.makeText(MainActivity.this, "Returned an ID of " + cityID, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-
-
+//        propertyDataService.getCityID(caption, new PropertyDataService.VolleyResponseListener() {
+//            @Override
+//            public void onError(String message) {
+//                Toast toast = Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT);
+//                toast.show();
+//            }
+//
+//            @Override
+//            public void onResponse(String cityID) {
+//                Toast toast = Toast.makeText(MainActivity.this, "Returned an ID of " + cityID, Toast.LENGTH_SHORT);
+//                toast.show();
+//            }
+//        });
 
 
     }
