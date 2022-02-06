@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class PropertyInfoActivity extends AppCompatActivity implements View.OnClickListener{
 
-    PropertyDataService propertyDataService = new PropertyDataService(this);
+    MapDataService mapDataService = new MapDataService(this);
 
     Bitmap bitmap;
     Property selectedProperty;
@@ -37,42 +37,25 @@ public class PropertyInfoActivity extends AppCompatActivity implements View.OnCl
         streetInfoTextView.setText(selectedProperty.getStreet());
 
         ImageView imageView = findViewById(R.id.staticMapImageView);
-        propertyDataService.createStaticMap(1.2424409850962639, 103.83675517458369, new PropertyDataService.StaticMapResponseListener() {
+        mapDataService.callStaticMapAfterConversion(selectedProperty.getxCoordinates(), selectedProperty.getyCoordinates(), new MapDataService.CallStaticMapAfterConversionResponseListener() {
             @Override
             public void onError(String message) {
 
             }
 
             @Override
-            public void onResponse(Bitmap response) {
+            public void onResponse(Bitmap bitmap) {
                 if (bitmap == null)
-                {
                     imageView.setImageResource(R.drawable.no_map);
-                }
                 else
-                {
-                    imageView.setImageBitmap(response);
-                }
+                    imageView.setImageBitmap(bitmap);
             }
         });
-
 
 
         Button button = findViewById(R.id.transactionButton);
         button.setOnClickListener(this);
 
-
-//        propertyDataService.showMap(selectedProperty.getxCoordinates(), selectedProperty.getyCoordinates(), new PropertyDataService.ShowMapResponseListener() {
-//            @Override
-//            public void onError(String message) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Bitmap bitmap) {
-//                imageView.setImageBitmap(bitmap);
-//            }
-//        });
     }
 
     @Override
