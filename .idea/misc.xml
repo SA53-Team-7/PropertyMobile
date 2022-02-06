@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ohany/gitrepos/PropertyMobile/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/ohany/gitrepos/PropertyMobile/app/src/main/res/layout/activity_property_info.xml" value="0.3148148148148148" />
+        <entry key="..\:/Users/ohany/gitrepos/PropertyMobile/app/src/main/res/layout/activity_transaction_list.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/ohany/gitrepos/PropertyMobile/app/src/main/res/layout/item_property.xml" value="0.33" />
+        <entry key="..\:/Users/ohany/gitrepos/PropertyMobile/app/src/main/res/layout/item_transaction.xml" value="0.5541666666666667" />
       </map>
     </option>
   </component>

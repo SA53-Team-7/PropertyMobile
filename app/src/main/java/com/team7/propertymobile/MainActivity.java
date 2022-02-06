@@ -2,6 +2,7 @@ package com.team7.propertymobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -73,9 +74,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent,
                             View view, int position, long id)
     {
-        TextView textView = view.findViewById(R.id.propertyTextView);
+
         Property selectedProperty = propertyList.get(position);
-        String caption = selectedProperty.getPropertyName();
+        Intent intent = new Intent(this, PropertyInfoActivity.class);
+        intent.putExtra("Property", selectedProperty);
+
+        startActivity(intent);
+
+
+//        TextView textView = view.findViewById(R.id.propertyTextView);
+//        String caption = selectedProperty.getPropertyName();
 
 //        Toast toast = Toast.makeText(this, caption, Toast.LENGTH_SHORT);
 //        toast.show();

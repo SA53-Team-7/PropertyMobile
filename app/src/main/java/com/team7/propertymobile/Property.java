@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
-public class Property {
+import java.io.Serializable;
+
+public class Property implements Serializable {
     private int projectId;
     private String propertyName;
     private String region;

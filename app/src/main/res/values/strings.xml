@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PropertyMobile</string>
+    <string name="transactions">See past transactions</string>
+    <string name="no_floor_range">This property doesn\'t have multiple floors.</string>
 </resources>
