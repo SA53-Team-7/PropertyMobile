@@ -14,19 +14,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/transactionListView"
-        android:visibility="invisible"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
 
     <ListView
+        android:id="@+id/transactionListView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:divider="#e5e5ff"
         android:dividerHeight="5dp"
-        android:id="@+id/transactionListView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/transactionProgressBar"
-        app:layout_constraintBottom_toBottomOf="parent">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="120dp">
 
     </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>
