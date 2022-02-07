@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class TransactionAdapter extends ArrayAdapter<Transaction> {
     protected List<Transaction> transactionList;
@@ -34,7 +36,9 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
 
 
         TextView priceTextView = view.findViewById(R.id.priceTextView);
-        priceTextView.setText("Price: $" + Double.toString(transactionList.get(position).getPrice()));
+        Locale sg = new Locale("en", "SG");
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(sg);
+        priceTextView.setText("Price: " + formatter.format(transactionList.get(position).getPrice()));
 
         TextView dateTextView = view.findViewById(R.id.dateTextView);
         dateTextView.setText("Date: " + transactionList.get(position).getContractDate());
