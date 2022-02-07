@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,11 @@ public class PropertyInfoActivity extends AppCompatActivity implements View.OnCl
         TextView streetInfoTextView = findViewById(R.id.streetInfoTextView);
         streetInfoTextView.setText(selectedProperty.getStreet());
 
+
         ImageView imageView = findViewById(R.id.staticMapImageView);
+        ProgressBar progressBar = findViewById(R.id.mapLoadProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
         mapDataService.callStaticMapAfterConversion(selectedProperty.getxCoordinates(), selectedProperty.getyCoordinates(), new MapDataService.CallStaticMapAfterConversionResponseListener() {
             @Override
             public void onError(String message) {
@@ -45,6 +50,7 @@ public class PropertyInfoActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void onResponse(Bitmap bitmap) {
+                progressBar.setVisibility(View.GONE);
                 if (bitmap == null)
                     imageView.setImageResource(R.drawable.no_map);
                 else

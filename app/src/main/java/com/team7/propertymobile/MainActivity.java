@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                new Property("Paris", "test")
 //        );
 
+        ProgressBar progressBar = findViewById(R.id.propertyProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
         propertyDataService.callProjects(new PropertyDataService.ProjectsResponseListener() {
             @Override
             public void onError(String message) {
@@ -54,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public void onResponse(List<Property> projects) {
+                progressBar.setVisibility(View.GONE);
+
                 ListView propertyListView = findViewById(R.id.propertyListView);
                 propertyList = projects;
 

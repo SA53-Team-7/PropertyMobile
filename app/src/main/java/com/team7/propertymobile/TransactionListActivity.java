@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -25,7 +26,12 @@ public class TransactionListActivity extends AppCompatActivity implements Adapte
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
 
+        ProgressBar progressBar = findViewById(R.id.transactionProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
         transactionDataService.callTransactionsById(selectedProperty.getProjectId(), new TransactionDataService.TransactionResponseListener() {
+
+
             @Override
             public void onError(String message) {
 
@@ -33,6 +39,7 @@ public class TransactionListActivity extends AppCompatActivity implements Adapte
 
             @Override
             public void onResponse(List<Transaction> transactions) {
+                progressBar.setVisibility(View.GONE);
                 ListView transactionListView = findViewById(R.id.transactionListView);
                 transactionList = transactions;
 

@@ -1,6 +1,7 @@
 package com.team7.propertymobile;
 
 import android.content.Context;
+import android.widget.ProgressBar;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
