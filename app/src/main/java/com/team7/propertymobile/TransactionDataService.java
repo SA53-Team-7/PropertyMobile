@@ -2,6 +2,7 @@ package com.team7.propertymobile;
 
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -72,6 +73,12 @@ public class TransactionDataService {
 
             }
         });
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
+                2,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }

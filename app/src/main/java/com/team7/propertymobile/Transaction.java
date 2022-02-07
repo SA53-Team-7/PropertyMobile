@@ -11,13 +11,14 @@ public class Transaction implements Serializable {
     private String areaType;
     private String tenure;
     private String floorRange;
+    private String saleType;
     private String district;
     private int unitsSold;
 
     public Transaction() {
     }
 
-    public Transaction(int transactionId, String contractDate, double floorArea, long price, String propertyType, String areaType, String tenure, String floorRange, String district, int unitsSold) {
+    public Transaction(int transactionId, String contractDate, double floorArea, double price, String propertyType, String areaType, String tenure, String floorRange, String saleType, String district, int unitsSold) {
         this.transactionId = transactionId;
         this.contractDate = contractDate;
         this.floorArea = floorArea;
@@ -26,8 +27,17 @@ public class Transaction implements Serializable {
         this.areaType = areaType;
         this.tenure = tenure;
         this.floorRange = floorRange;
+        this.saleType = saleType;
         this.district = district;
         this.unitsSold = unitsSold;
+    }
+
+    public String getSaleType() {
+        return saleType;
+    }
+
+    public void setSaleType(String saleType) {
+        this.saleType = saleType;
     }
 
     public int getTransactionId() {
