@@ -14,13 +14,16 @@
         android:theme="@style/Theme.PropertyMobile"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".TransactionListActivity"
             android:exported="false" />
         <activity
-            android:name=".PropertyInfoActivity"
+            android:name=".PropertyDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".PropertyListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

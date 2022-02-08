@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PropertyInfoActivity extends AppCompatActivity implements View.OnClickListener{
+public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     MapDataService mapDataService = new MapDataService(this);
 
