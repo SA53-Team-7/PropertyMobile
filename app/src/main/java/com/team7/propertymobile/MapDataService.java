@@ -143,7 +143,56 @@ public class MapDataService {
 
     }
 
+    public interface DistanceOnEarthResponseListener {
+        void onError(String message);
 
+        void onResponse(double distance);
+    }
+
+    public void distanceOnEarth (Property property, Location location, DistanceOnEarthResponseListener distanceOnEarthResponseListener) {
+
+        if (property.getxCoordinates().isEmpty() || property.getyCoordinates().isEmpty())
+        {
+            double distanceBetween = -1.0;
+
+            distanceOnEarthResponseListener.onResponse(distanceBetween);
+        }
+        else
+        {
+            double distanceBetween;
+            coordinatesConverter(property.getxCoordinates(), property.getyCoordinates(), new CoordinatesConverterResponseListener() {
+                @Override
+                public void onError(String message) {
+
+                }
+
+                @Override
+                public void onResponse(double latitude, double longitude) {
+                    // convert to radians
+
+                    double propertyLatitude = Math.toRadians(latitude);
+                    double propertyLongitude = Math.toRadians(longitude);
+                    double locationLatitude = Math.toRadians(location.getLatitude());
+                    double locationLongitude = Math.toRadians(location.getLongitude());
+
+                    // Haversine formula
+                    double dLat = locationLatitude - propertyLatitude;
+                    double dLon = locationLongitude - propertyLongitude;
+
+                    double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(propertyLatitude) * Math.cos(locationLatitude) * Math.pow(Math.sin(dLon / 2),2);
+                    double c = 2 * Math.asin(Math.sqrt(a));
+
+                    double r = 6371;
+
+                    double distanceBetween = (c * r);
+
+                    distanceOnEarthResponseListener.onResponse(distanceBetween);
+
+                }
+            });
+
+        }
+    }
 
 
 

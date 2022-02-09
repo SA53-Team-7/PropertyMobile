@@ -12,12 +12,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     MapDataService mapDataService = new MapDataService(this);
 
     Bitmap bitmap;
     Property selectedProperty;
+
+    Location pasirRisMRT = new Location("Pasir Ris MRT", 1.37304331635804, 103.949284527763);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,36 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         TextView streetInfoTextView = findViewById(R.id.streetInfoTextView);
         streetInfoTextView.setText(selectedProperty.getStreet());
+
+        TextView distanceFromTrain = findViewById(R.id.distanceToTrainTextView);
+        mapDataService.distanceOnEarth(selectedProperty, pasirRisMRT, new MapDataService.DistanceOnEarthResponseListener() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(double distance) {
+                if (distance == -1.00)
+                {
+                    distanceFromTrain.setText("GPS Coordinates Unavailable");
+                }
+                else
+                {
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    df.setRoundingMode(RoundingMode.UP);
+
+                    DecimalFormat df2 = new DecimalFormat("0");
+                    df.setRoundingMode(RoundingMode.UP);
+
+                    double time = distance / 5 * 60;
+
+                    String mrtDistance = "Nearest MRT Station: " + pasirRisMRT.getName() + " (" + df.format(distance) + " KM)\n~ " + df2.format(time) + " mins walk" ;
+                    distanceFromTrain.setText(mrtDistance);
+                }
+
+            }
+        });
 
 
         ImageView imageView = findViewById(R.id.staticMapImageView);
