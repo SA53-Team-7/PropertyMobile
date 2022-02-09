@@ -24,6 +24,9 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        String searchInput = intent.getStringExtra("Search");
+
 //        ListView propertyListView = findViewById(R.id.propertyListView);
 //        propertyList = Arrays.asList(
 //                new Property("London", "test"),
@@ -35,7 +38,7 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
         ProgressBar progressBar = findViewById(R.id.propertyProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        propertyDataService.callProjects(new PropertyDataService.ProjectsResponseListener() {
+        propertyDataService.searchProjects(searchInput, new PropertyDataService.ProjectsResponseListener() {
             @Override
             public void onError(String message) {
                 Toast toast = Toast.makeText(PropertyListActivity.this, "something wrong", Toast.LENGTH_SHORT);
