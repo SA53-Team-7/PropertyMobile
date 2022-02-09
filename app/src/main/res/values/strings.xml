@@ -4,4 +4,6 @@
     <string name="no_floor_range">This property doesn\'t have multiple floors.</string>
     <string name="search_hint">Type your property search here</string>
     <string name="search_button">Search</string>
+    <string name="to_calculator_button">Calculate your home loan</string>
+    <string name="calculate_button">Calculate</string>
 </resources>
