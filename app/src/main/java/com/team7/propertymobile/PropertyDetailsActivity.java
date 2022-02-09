@@ -65,7 +65,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
                     double time = distance / 5 * 60;
 
-                    String mrtDistance = "Nearest MRT Station: " + pasirRisMRT.getName() + " (" + df.format(distance) + " KM)\n~ " + df2.format(time) + " mins walk" ;
+                    String mrtDistance = "Nearest MRT: " + pasirRisMRT.getName() + "\n(" + df.format(distance) + " KM)\n~ " + df2.format(time) + " mins walk" ;
                     distanceFromTrain.setText(mrtDistance);
                 }
 
