@@ -14,7 +14,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MapDataService {
     Context context;
@@ -193,6 +196,74 @@ public class MapDataService {
 
         }
     }
+
+    public interface DistanceLocationsMapResponseListener {
+        void onError(String message);
+
+        void onResponse(String name, double distance);
+    }
+
+    public void distanceLocationsMap (Property property, List<Location> locationList, DistanceLocationsMapResponseListener distanceLocationsMapResponseListener) {
+        if (property.getxCoordinates().isEmpty() || property.getyCoordinates().isEmpty())
+        {
+            double distanceBetween = -1.0;
+            Map<String, Double> mrtHashMap = new HashMap<>();
+
+            mrtHashMap.put("unavailable", distanceBetween);
+
+            distanceLocationsMapResponseListener.onResponse("unavailable", distanceBetween);
+        }
+        else
+        {
+            double distanceBetween;
+            coordinatesConverter(property.getxCoordinates(), property.getyCoordinates(), new CoordinatesConverterResponseListener() {
+                Map<String, Double> mrtHashMap = new HashMap<>();
+
+                @Override
+                public void onError(String message) {
+
+                }
+
+                @Override
+                public void onResponse(double latitude, double longitude) {
+                    // convert to radians
+
+                    for (Location location : locationList) {
+                        double propertyLatitude = Math.toRadians(latitude);
+                        double propertyLongitude = Math.toRadians(longitude);
+                        double locationLatitude = Math.toRadians(location.getLatitude());
+                        double locationLongitude = Math.toRadians(location.getLongitude());
+
+                        // Haversine formula
+                        double dLat = locationLatitude - propertyLatitude;
+                        double dLon = locationLongitude - propertyLongitude;
+
+                        double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(propertyLatitude) * Math.cos(locationLatitude) * Math.pow(Math.sin(dLon / 2),2);
+                        double c = 2 * Math.asin(Math.sqrt(a));
+
+                        double r = 6371;
+
+                        double distanceBetween = (c * r);
+
+                        mrtHashMap.put(location.getName(), distanceBetween);
+                    }
+
+                    String nearestLocation = "";
+                    double nearestDistance = Collections.min(mrtHashMap.values());
+
+                    for (Map.Entry<String, Double> entry : mrtHashMap.entrySet()) {
+                        if (entry.getValue().equals(nearestDistance)) {
+                            nearestLocation = entry.getKey();
+                        }
+                    }
+
+                    distanceLocationsMapResponseListener.onResponse(nearestLocation, nearestDistance);
+                }
+            });
+
+        }
+    }
+
 
 
 
