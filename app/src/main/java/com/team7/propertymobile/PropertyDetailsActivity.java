@@ -97,6 +97,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Button button = findViewById(R.id.transactionButton);
         button.setOnClickListener(this);
 
+        Button priceEstimator = findViewById(R.id.priceEstimatorButton);
+        button.setOnClickListener(this);
+
     }
 
     @Override
@@ -107,6 +110,14 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         if(id == R.id.transactionButton)
         {
             Intent intent = new Intent(this, TransactionListActivity.class);
+            intent.putExtra("Property", selectedProperty);
+
+            startActivity(intent);
+        }
+
+        if (id == R.id.priceEstimatorButton)
+        {
+            Intent intent = new Intent(this, PriceEstimatorActivity.class);
             intent.putExtra("Property", selectedProperty);
 
             startActivity(intent);

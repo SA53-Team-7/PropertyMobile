@@ -6,4 +6,5 @@
     <string name="search_button">Search</string>
     <string name="to_calculator_button">Calculate your home loan</string>
     <string name="calculate_button">Calculate</string>
+    <string name="price_estimator_button">Estimate future prices</string>
 </resources>

@@ -70,9 +70,19 @@
         android:layout_height="wrap_content"
         android:text="@string/transactions"
         app:layout_constraintTop_toBottomOf="@id/staticMapImageView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/priceEstimatorButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/priceEstimatorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/price_estimator_button"
+        app:layout_constraintTop_toBottomOf="@id/transactionButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ProgressBar
         android:id="@+id/mapLoadProgressBar"
@@ -84,6 +94,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/streetInfoTextView"
         android:visibility="invisible"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
