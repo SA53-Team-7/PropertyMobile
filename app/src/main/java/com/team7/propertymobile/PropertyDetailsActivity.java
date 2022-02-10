@@ -98,7 +98,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         button.setOnClickListener(this);
 
         Button priceEstimator = findViewById(R.id.priceEstimatorButton);
-        button.setOnClickListener(this);
+        priceEstimator.setOnClickListener(this);
 
     }
 
