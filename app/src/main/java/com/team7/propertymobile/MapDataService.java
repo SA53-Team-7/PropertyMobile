@@ -9,11 +9,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -25,10 +28,11 @@ public class MapDataService {
     public static final String STATIC_MAP1 = "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=default&lat=";
     public static final String STATIC_MAP2 = "&zoom=17&height=512&width=512";
 
-
+    public static final String QUERY_FOR_ALL_LOCATIONS = "http://10.0.2.2:8080/api/mobile/amenities";
 
     public static final String STATIC_MAP_TEST = "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=default&lat=1.2424409850962639&lng=103.83675517458369&zoom=17&height=512&width=512" +
             "&points=[1.2424409850962639,103.83675517458369,\"168,228,160\", \"A\"]";
+
 
     public MapDataService(Context context) {
         this.context = context;
@@ -264,7 +268,84 @@ public class MapDataService {
         }
     }
 
+    public interface CallNearbyTrainStationsResponseListener {
+        void onError(String message);
 
+        void onResponse(Property property, List<Location> locationList);
+    }
+
+    public void callNearbyTrainStations (Property property, CallNearbyTrainStationsResponseListener callNearbyTrainStationsResponseListener) {
+        List<Location> locationList = new ArrayList<>();
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_ALL_LOCATIONS, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jsonLocation = response.getJSONObject(i);
+
+                        Location location = new Location();
+                        location.setName(jsonLocation.getString("name"));
+                        location.setLatitude(Double.valueOf(jsonLocation.getString("latitude")));
+                        location.setLongitude(Double.valueOf(jsonLocation.getString("longitude")));
+
+                        locationList.add(location);
+                    }
+
+                    callNearbyTrainStationsResponseListener.onResponse(property, locationList);
+                    JSONObject jsonObject = response.getJSONObject(0);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
+                2,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface DistanceListLocationsResponseListener {
+        void onError(String message);
+
+        void onResponse(String name, double distance);
+    }
+
+    public void distanceListLocations (Property property, DistanceListLocationsResponseListener distanceListLocationsResponseListener) {
+
+        callNearbyTrainStations(property, new CallNearbyTrainStationsResponseListener() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(Property property, List<Location> locationList) {
+                distanceLocationsMap(property, locationList, new DistanceLocationsMapResponseListener() {
+                    @Override
+                    public void onError(String message) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String name, double distance) {
+                        distanceListLocationsResponseListener.onResponse(name, distance);
+                    }
+                });
+            }
+        });
+    }
 
 
 }
