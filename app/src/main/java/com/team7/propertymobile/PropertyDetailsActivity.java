@@ -20,11 +20,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
     Property selectedProperty;
 
-//    Map<String, Double> distanceMap = new HashMap<>();
-
-//    List<Location> locationList = new ArrayList<>();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,75 +79,13 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
                     double time = nearestDistance / 5 * 60;
 
-                    String mrtDistance = "Nearest Train Station: " + nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk" ;
+                    String mrtDistance = "Nearest Train Station\n" + nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk" ;
                     distanceFromTrain.setText(mrtDistance);
                     distanceFromTrain.setVisibility(View.VISIBLE);
 
                 }
             }
         });
-
-//        mapDataService.distanceLocationsMap(selectedProperty, locationList, new MapDataService.DistanceLocationsMapResponseListener() {
-//            @Override
-//            public void onError(String message) {
-//
-//            }
-//
-//            @Override
-////            public void onResponse(Map<String, Double> mrtHashMap) {
-//            public void onResponse(String nearestLocation, double nearestDistance) {
-////                if (mrtHashMap.get("unavailable") == -1.00)
-//                if (nearestDistance == -1.00)
-//                {
-//                    distanceFromTrain.setText("GPS Coordinates Unavailable");
-//                }
-//                else
-//                {
-//
-//                    DecimalFormat df = new DecimalFormat("0.00");
-//                    df.setRoundingMode(RoundingMode.UP);
-//
-//                    DecimalFormat df2 = new DecimalFormat("0");
-//                    df.setRoundingMode(RoundingMode.UP);
-//
-//                    double time = nearestDistance / 5 * 60;
-//
-//                    String mrtDistance = "Nearest Train Station: " + nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk" ;
-//                    distanceFromTrain.setText(mrtDistance);
-//
-//                }
-//            }
-//        });
-
-        //Testing for distances
-//        mapDataService.distanceOnEarth(selectedProperty, pasirRisMRT, new MapDataService.DistanceOnEarthResponseListener() {
-//            @Override
-//            public void onError(String message) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(double distance) {
-//                if (distance == -1.00)
-//                {
-//                    distanceFromTrain.setText("GPS Coordinates Unavailable");
-//                }
-//                else
-//                {
-//                    DecimalFormat df = new DecimalFormat("0.00");
-//                    df.setRoundingMode(RoundingMode.UP);
-//
-//                    DecimalFormat df2 = new DecimalFormat("0");
-//                    df.setRoundingMode(RoundingMode.UP);
-//
-//                    double time = distance / 5 * 60;
-//
-//                    String mrtDistance = "Nearest MRT: " + pasirRisMRT.getName() + "\n(" + df.format(distance) + " KM)\n~ " + df2.format(time) + " mins walk" ;
-//                    distanceFromTrain.setText(mrtDistance);
-//                }
-//
-//            }
-//        });
 
 
         ImageView imageView = findViewById(R.id.staticMapImageView);

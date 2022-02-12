@@ -25,6 +25,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         Button calculatorButton = findViewById(R.id.toCalculatorButton);
         calculatorButton.setOnClickListener(this);
+
+        Button loginButton = findViewById(R.id.toLoginButton);
+        loginButton.setOnClickListener(this);
     }
 
     @Override
@@ -44,6 +47,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (id == R.id.toCalculatorButton)
         {
             Intent intent = new Intent(this, LoanCalculatorActivity.class);
+            startActivity(intent);
+        }
+
+        if (id == R.id.toLoginButton)
+        {
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
     }
