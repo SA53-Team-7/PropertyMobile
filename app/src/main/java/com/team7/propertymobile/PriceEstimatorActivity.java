@@ -16,9 +16,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Currency;
 import java.util.List;
 
 public class PriceEstimatorActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
@@ -150,7 +152,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         LocalDate date = LocalDate.now();
 
         String currentDate = String.valueOf(date);
-        String inputYear = currentDate.substring(0,4);
+        String inputYear = currentDate.substring(2,4);
 
         String inputMonth;
         if (currentDate.substring(5,6).equals("0")){
@@ -200,6 +202,19 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         return district;
     }
 
+    private String formatPrice(String predict) {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+
+        formatter.setMaximumFractionDigits(0);
+        formatter.setCurrency(Currency.getInstance("SGD"));
+        predict = predict.substring(2, predict.length() -2);
+        Double price = Double.parseDouble(predict);
+        formatter.format(price);
+        String display = "$" + price;
+        return display;
+
+    }
+
     private void getPrediction() throws JSONException {
 
         JSONArray data = createRequestPackage();
@@ -212,7 +227,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
             @Override
             public void onResponse(String response) {
                 estimateView.setVisibility(View.VISIBLE);
-                estimateView.setText("Estimated price: " + response);
+                estimateView.setText("Estimated price: " + formatPrice(response));
             }
         });
     }
