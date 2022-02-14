@@ -8,5 +8,6 @@
     <string name="calculate_button">Calculate</string>
     <string name="price_estimator_button">Estimate future prices</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="new_here">New around here? Sign up</string>
 </resources>
