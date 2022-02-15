@@ -118,7 +118,7 @@ public class MapDataService {
     }
 
     public void callStaticMapAfterConversion (String x, String y, CallStaticMapAfterConversionResponseListener callStaticMapAfterConversionResponseListener) {
-        if (x.isEmpty() || y.isEmpty())
+        if (x.equals("null") || y.equals("null"))
         {
             callStaticMapAfterConversionResponseListener.onResponse(null);
         }
@@ -158,7 +158,7 @@ public class MapDataService {
 
     public void distanceOnEarth (Property property, Location location, DistanceOnEarthResponseListener distanceOnEarthResponseListener) {
 
-        if (property.getxCoordinates().isEmpty() || property.getyCoordinates().isEmpty())
+        if (property.getxCoordinates().equals("null") || property.getyCoordinates().equals("null"))
         {
             double distanceBetween = -1.0;
 
@@ -208,7 +208,7 @@ public class MapDataService {
     }
 
     public void distanceLocationsMap (Property property, List<Location> locationList, DistanceLocationsMapResponseListener distanceLocationsMapResponseListener) {
-        if (property.getxCoordinates().isEmpty() || property.getyCoordinates().isEmpty())
+        if (property.getxCoordinates().equals("null") || property.getyCoordinates().equals("null"))
         {
             double distanceBetween = -1.0;
             Map<String, Double> mrtHashMap = new HashMap<>();
