@@ -170,7 +170,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         data.put("floor_range", formatFloor(floorRange));
         data.put("floor_area", floorArea.substring(0,floorArea.lastIndexOf('.')));
         data.put("top", year);
-        data.put("tenure", tenure);
+        data.put("tenure", formatTenure());
         data.put("year", inputYear);
         data.put("month", inputMonth);
 
@@ -200,6 +200,13 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
             return district.substring(1);
         }
         return district;
+    }
+
+    private String formatTenure() {
+        if (tenure.equals("Freehold")) {
+            return "999999";
+        }
+        return tenure;
     }
 
     private String formatPrice(String predict) {
