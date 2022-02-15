@@ -29,6 +29,7 @@ public class MapDataService {
     public static final String STATIC_MAP2 = "&zoom=17&height=512&width=512";
 
     public static final String QUERY_FOR_ALL_LOCATIONS = "http://10.0.2.2:8080/api/mobile/amenities";
+    public static final String QUERY_FOR_ALL_TRAIN_STATIONS = "http://10.0.2.2:8080/api/mobile/amenities/trains";
 
     public static final String STATIC_MAP_TEST = "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=default&lat=1.2424409850962639&lng=103.83675517458369&zoom=17&height=512&width=512" +
             "&points=[1.2424409850962639,103.83675517458369,\"168,228,160\", \"A\"]";
@@ -277,7 +278,7 @@ public class MapDataService {
     public void callNearbyTrainStations (Property property, CallNearbyTrainStationsResponseListener callNearbyTrainStationsResponseListener) {
         List<Location> locationList = new ArrayList<>();
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_ALL_LOCATIONS, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_ALL_TRAIN_STATIONS, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
