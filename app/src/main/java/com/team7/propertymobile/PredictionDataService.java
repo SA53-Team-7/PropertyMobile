@@ -19,7 +19,8 @@ public class PredictionDataService {
 
     Context context;
 
-    public static final String QUERY_FOR_PREDICTION = "http://10.0.2.2:5000/";
+    public static final String QUERY_FOR_PREDICTION_LOCAL = "http://10.0.2.2:5000/";
+    public static final String QUERY_FOR_PREDICTION= "https://msdocs-python-webapp-quickstart-te7.azurewebsites.net/";
 
     public PredictionDataService(Context context) {
         this.context = context;
