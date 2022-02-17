@@ -132,14 +132,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    public static boolean patternMatches(String emailAddress, String regexPattern) {
-        return Pattern.compile(regexPattern)
-                .matcher(emailAddress)
-                .matches();
-    }
+//    public static boolean patternMatches(String emailAddress, String regexPattern) {
+//        return Pattern.compile(regexPattern)
+//                .matcher(emailAddress)
+//                .matches();
+//    }
 
-    public static boolean isValidEmail(CharSequence target) {
-        return (Patterns.EMAIL_ADDRESS.matcher(target).matches());
-    }
 
 }
