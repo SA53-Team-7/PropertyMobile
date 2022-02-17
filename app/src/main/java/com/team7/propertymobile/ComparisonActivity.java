@@ -13,6 +13,7 @@ import org.w3c.dom.Text;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -223,8 +224,10 @@ public class ComparisonActivity extends AppCompatActivity {
                         tenure = (String)temp.substring(0, indexTenure - 1);
                         year =  (String) temp.substring(indexYear);
                     }
-                    /*floorRange = new ArrayList<>();
-                    floorArea = new ArrayList<>();
+
+                    ArrayList<String> floorRange = new ArrayList<>();
+                    ArrayList<String> floorArea = new ArrayList<>();
+                    ArrayList<Double> prices = new ArrayList<>();
                     for (Transaction t: transactionList) {
                         if (!floorRange.contains(t.getFloorRange())){
                             floorRange.add(t.getFloorRange());
@@ -232,17 +235,31 @@ public class ComparisonActivity extends AppCompatActivity {
                         if (!floorArea.contains(String.valueOf(t.getFloorArea()))){
                             floorArea.add(String.valueOf(t.getFloorArea()));
                         }
+                        prices.add(t.getPrice());
                     }
                     Collections.sort(floorArea);
-                    Collections.sort(floorRange);*/
+                    Collections.sort(floorRange);
+
+                    Double averagePrice = prices.stream().mapToDouble(d -> d).average().orElse(0.0);
+                    NumberFormat formatter = NumberFormat.getCurrencyInstance();
+                    formatter.setRoundingMode(RoundingMode.UP);
+
+
+                    String minFloor = floorArea.get(floorArea.size()-1);
+                    String maxFloor = floorArea.get(0);
+                    String floors = minFloor + " - " + maxFloor;
 
                     if (side == 1){
                         leftTenure.setText(tenure + " years");
                         leftTOP.setText(year);
+                        leftFloor.setText(floors);
+                        leftPrice.setText(formatter.format(averagePrice));
                     }
                     else {
                         rightTenure.setText(tenure + " years");
                         rightTOP.setText(year);
+                        rightFloor.setText(floors);
+                        rightPrice.setText(formatter.format(averagePrice));
                     }
                 }
             }
