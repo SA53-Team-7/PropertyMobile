@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ComparisonActivity">
+
+    <TextView
+        android:id="@+id/compareTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Compare Properties"
+        android:textSize="20sp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/compareLayout"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="visible"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintTop_toBottomOf="@id/compareTitle" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
+
+            <TextView
+                android:id="@+id/leftNameLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Property Name:" />
+
+            <TextView
+                android:id="@+id/leftNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="name" />
+
+            <TextView
+                android:id="@+id/leftRegionLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Region:" />
+
+            <TextView
+                android:id="@+id/leftRegionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="region" />
+
+            <TextView
+                android:id="@+id/leftRoadLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Road:" />
+
+            <TextView
+                android:id="@+id/leftRoadTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="road" />
+
+            <TextView
+                android:id="@+id/leftMRTLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nearest MRT:" />
+
+            <TextView
+                android:id="@+id/leftMRTTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="mrt" />
+
+            <TextView
+                android:id="@+id/leftTimeLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Walking Time to MRT:" />
+
+            <TextView
+                android:id="@+id/leftTimeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="time" />
+
+            <TextView
+                android:id="@+id/leftPriceLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Average Price:" />
+
+            <TextView
+                android:id="@+id/leftPriceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="$price" />
+
+            <TextView
+                android:id="@+id/leftRangeLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Floor Range:" />
+
+            <TextView
+                android:id="@+id/leftRangeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="floors" />
+
+            <TextView
+                android:id="@+id/leftTenureLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tenure(years):" />
+
+            <TextView
+                android:id="@+id/leftTenureTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="tenure" />
+
+            <TextView
+                android:id="@+id/leftTOPLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TOP:" />
+
+            <TextView
+                android:id="@+id/leftTOPTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="topyears" />
+
+            <ImageView
+                android:id="@+id/leftStaticMapImageView"
+                android:layout_width="450px"
+                android:layout_height="450px"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/leftTOPTextView"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ProgressBar
+                android:id="@+id/leftMapLoadProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/leftTOPTextView" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
+
+            <TextView
+                android:id="@+id/rightNameLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Property Name:"
+                android:gravity="right"/>
+
+            <TextView
+                android:id="@+id/rightNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="name"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightRegionLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Region:"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightRegionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="region"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightRoadLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Road:"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightRoadTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="road"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightMRTLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nearest MRT:"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightMRTTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="mrt"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightTimeLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Walking Time to MRT:"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightTimeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="time"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightPriceLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Average Price:"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightPriceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="$price"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightRangeLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Floor Range:"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightRangeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="floors"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightTenureLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tenure(years):"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightTenureTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="tenure"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightTOPLabelView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TOP:"
+                android:gravity="right" />
+
+            <TextView
+                android:id="@+id/rightTOPTextView"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="topyears"
+                android:gravity="right" />
+
+            <ImageView
+                android:id="@+id/rightStaticMapImageView"
+                android:layout_width="450px"
+                android:layout_height="450px"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rightTOPTextView"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ProgressBar
+                android:id="@+id/rightMapLoadProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rightTOPTextView" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
