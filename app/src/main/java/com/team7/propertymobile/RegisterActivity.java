@@ -15,8 +15,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.regex.Pattern;
-
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
     LoginRegisterDataService loginRegisterDataService = new LoginRegisterDataService(this);
@@ -104,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                 }
 
-                loginRegisterDataService.register(newUser, new LoginRegisterDataService.AuthResponseListener() {
+                loginRegisterDataService.register(newUser, new LoginRegisterDataService.RegisterResponseListener() {
                     @Override
                     public void onError(String message) {
 

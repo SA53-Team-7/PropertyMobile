@@ -23,6 +23,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String USER_KEY = "user_key";
     public static final String NAME_KEY = "name_key";
+//    public static final String ID_KEY = "id_key";
     private String token;
 
     List<Property> propertyList;
@@ -47,6 +48,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Button logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(this);
 
+        Button myListButton = findViewById(R.id.myListButton);
+        myListButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -56,6 +60,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
         Button loginButton = findViewById(R.id.toLoginButton);
         Button logoutButton = findViewById(R.id.logoutButton);
+        Button myListButton = findViewById(R.id.myListButton);
 //        ProgressBar progressBar = findViewById(R.id.nameLoadProgressBar);
         TextView welcomeBack = findViewById(R.id.welcomeBackTextView);
 
@@ -75,11 +80,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 //            progressBar.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.INVISIBLE);
             logoutButton.setVisibility(View.VISIBLE);
-
+            myListButton.setVisibility(View.VISIBLE);
             String name = sharedPreferences.getString(NAME_KEY, null);
+//            int id = sharedPreferences.getInt(ID_KEY, -1);
 
             welcomeBack.setText("Welcome back, \n" + name + "!");
             welcomeBack.setVisibility(View.VISIBLE);
+
+
 
 //            loginRegisterDataService.getName(user, new LoginRegisterDataService.GetNameResponseListener() {
 //                @Override
@@ -139,6 +147,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
             Button loginButton = findViewById(R.id.toLoginButton);
             loginButton.setVisibility(View.VISIBLE);
+
+            Button myListButton = findViewById(R.id.myListButton);
+            myListButton.setVisibility(View.INVISIBLE);
+        }
+
+        if (id == R.id.myListButton) {
+            Intent intent = new Intent(this, FavouritesListActivity.class);
+
+            startActivity(intent);
         }
     }
 }

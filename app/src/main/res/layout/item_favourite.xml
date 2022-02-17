@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/propertyTextView"
+        android:id="@+id/favouritePropertyTextView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
@@ -14,11 +14,11 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/streetTextView"
+        android:id="@+id/favouriteStreetTextView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_gravity="center"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:text="TextView" />
 </LinearLayout>

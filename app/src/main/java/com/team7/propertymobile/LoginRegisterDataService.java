@@ -26,7 +26,7 @@ public class LoginRegisterDataService {
     public interface AuthResponseListener {
         void onError(String message);
 
-        void onResponse(boolean success);
+        void onResponse(boolean success, int id);
     }
 
     public void login (JSONObject user, AuthResponseListener authResponseListener) {
@@ -39,10 +39,10 @@ public class LoginRegisterDataService {
 
                     switch (success) {
                         case 0:
-                            authResponseListener.onResponse(false);
+                            authResponseListener.onResponse(false, -1);
                             break;
                         case 1:
-                            authResponseListener.onResponse(true);
+                            authResponseListener.onResponse(true, response.getInt("id"));
                             break;
                     }
                 } catch (JSONException e) {
@@ -66,7 +66,13 @@ public class LoginRegisterDataService {
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
-    public void register (JSONObject newUser, AuthResponseListener authResponseListener) {
+    public interface RegisterResponseListener {
+        void onError(String message);
+
+        void onResponse(boolean success);
+    }
+
+    public void register (JSONObject newUser, RegisterResponseListener registerResponseListener) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, REGISTER_CALL, newUser, new Response.Listener<JSONObject>() {
             @Override
@@ -76,10 +82,10 @@ public class LoginRegisterDataService {
 
                     switch (success) {
                         case 0:
-                            authResponseListener.onResponse(false);
+                            registerResponseListener.onResponse(false);
                             break;
                         case 1:
-                            authResponseListener.onResponse(true);
+                            registerResponseListener.onResponse(true);
                             break;
                     }
                 } catch (JSONException e) {
