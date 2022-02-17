@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,7 +61,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 registerButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
             }
-            else if (!patternMatches(email.getText().toString(), "^(.+)@(\\S+)$")) {
+//            else if (!patternMatches(email.getText().toString(), "^(.+)@(\\S+)$")) {
+//                email.setError("Please enter a valid email address.");
+//
+//                registerButton.setVisibility(View.VISIBLE);
+//                progressBar.setVisibility(View.INVISIBLE);
+//            }
+            else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                 email.setError("Please enter a valid email address.");
 
                 registerButton.setVisibility(View.VISIBLE);
@@ -129,6 +136,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return Pattern.compile(regexPattern)
                 .matcher(emailAddress)
                 .matches();
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
 }
