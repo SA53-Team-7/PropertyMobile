@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Compare Properties"
         android:textSize="20sp"
-        android:padding="10dp"
+        android:padding="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,6 +34,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="0.5">
+
+            <ImageView
+                android:id="@+id/leftStaticMapImageView"
+                android:layout_width="450px"
+                android:layout_height="450px"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/leftTOPTextView"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/leftNameLabelView"
@@ -140,28 +150,9 @@
             <TextView
                 android:id="@+id/leftTOPTextView"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:text="topyears" />
 
-            <ImageView
-                android:id="@+id/leftStaticMapImageView"
-                android:layout_width="450px"
-                android:layout_height="450px"
-                android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/leftTOPTextView"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <ProgressBar
-                android:id="@+id/leftMapLoadProgressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/leftTOPTextView" />
         </LinearLayout>
 
         <View
@@ -176,6 +167,16 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="0.5">
+
+            <ImageView
+                android:id="@+id/rightStaticMapImageView"
+                android:layout_width="450px"
+                android:layout_height="450px"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rightTOPTextView"
+                tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/rightNameLabelView"
@@ -299,29 +300,9 @@
             <TextView
                 android:id="@+id/rightTOPTextView"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="topyears"
-                android:gravity="right" />
-
-            <ImageView
-                android:id="@+id/rightStaticMapImageView"
-                android:layout_width="450px"
-                android:layout_height="450px"
-                android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rightTOPTextView"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <ProgressBar
-                android:id="@+id/rightMapLoadProgressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rightTOPTextView" />
+                android:gravity="right"
+                android:text="topyears" />
 
         </LinearLayout>
     </LinearLayout>

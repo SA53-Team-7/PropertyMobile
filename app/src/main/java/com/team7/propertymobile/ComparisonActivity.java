@@ -3,9 +3,12 @@ package com.team7.propertymobile;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +47,9 @@ public class ComparisonActivity extends AppCompatActivity {
     TextView rightFloor;
     TextView rightTenure;
     TextView rightTOP;
+
+    ImageView leftImage;
+    ImageView rightImage;
 
     PropertyDataService propertyDataService = new PropertyDataService(this);
     TransactionDataService transactionDataService = new TransactionDataService(this);
@@ -93,6 +99,7 @@ public class ComparisonActivity extends AppCompatActivity {
         leftFloor = findViewById(R.id.leftRangeTextView);
         leftTenure = findViewById(R.id.leftTenureTextView);
         leftTOP = findViewById(R.id.leftTOPTextView);
+        leftImage = findViewById(R.id.leftStaticMapImageView);
 
         rightName = findViewById(R.id.rightNameTextView);
         rightRegion = findViewById(R.id.rightRegionTextView);
@@ -103,6 +110,7 @@ public class ComparisonActivity extends AppCompatActivity {
         rightFloor = findViewById(R.id.rightRangeTextView);
         rightTenure = findViewById(R.id.rightTenureTextView);
         rightTOP = findViewById(R.id.rightTOPTextView);
+        rightImage = findViewById(R.id.rightStaticMapImageView);
     }
 
     private void setNoneToCompare() {
@@ -130,6 +138,7 @@ public class ComparisonActivity extends AppCompatActivity {
 
                     loadMRTData(project, side);
                     loadTransactionsData(project, side);
+                    loadMiniMaps(project, side);
                 }
                 else {
                     project2 = project;
@@ -139,6 +148,7 @@ public class ComparisonActivity extends AppCompatActivity {
 
                     loadMRTData(project, side);
                     loadTransactionsData(project, side);
+                    loadMiniMaps(project, side);
                 }
 
             }
@@ -265,5 +275,30 @@ public class ComparisonActivity extends AppCompatActivity {
             }
         });
     }
+    private void loadMiniMaps(Property selectedProperty, Integer side) {
+        mapDataService.callStaticMapAfterConversion(selectedProperty.getxCoordinates(), selectedProperty.getyCoordinates(), new MapDataService.CallStaticMapAfterConversionResponseListener() {
+            @Override
+            public void onError(String message) {
 
+            }
+
+            @Override
+            public void onResponse(Bitmap bitmap) {
+                if (bitmap == null)
+                    if (side == 1) {
+                        leftImage.setImageResource(R.drawable.no_map);
+                    }
+                    else {
+                        rightImage.setImageResource(R.drawable.no_map);
+                    }
+                else
+                    if (side == 1) {
+                        leftImage.setImageBitmap(bitmap);
+                    }
+                    else {
+                        rightImage.setImageBitmap(bitmap);
+                    }
+            }
+        });
+    }
 }
