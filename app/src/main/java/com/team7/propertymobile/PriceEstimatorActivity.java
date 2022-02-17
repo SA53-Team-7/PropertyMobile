@@ -16,6 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -214,13 +215,10 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
 
     private String formatPrice(String predict) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
-
-        formatter.setMaximumFractionDigits(0);
-        formatter.setCurrency(Currency.getInstance("SGD"));
+        formatter.setRoundingMode(RoundingMode.UP);
         predict = predict.substring(2, predict.length() -2);
         Double price = Double.parseDouble(predict);
-        formatter.format(price);
-        String display = "$" + price;
+        String display = "$" + formatter.format(price);
         return display;
 
     }
