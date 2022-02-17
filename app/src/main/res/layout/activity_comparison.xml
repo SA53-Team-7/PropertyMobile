@@ -200,7 +200,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="6dp"
-                android:text="Please add 2 projects to be compared"
+                android:text="Please add another project to be compared"
                 android:textSize="15sp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -371,7 +371,7 @@
         android:layout_width="192dp"
         android:layout_height="52dp"
         android:text="Search"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
