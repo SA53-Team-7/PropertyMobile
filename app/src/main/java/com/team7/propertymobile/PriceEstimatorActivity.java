@@ -94,6 +94,9 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
                     else {
                         int indexTenure = ref.getTenure().indexOf("y");
                         int indexYear = ref.getTenure().indexOf("2");
+                        if (indexYear == -1){
+                            indexYear = ref.getTenure().indexOf("1");
+                        }
                         String temp = ref.getTenure();
                         tenure = (String)temp.substring(0, indexTenure - 1);
                         year =  (String) temp.substring(indexYear);
