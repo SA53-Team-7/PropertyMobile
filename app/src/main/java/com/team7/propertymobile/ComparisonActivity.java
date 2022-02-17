@@ -2,10 +2,12 @@ package com.team7.propertymobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -21,9 +23,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ComparisonActivity extends AppCompatActivity {
+public class ComparisonActivity extends AppCompatActivity implements View.OnClickListener{
 
     LinearLayout compareLayout;
+    LinearLayout leftColumn;
+    LinearLayout rightColumn;
+    LinearLayout blankColumn;
 
     Property project1;
     Property project2;
@@ -51,6 +56,13 @@ public class ComparisonActivity extends AppCompatActivity {
     ImageView leftImage;
     ImageView rightImage;
 
+    TextView errorText;
+
+    Button search;
+    Button smallSearch;
+
+    ProgressBar spinny;
+
     PropertyDataService propertyDataService = new PropertyDataService(this);
     TransactionDataService transactionDataService = new TransactionDataService(this);
     MapDataService mapDataService = new MapDataService(this);
@@ -62,7 +74,7 @@ public class ComparisonActivity extends AppCompatActivity {
 
         setViews();
 
-        //set test shared preferences
+        //set test shared preferences -- change editor for different project and scenarios
         SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
         SharedPreferences.Editor editor = setPref.edit();
         editor.putString("compare1", "2");
@@ -79,6 +91,7 @@ public class ComparisonActivity extends AppCompatActivity {
         }
         else if (compare2.equals("-")){
             setCompareOneOnly();
+            loadProjectData(compare1, 1);
         }
         else {
             loadProjectData(compare1, 1);
@@ -89,6 +102,9 @@ public class ComparisonActivity extends AppCompatActivity {
 
     private void setViews() {
         compareLayout = findViewById(R.id.compareLayout);
+        leftColumn = findViewById(R.id.leftCompareLayout);
+        rightColumn = findViewById(R.id.rightCompareLayout);
+        blankColumn = findViewById(R.id.blankCompareLayout);
 
         leftName = findViewById(R.id.leftNameTextView);
         leftRegion = findViewById(R.id.leftRegionTextView);
@@ -111,14 +127,37 @@ public class ComparisonActivity extends AppCompatActivity {
         rightTenure = findViewById(R.id.rightTenureTextView);
         rightTOP = findViewById(R.id.rightTOPTextView);
         rightImage = findViewById(R.id.rightStaticMapImageView);
+
+        search = findViewById(R.id.searchButton);
+        search.setOnClickListener(this);
+        smallSearch = findViewById(R.id.smallSearchButton);
+        smallSearch.setOnClickListener(this);
+
+        spinny = findViewById(R.id.loadProgressBar);
+        errorText = findViewById(R.id.errorTextView);
     }
 
     private void setNoneToCompare() {
         compareLayout.setVisibility(View.GONE);
+        errorText.setVisibility(View.VISIBLE);
+        search.setVisibility(View.VISIBLE);
+        spinny.setVisibility(View.GONE);
     }
 
     private void setCompareOneOnly() {
+        leftColumn.setVisibility(View.INVISIBLE);
+        compareLayout.setVisibility(View.VISIBLE);
+        rightColumn.setVisibility(View.GONE);
+        blankColumn.setVisibility(View.VISIBLE);
+        smallSearch.setVisibility(View.VISIBLE);
+    }
 
+    private void onDataLoad() {
+        compareLayout.setVisibility(View.VISIBLE);
+        spinny.setVisibility(View.GONE);
+        if (rightColumn.getVisibility() == View.GONE){
+            leftColumn.setVisibility(View.VISIBLE);
+        }
     }
 
     private void loadProjectData(String pId, Integer side) {
@@ -207,8 +246,6 @@ public class ComparisonActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(List<Transaction> transactions) {
-                Toast toast = Toast.makeText(ComparisonActivity.this, "reply", Toast.LENGTH_LONG);
-                toast.show();
                 List<Transaction> transactionList = transactions;
                 String tenure;
                 String district;
@@ -272,6 +309,7 @@ public class ComparisonActivity extends AppCompatActivity {
                         rightPrice.setText(formatter.format(averagePrice));
                     }
                 }
+                onDataLoad();
             }
         });
     }
@@ -300,5 +338,14 @@ public class ComparisonActivity extends AppCompatActivity {
                     }
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.searchButton || id == R.id.smallSearchButton) {
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
+        }
     }
 }
