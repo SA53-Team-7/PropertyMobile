@@ -9,6 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -16,10 +21,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     private SharedPreferences sharedPreferences;
     public static final String USER_CREDENTIALS = "user_credentials";
-    public static final String TOKEN_KEY = "token_key";
+    public static final String USER_KEY = "user_key";
+    public static final String NAME_KEY = "name_key";
     private String token;
 
     List<Property> propertyList;
+
+    LoginRegisterDataService loginRegisterDataService = new LoginRegisterDataService(this);
 
 
     @Override
@@ -48,16 +56,45 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
         Button loginButton = findViewById(R.id.toLoginButton);
         Button logoutButton = findViewById(R.id.logoutButton);
+//        ProgressBar progressBar = findViewById(R.id.nameLoadProgressBar);
+        TextView welcomeBack = findViewById(R.id.welcomeBackTextView);
 
-        token = sharedPreferences.getString(TOKEN_KEY, null);
+        token = sharedPreferences.getString(USER_KEY, null);
+        JSONObject user = new JSONObject();
+        try {
+            user.put("email", token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         if (token == null) {
             loginButton.setVisibility(View.VISIBLE);
             logoutButton.setVisibility(View.INVISIBLE);
         }
         else {
+//            progressBar.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.INVISIBLE);
             logoutButton.setVisibility(View.VISIBLE);
+
+            String name = sharedPreferences.getString(NAME_KEY, null);
+
+            welcomeBack.setText("Welcome back, \n" + name + "!");
+            welcomeBack.setVisibility(View.VISIBLE);
+
+//            loginRegisterDataService.getName(user, new LoginRegisterDataService.GetNameResponseListener() {
+//                @Override
+//                public void onError(String message) {
+//
+//                }
+//
+//                @Override
+//                public void onResponse(String name) {
+//                    progressBar.setVisibility(View.INVISIBLE);
+//                    welcomeBack.setText("Welcome back, \n" + name + "!");
+//                    welcomeBack.setVisibility(View.VISIBLE);
+//                }
+//            });
+
         }
     }
 
@@ -89,6 +126,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         if (id == R.id.logoutButton)
         {
+            TextView welcomeBack = findViewById(R.id.welcomeBackTextView);
+            welcomeBack.setVisibility(View.INVISIBLE);
             sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 

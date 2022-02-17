@@ -10,4 +10,6 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="new_here">New around here? Sign up</string>
+    <string name="login_success">Login is successful!</string>
+    <string name="register_success">Registration is successful!</string>
 </resources>
