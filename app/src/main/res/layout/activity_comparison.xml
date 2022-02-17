@@ -80,7 +80,7 @@
             <TextView
                 android:id="@+id/leftMRTTextView"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="41dp"
                 android:text="mrt" />
 
             <TextView
@@ -229,9 +229,9 @@
             <TextView
                 android:id="@+id/rightMRTTextView"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="mrt"
-                android:gravity="right" />
+                android:layout_height="41dp"
+                android:gravity="right"
+                android:text="mrt" />
 
             <TextView
                 android:id="@+id/rightTimeLabelView"
