@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -35,8 +36,10 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
     Property selectedProperty;
 
-    Transaction recommendPropertyByDistrict;
+    Property project1;
+    Property project2;
 
+    RecommendDataService recommendDataService = new RecommendDataService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,8 +155,50 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             }
         });
 
-        Button recommendButton = findViewById(R.id.recommendButton);
-        recommendButton.setOnClickListener(this);
+
+        recommendDataService.callRecommendProjects("03", new RecommendDataService.RecommendResponseListener() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+
+            @Override
+            public void onResponse(Property project) {
+                progressBar.setVisibility(View.INVISIBLE);
+                TextView recommendTextView1 = findViewById(R.id.recommendTextView1);
+                project1 = project;
+
+                if (recommendTextView1 != null)
+                {
+                    recommendTextView1.setText(project1.getPropertyName());
+                }
+
+            }
+        });
+
+        recommendDataService.callRecommendProjects("03", new RecommendDataService.RecommendResponseListener() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+
+            @Override
+            public void onResponse(Property project) {
+                progressBar.setVisibility(View.INVISIBLE);
+                TextView recommendTextView2 = findViewById(R.id.recommendTextView2);
+                project2 = project;
+
+                if (recommendTextView2 != null)
+                {
+                    recommendTextView2.setText(project2.getPropertyName());
+                }
+
+            }
+        });
+
+
     }
 
     @Override
@@ -238,9 +283,18 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             startActivity(intent);
         }
 
-        if (id == R.id.recommendButton)
+        if (id == R.id.recommendTextView1)
         {
-            Intent intent = new Intent(this, RecommendationListActivity.class);
+            Intent intent = new Intent(this, PropertyDetailsActivity.class);
+            intent.putExtra("Property", project1);
+
+            startActivity(intent);
+        }
+
+        if (id == R.id.recommendTextView2)
+        {
+            Intent intent = new Intent(this, PropertyDetailsActivity.class);
+            intent.putExtra("Property", project2);
 
             startActivity(intent);
         }

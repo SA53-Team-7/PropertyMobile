@@ -27,11 +27,10 @@ public class RecommendDataService {
     public interface RecommendResponseListener {
         void onError(String message);
 
-        void onResponse(List<Property> projects);
+        void onResponse(Property projects);
     }
 
     public void callRecommendProjects(String district, RecommendResponseListener recommendResponseListener) {
-        List<Property> projects = new ArrayList<>();
 
         String url = QUERY_PROJECT_Recommendation + district;
 
@@ -39,10 +38,11 @@ public class RecommendDataService {
             @Override
             public void onResponse(JSONArray response) {
                 try {
+                    Property property = new Property();
                     for (int i = 0; i < response.length(); i++)
                     {
                         JSONObject jsonProperty = response.getJSONObject(i);
-                        Property property = new Property();
+
                         property.setProjectId(jsonProperty.getInt("projectId"));
                         property.setPropertyName(jsonProperty.getString("name"));
                         property.setRegion(jsonProperty.getString("segment"));
@@ -50,9 +50,9 @@ public class RecommendDataService {
                         property.setxCoordinates(jsonProperty.getString("x"));
                         property.setyCoordinates(jsonProperty.getString("y"));
 
-                        projects.add(property);
+
                     }
-                    recommendResponseListener.onResponse(projects);
+                    recommendResponseListener.onResponse(property);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -69,8 +69,8 @@
 
     <ImageView
         android:id="@+id/staticMapImageView"
-        android:layout_width="750px"
-        android:layout_height="750px"
+        android:layout_width="200px"
+        android:layout_height="200px"
         app:layout_constraintBottom_toTopOf="@+id/transactionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +79,7 @@
 
     <Button
         android:id="@+id/transactionButton"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/transactions"
         app:layout_constraintTop_toBottomOf="@id/staticMapImageView"
@@ -89,22 +89,52 @@
 
     <Button
         android:id="@+id/priceEstimatorButton"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/price_estimator_button"
         app:layout_constraintTop_toBottomOf="@id/transactionButton"
-        app:layout_constraintBottom_toTopOf="@id/recommendButton"
+        app:layout_constraintBottom_toTopOf="@id/recommendTextView1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/recommendButton"
-        android:layout_width="300dp"
+    <TextView
+        android:id="@+id/recommendNearbyProperties"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Recommend nearby Properties"
-        app:layout_constraintTop_toBottomOf="@id/priceEstimatorButton"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:text="Recommend Nearby Properties"
+        app:layout_constraintTop_toBottomOf="@+id/priceEstimatorButton"
+        app:layout_constraintBottom_toTopOf="@id/recommendTextView1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/recommendTextView1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:text="TextView"
+        android:onClick="onClick"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/recommendNearbyProperties"
+        app:layout_constraintBottom_toTopOf="@id/recommendTextView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/recommendTextView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:text="TextView"
+        android:onClick="onClick"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/recommendTextView1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ProgressBar
         android:id="@+id/mapLoadProgressBar"
