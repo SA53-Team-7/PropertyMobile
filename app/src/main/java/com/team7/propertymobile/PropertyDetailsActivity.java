@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,6 +34,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
     FavouritesDataService favouritesDataService = new FavouritesDataService(this);
 
     Property selectedProperty;
+
+    Transaction recommendPropertyByDistrict;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +151,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 }
             }
         });
+
+        Button recommendButton = findViewById(R.id.recommendButton);
+        recommendButton.setOnClickListener(this);
     }
 
     @Override
@@ -230,6 +237,14 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
             startActivity(intent);
         }
+
+        if (id == R.id.recommendButton)
+        {
+            Intent intent = new Intent(this, RecommendationListActivity.class);
+
+            startActivity(intent);
+        }
+
 
 //        if (id == R.id.saveButton || id == R.id.unsaveButton)
 //        if (id == R.id.favouriteToggleButton)
@@ -369,5 +384,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 //                }
             }
         });
+
     }
 }

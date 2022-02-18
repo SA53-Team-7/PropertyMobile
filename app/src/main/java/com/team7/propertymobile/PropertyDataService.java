@@ -24,7 +24,6 @@ public class PropertyDataService{
     Context context;
     public static final String QUERY_FOR_PROJECTS = "http://10.0.2.2:8080/api/mobile/projects";
     public static final String QUERY_PROJECT_SEARCH = "http://10.0.2.2:8080/api/mobile/projects/search/";
-    public static final String QUERY_PROJECT_Recommendation = "http://10.0.2.2:8080/api/mobile/projects/recommend";
 
     public PropertyDataService(Context context) {
         this.context = context;
@@ -134,50 +133,6 @@ public class PropertyDataService{
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
-    public void callRecommandProjects(ProjectsResponseListener projectsResponseListener)
-    {
-        List<Property> projects = new ArrayList<>();
-
-
-
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_PROJECT_Recommendation, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                try {
-                    for (int i = 0; i < response.length(); i++)
-                    {
-                        JSONObject jsonProperty = response.getJSONObject(i);
-                        Property property = new Property();
-                        property.setProjectId(jsonProperty.getInt("projectId"));
-                        property.setPropertyName(jsonProperty.getString("name"));
-
-
-                        projects.add(property);
-                    }
-
-                    projectsResponseListener.onResponse(projects);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10000,
-                2,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        ));
-
-        DataRequestSingleton.getInstance(context).addToRequestQueue(request);
-    }
 
 
 }

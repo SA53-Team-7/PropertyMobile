@@ -79,7 +79,7 @@
 
     <Button
         android:id="@+id/transactionButton"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/transactions"
         app:layout_constraintTop_toBottomOf="@id/staticMapImageView"
@@ -89,51 +89,20 @@
 
     <Button
         android:id="@+id/priceEstimatorButton"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/price_estimator_button"
         app:layout_constraintTop_toBottomOf="@id/transactionButton"
-        app:layout_constraintBottom_toTopOf="@id/priceEstimatorButton"
+        app:layout_constraintBottom_toTopOf="@id/recommendButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/recommendTextView"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/recommendButton"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Recommend nearby properties"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/priceEstimatorButton"
-        app:layout_constraintBottom_toTopOf="@id/recommend1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/recommend1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:onClick="onClick"
-        android:clickable="true"
-        app:layout_constraintTop_toBottomOf="@+id/recommendTextView"
-        app:layout_constraintBottom_toTopOf="@id/recommend2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/recommend2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:onClick="onClick"
-        android:clickable="true"
-        app:layout_constraintTop_toBottomOf="@+id/recommend1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Recommend nearby Properties"
+        app:layout_constraintTop_toBottomOf="@id/priceEstimatorButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -16,29 +16,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecommendDataService {
+
     Context context;
-    public static final String QUERY_FOR_PROJECTS = "http://10.0.2.2:8080/api/mobile/projects/recommend";
+    public static final String QUERY_PROJECT_Recommendation = "http://10.0.2.2:8080/api/mobile/projects/recommend/";
 
     public RecommendDataService(Context context) {
         this.context = context;
     }
 
-    public interface ProjectsResponseListener {
+    public interface RecommendResponseListener {
         void onError(String message);
 
         void onResponse(List<Property> projects);
     }
 
-    public void callAllProjects(PropertyDataService.ProjectsResponseListener projectsResponseListener)
-    {
+    public void callRecommendProjects(String district, RecommendResponseListener recommendResponseListener) {
         List<Property> projects = new ArrayList<>();
 
+        String url = QUERY_PROJECT_Recommendation + district;
 
-
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_PROJECTS, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
                 try {
                     for (int i = 0; i < response.length(); i++)
                     {
@@ -53,13 +52,11 @@ public class RecommendDataService {
 
                         projects.add(property);
                     }
-
-                    projectsResponseListener.onResponse(projects);
+                    recommendResponseListener.onResponse(projects);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -76,4 +73,6 @@ public class RecommendDataService {
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }
+
+
 }
