@@ -25,6 +25,10 @@ public class Property implements Serializable {
         this.street = street;
     }
 
+    public Property(String propertyName) {
+        this.propertyName = propertyName;
+    }
+
     public String getRegion() {
         return region;
     }
