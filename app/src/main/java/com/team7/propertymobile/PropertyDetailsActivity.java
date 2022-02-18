@@ -13,12 +13,19 @@ import android.widget.TextView;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     MapDataService mapDataService = new MapDataService(this);
 
     Property selectedProperty;
+
+    Property recommendProperty;
+
+    List<Property> propertyList;
+
+    PropertyDataService propertyDataService = new PropertyDataService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
+
+        Intent intent1 = getIntent();
+        recommendProperty = (Property) intent1.getSerializableExtra("RecommendProperty");
 
 //        Location pasirRisMRT = new Location("Pasir Ris MRT", 1.37304331635804, 103.949284527763);
 //        Location jurongEastMRT = new Location("Jurong East MRT", 1.33315281585758, 103.742286332403);
@@ -53,6 +63,12 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         TextView distanceFromTrain = findViewById(R.id.distanceToTrainTextView);
         ProgressBar distanceProgressBar = findViewById(R.id.distanceLoadProgressBar);
         distanceProgressBar.setVisibility(View.VISIBLE);
+
+        TextView recommendTextView1 = findViewById(R.id.recommend1);
+        recommendTextView1.setText(recommendProperty.getPropertyName());
+
+        TextView recommendTextView2 = findViewById(R.id.recommend2);
+        recommendTextView2.setText(recommendProperty.getPropertyName());
 
         mapDataService.distanceListLocations(selectedProperty, new MapDataService.DistanceListLocationsResponseListener() {
             @Override
@@ -115,6 +131,33 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Button priceEstimator = findViewById(R.id.priceEstimatorButton);
         priceEstimator.setOnClickListener(this);
 
+/*        propertyDataService.callRecommandProjects(new PropertyDataService.ProjectsResponseListener(){
+
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(List<Property> projects) {
+
+                TextView recommendTextview1 = findViewById(R.id.recommend1);
+                TextView recommendTextview2 = findViewById(R.id.recommend2);
+                propertyList = projects;
+
+                if (recommendTextview1 != null){
+                    recommendTextview1.setText(recommendProperty.getPropertyName());
+                }
+
+                if (recommendTextview2 != null){
+                    recommendTextview2.setText(recommendProperty.getPropertyName());
+                }
+
+            }
+        });*/
+
+
+
     }
 
     @Override
@@ -134,6 +177,22 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         {
             Intent intent = new Intent(this, PriceEstimatorActivity.class);
             intent.putExtra("Property", selectedProperty);
+
+            startActivity(intent);
+        }
+
+        if (id == R.id.recommend1)
+        {
+            Intent intent = new Intent(this, PropertyDetailsActivity.class);
+            intent.putExtra("RecommendProperty", recommendProperty);
+
+            startActivity(intent);
+        }
+
+        if (id == R.id.recommend2)
+        {
+            Intent intent = new Intent(this, PropertyDetailsActivity.class);
+            intent.putExtra("RecommendProperty", recommendProperty);
 
             startActivity(intent);
         }
