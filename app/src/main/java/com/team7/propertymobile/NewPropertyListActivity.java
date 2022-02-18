@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
-public class NewPropertyListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class NewPropertyListActivity extends AppCompatActivity{
     List<NewProperty> propertyList;
 
     NewPropertyDataService newPropertyDataService = new NewPropertyDataService(this);
@@ -41,20 +41,20 @@ public class NewPropertyListActivity extends AppCompatActivity implements Adapte
                 {
                     NewPropertyAdapter adapter = new NewPropertyAdapter(NewPropertyListActivity.this, propertyList);
                     propertyListView.setAdapter(adapter);
-                    propertyListView.setOnItemClickListener(NewPropertyListActivity.this);
+//                    propertyListView.setOnItemClickListener(NewPropertyListActivity.this);
                 }
             }
         });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent,
-                            View view, int position, long id) {
+//    @Override
+//    public void onItemClick(AdapterView<?> parent,
+//                            View view, int position, long id) {
 
 //        Property selectedProperty = propertyList.get(position);
 //        Intent intent = new Intent(this, PropertyDetailsActivity.class);
 //        intent.putExtra("Property", selectedProperty);
 //
 //        startActivity(intent);
-    }
+//    }
 }

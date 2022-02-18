@@ -93,7 +93,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
                     double time = nearestDistance / 5 * 60;
 
-                    String mrtDistance = "Nearest Train Station\n" + nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk" ;
+                    String mrtDistance = nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk" ;
                     distanceFromTrain.setText(mrtDistance);
                     distanceFromTrain.setVisibility(View.VISIBLE);
 
@@ -129,10 +129,10 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Button priceEstimator = findViewById(R.id.priceEstimatorButton);
         priceEstimator.setOnClickListener(this);
 
-        Button save = findViewById(R.id.saveButton);
-        save.setOnClickListener(this);
-        Button unsave = findViewById(R.id.unsaveButton);
-        unsave.setOnClickListener(this);
+//        Button save = findViewById(R.id.saveButton);
+//        save.setOnClickListener(this);
+//        Button unsave = findViewById(R.id.unsaveButton);
+//        unsave.setOnClickListener(this);
 
         ToggleButton toggleButton = findViewById(R.id.favouriteToggleButton);
 
@@ -299,13 +299,13 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         switch (segment) {
             case "CCR":
-                region = "Core Central Region (CCR)";
+                region = "Core Central Region";
                 break;
             case "RCR":
-                region = "Rest of Central Region (RCR)";
+                region = "Rest of Central Region";
                 break;
             case "OCR":
-                region = "Outside Central Region (OCR)";
+                region = "Outside Central Region";
                 break;
         }
 
