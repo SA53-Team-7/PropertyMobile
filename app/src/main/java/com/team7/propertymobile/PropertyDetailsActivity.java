@@ -2,30 +2,37 @@ package com.team7.propertymobile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.ToggleButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.List;
 
-public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener{
+public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private SharedPreferences sharedPreferences;
+    public static final String USER_CREDENTIALS = "user_credentials";
+    public static final String USER_KEY = "user_key";
+    public static final String NAME_KEY = "name_key";
+    public static final String ID_KEY = "id_key";
 
     MapDataService mapDataService = new MapDataService(this);
+    FavouritesDataService favouritesDataService = new FavouritesDataService(this);
 
     Property selectedProperty;
-
-    Property recommendProperty;
-
-    List<Property> propertyList;
-
-    PropertyDataService propertyDataService = new PropertyDataService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +41,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
-
-        Intent intent1 = getIntent();
-        recommendProperty = (Property) intent1.getSerializableExtra("RecommendProperty");
 
 //        Location pasirRisMRT = new Location("Pasir Ris MRT", 1.37304331635804, 103.949284527763);
 //        Location jurongEastMRT = new Location("Jurong East MRT", 1.33315281585758, 103.742286332403);
@@ -63,12 +67,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         TextView distanceFromTrain = findViewById(R.id.distanceToTrainTextView);
         ProgressBar distanceProgressBar = findViewById(R.id.distanceLoadProgressBar);
         distanceProgressBar.setVisibility(View.VISIBLE);
-
-        TextView recommendTextView1 = findViewById(R.id.recommend1);
-        recommendTextView1.setText(recommendProperty.getPropertyName());
-
-        TextView recommendTextView2 = findViewById(R.id.recommend2);
-        recommendTextView2.setText(recommendProperty.getPropertyName());
 
         mapDataService.distanceListLocations(selectedProperty, new MapDataService.DistanceListLocationsResponseListener() {
             @Override
@@ -131,34 +129,86 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Button priceEstimator = findViewById(R.id.priceEstimatorButton);
         priceEstimator.setOnClickListener(this);
 
-/*        propertyDataService.callRecommandProjects(new PropertyDataService.ProjectsResponseListener(){
+        Button save = findViewById(R.id.saveButton);
+        save.setOnClickListener(this);
+        Button unsave = findViewById(R.id.unsaveButton);
+        unsave.setOnClickListener(this);
 
+        ToggleButton toggleButton = findViewById(R.id.favouriteToggleButton);
+
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    saveFavourites(selectedProperty);
+                }
+                else {
+                    saveFavourites(selectedProperty);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+//        Button save = findViewById(R.id.saveButton);
+//        Button unsave = findViewById(R.id.unsaveButton);
+
+        ToggleButton fave = findViewById(R.id.favouriteToggleButton);
+
+        int selectedPropertyId = selectedProperty.getProjectId();
+        int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+        JSONObject jsonSelectedProperty = new JSONObject();
+        try {
+            jsonSelectedProperty.put("projectId", selectedPropertyId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jsonSelecetedUser = new JSONObject();
+        try {
+            jsonSelecetedUser.put("userId", selectedUserId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject selectedUserAndProperty = new JSONObject();
+        try {
+            selectedUserAndProperty.put("project", jsonSelectedProperty);
+            selectedUserAndProperty.put("user", jsonSelecetedUser);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        favouritesDataService.isSaved(selectedUserAndProperty, new FavouritesDataService.SaveResponseListener() {
             @Override
             public void onError(String message) {
 
             }
 
             @Override
-            public void onResponse(List<Property> projects) {
-
-                TextView recommendTextview1 = findViewById(R.id.recommend1);
-                TextView recommendTextview2 = findViewById(R.id.recommend2);
-                propertyList = projects;
-
-                if (recommendTextview1 != null){
-                    recommendTextview1.setText(recommendProperty.getPropertyName());
+            public void onResponse(boolean isSaved) {
+                progressBar.setVisibility(View.INVISIBLE);
+                if (isSaved)
+                {
+//                    unsave.setVisibility(View.VISIBLE);
+                    fave.setChecked(true);
                 }
-
-                if (recommendTextview2 != null){
-                    recommendTextview2.setText(recommendProperty.getPropertyName());
+                else {
+//                    save.setVisibility(View.VISIBLE);
+                    fave.setChecked(false);
                 }
-
             }
-        });*/
-
-
+        });
 
     }
+
 
     @Override
     public void onClick(View v)
@@ -181,21 +231,66 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             startActivity(intent);
         }
 
-        if (id == R.id.recommend1)
-        {
-            Intent intent = new Intent(this, PropertyDetailsActivity.class);
-            intent.putExtra("RecommendProperty", recommendProperty);
-
-            startActivity(intent);
-        }
-
-        if (id == R.id.recommend2)
-        {
-            Intent intent = new Intent(this, PropertyDetailsActivity.class);
-            intent.putExtra("RecommendProperty", recommendProperty);
-
-            startActivity(intent);
-        }
+//        if (id == R.id.saveButton || id == R.id.unsaveButton)
+//        if (id == R.id.favouriteToggleButton)
+//        {
+//            ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
+//            progressBar.setVisibility(View.VISIBLE);
+//
+//            sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+////            Button save = findViewById(R.id.saveButton);
+////            Button unsave = findViewById(R.id.unsaveButton);
+//            ToggleButton fave = findViewById(R.id.favouriteToggleButton);
+//
+////            save.setVisibility(View.INVISIBLE);
+////            unsave.setVisibility(View.INVISIBLE);
+//
+//            int selectedPropertyId = selectedProperty.getProjectId();
+//            int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+//
+//            JSONObject jsonSelectedProperty = new JSONObject();
+//            try {
+//                jsonSelectedProperty.put("projectId", selectedPropertyId);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//            JSONObject jsonSelecetedUser = new JSONObject();
+//            try {
+//                jsonSelecetedUser.put("userId", selectedUserId);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//            JSONObject selectedUserAndProperty = new JSONObject();
+//            try {
+//                selectedUserAndProperty.put("project", jsonSelectedProperty);
+//                selectedUserAndProperty.put("user", jsonSelecetedUser);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//            favouritesDataService.save(selectedUserAndProperty, new FavouritesDataService.SaveResponseListener() {
+//                @Override
+//                public void onError(String message) {
+//
+//                }
+//
+//                @Override
+//                public void onResponse(boolean isSaved) {
+//                    progressBar.setVisibility(View.INVISIBLE);
+//                    if (isSaved)
+//                    {
+////                        unsave.setVisibility(View.VISIBLE);
+//                        fave.setChecked(true);
+//                    }
+//                    else {
+////                        save.setVisibility(View.VISIBLE);
+//                        fave.setChecked(false);
+//                    }
+//                }
+//            });
+//        }
     }
 
 
@@ -215,5 +310,64 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         }
 
         return region;
+    }
+
+    private void saveFavourites (Property selectedProperty) {
+        ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+//            Button save = findViewById(R.id.saveButton);
+//            Button unsave = findViewById(R.id.unsaveButton);
+        ToggleButton fave = findViewById(R.id.favouriteToggleButton);
+
+//            save.setVisibility(View.INVISIBLE);
+//            unsave.setVisibility(View.INVISIBLE);
+
+        int selectedPropertyId = selectedProperty.getProjectId();
+        int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+        JSONObject jsonSelectedProperty = new JSONObject();
+        try {
+            jsonSelectedProperty.put("projectId", selectedPropertyId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jsonSelecetedUser = new JSONObject();
+        try {
+            jsonSelecetedUser.put("userId", selectedUserId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject selectedUserAndProperty = new JSONObject();
+        try {
+            selectedUserAndProperty.put("project", jsonSelectedProperty);
+            selectedUserAndProperty.put("user", jsonSelecetedUser);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        favouritesDataService.save(selectedUserAndProperty, new FavouritesDataService.SaveResponseListener() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(boolean isSaved) {
+                progressBar.setVisibility(View.INVISIBLE);
+//                if (isSaved)
+//                {
+////                        unsave.setVisibility(View.VISIBLE);
+//                    fave.setChecked(true);
+//                }
+//                else {
+////                        save.setVisibility(View.VISIBLE);
+//                    fave.setChecked(false);
+//                }
+            }
+        });
     }
 }
