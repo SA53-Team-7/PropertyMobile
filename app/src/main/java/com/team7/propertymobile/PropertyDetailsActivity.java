@@ -3,6 +3,7 @@ package com.team7.propertymobile;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -19,6 +21,12 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
     MapDataService mapDataService = new MapDataService(this);
 
     Property selectedProperty;
+
+    String compare1;
+    String compare2;
+
+    Button clearAddButton;
+    Button compareButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +123,21 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Button priceEstimator = findViewById(R.id.priceEstimatorButton);
         priceEstimator.setOnClickListener(this);
 
+        compareButton = findViewById(R.id.compareButton);
+        compareButton.setOnClickListener(this);
+
+        clearAddButton = findViewById(R.id.clearAndCompareButton);
+        clearAddButton.setOnClickListener(this);
+
+
+        SharedPreferences pref = getSharedPreferences("compare", MODE_PRIVATE);
+        compare1 = pref.getString("compare1", "-");
+        compare2 = pref.getString("compare2", "-");
+
+        if (!compare1.equals("-") & !compare2.equals("-")){
+            clearAddButton.setVisibility(View.VISIBLE);
+            compareButton.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -137,6 +160,52 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
             startActivity(intent);
         }
+
+        if (id == R.id.compareButton) {
+            setComparisonProperty();
+        }
+
+        if (id == R.id.clearAndCompareButton) {
+            clearCompare();
+            setComparisonProperty();
+        }
+    }
+
+    private void setComparisonProperty() {
+
+        if (compare1.equals(String.valueOf(selectedProperty.getProjectId())) || compare2.equals(String.valueOf(selectedProperty.getProjectId()))){
+            Toast toast = Toast.makeText(this, "This property is already selected", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        else {
+            if (compare1.equals("-")) {
+                SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
+                SharedPreferences.Editor editor = setPref.edit();
+                editor.putString("compare1", String.valueOf(selectedProperty.getProjectId()));
+                editor.commit();
+                Toast toast = Toast.makeText(this, "Added to comparison as 1", Toast.LENGTH_LONG);
+                toast.show();
+            }
+            else if (compare2.equals("-")){
+                SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
+                SharedPreferences.Editor editor = setPref.edit();
+                editor.putString("compare2", String.valueOf(selectedProperty.getProjectId()));
+                editor.commit();
+                Toast toast = Toast.makeText(this, "Added to comparison as 2", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+    }
+
+    private void clearCompare() {
+        SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
+        SharedPreferences.Editor editor = setPref.edit();
+        editor.putString("compare1", "-");
+        editor.putString("compare2", "-");
+        editor.commit();
+
+        clearAddButton.setVisibility(View.GONE);
+        compareButton.setVisibility(View.VISIBLE);
     }
 
 

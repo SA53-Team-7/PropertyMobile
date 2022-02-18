@@ -24,7 +24,6 @@ public class PropertyDataService{
     Context context;
     public static final String QUERY_FOR_PROJECTS = "http://10.0.2.2:8080/api/mobile/projects";
     public static final String QUERY_PROJECT_SEARCH = "http://10.0.2.2:8080/api/mobile/projects/search/";
-    public static final String QUERY_PROJECT_SINGLE = "http://10.0.2.2:8080/api/mobile/projects/get/";
 
     public PropertyDataService(Context context) {
         this.context = context;
@@ -47,8 +46,6 @@ public class PropertyDataService{
     public void callAllProjects(ProjectsResponseListener projectsResponseListener)
     {
         List<Property> projects = new ArrayList<>();
-
-
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_PROJECTS, null, new Response.Listener<JSONArray>() {
             @Override

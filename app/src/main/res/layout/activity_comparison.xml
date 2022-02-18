@@ -83,16 +83,16 @@
                 android:text="name" />
 
             <TextView
-                android:id="@+id/leftRegionLabelView"
+                android:id="@+id/leftDistrictLabelView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Region:" />
+                android:text="District:" />
 
             <TextView
-                android:id="@+id/leftRegionTextView"
+                android:id="@+id/leftDistrictTextView"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="region" />
+                android:text="district" />
 
             <TextView
                 android:id="@+id/leftRoadLabelView"
@@ -242,17 +242,17 @@
                 android:gravity="right" />
 
             <TextView
-                android:id="@+id/rightRegionLabelView"
+                android:id="@+id/rightDistrictLabelView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Region:"
+                android:text="District:"
                 android:gravity="right" />
 
             <TextView
-                android:id="@+id/rightRegionTextView"
+                android:id="@+id/rightDistrictTextView"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:text="region"
+                android:text="district"
                 android:gravity="right" />
 
             <TextView
@@ -374,4 +374,14 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="165dp"
+        android:layout_height="57dp"
+        android:text="Clear selected"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

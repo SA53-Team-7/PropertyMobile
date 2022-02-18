@@ -34,7 +34,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
     Property project2;
 
     TextView leftName;
-    TextView leftRegion;
+    TextView leftDistrict;
     TextView leftRoad;
     TextView leftMRT;
     TextView leftTime;
@@ -44,7 +44,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
     TextView leftTOP;
 
     TextView rightName;
-    TextView rightRegion;
+    TextView rightDistrict;
     TextView rightRoad;
     TextView rightMRT;
     TextView rightTime;
@@ -60,6 +60,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
 
     Button search;
     Button smallSearch;
+    Button clearButton;
 
     ProgressBar spinny;
 
@@ -75,11 +76,11 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         setViews();
 
         //set test shared preferences -- change editor for different project and scenarios
-        SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
-        SharedPreferences.Editor editor = setPref.edit();
-        editor.putString("compare1", "2");
-        editor.putString("compare2", "32");
-        editor.commit();
+//        SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = setPref.edit();
+//        editor.putString("compare1", "2");
+//        editor.putString("compare2", "32");
+//        editor.commit();
 
 
         SharedPreferences pref = getSharedPreferences("compare", MODE_PRIVATE);
@@ -107,7 +108,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         blankColumn = findViewById(R.id.blankCompareLayout);
 
         leftName = findViewById(R.id.leftNameTextView);
-        leftRegion = findViewById(R.id.leftRegionTextView);
+        leftDistrict = findViewById(R.id.leftDistrictTextView);
         leftRoad = findViewById(R.id.leftRoadTextView);
         leftMRT = findViewById(R.id.leftMRTTextView);
         leftTime = findViewById(R.id.leftTimeTextView);
@@ -118,7 +119,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         leftImage = findViewById(R.id.leftStaticMapImageView);
 
         rightName = findViewById(R.id.rightNameTextView);
-        rightRegion = findViewById(R.id.rightRegionTextView);
+        rightDistrict = findViewById(R.id.rightDistrictTextView);
         rightRoad = findViewById(R.id.rightRoadTextView);
         rightMRT = findViewById(R.id.rightMRTTextView);
         rightTime = findViewById(R.id.rightTimeTextView);
@@ -132,6 +133,8 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         search.setOnClickListener(this);
         smallSearch = findViewById(R.id.smallSearchButton);
         smallSearch.setOnClickListener(this);
+        clearButton = findViewById(R.id.clearButton);
+        clearButton.setOnClickListener(this);
 
         spinny = findViewById(R.id.loadProgressBar);
         errorText = findViewById(R.id.errorTextView);
@@ -142,6 +145,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         errorText.setVisibility(View.VISIBLE);
         search.setVisibility(View.VISIBLE);
         spinny.setVisibility(View.GONE);
+        clearButton.setVisibility(View.GONE);
     }
 
     private void setCompareOneOnly() {
@@ -158,6 +162,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         if (rightColumn.getVisibility() == View.GONE){
             leftColumn.setVisibility(View.VISIBLE);
         }
+        clearButton.setVisibility(View.VISIBLE);
     }
 
     private void loadProjectData(String pId, Integer side) {
@@ -172,7 +177,6 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                 if (side == 1){
                     project1 = project;
                     leftName.setText(project.getPropertyName());
-                    leftRegion.setText(project.getRegion());
                     leftRoad.setText(project.getStreet());
 
                     loadMRTData(project, side);
@@ -182,7 +186,6 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                 else {
                     project2 = project;
                     rightName.setText(project.getPropertyName());
-                    rightRegion.setText(project.getRegion());
                     rightRoad.setText(project.getStreet());
 
                     loadMRTData(project, side);
@@ -297,12 +300,14 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                     String floors = minFloor + " - " + maxFloor;
 
                     if (side == 1){
+                        leftDistrict.setText(district);
                         leftTenure.setText(tenure + " years");
                         leftTOP.setText(year);
                         leftFloor.setText(floors);
                         leftPrice.setText(formatter.format(averagePrice));
                     }
                     else {
+                        rightDistrict.setText(district);
                         rightTenure.setText(tenure + " years");
                         rightTOP.setText(year);
                         rightFloor.setText(floors);
@@ -346,6 +351,15 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         if (id == R.id.searchButton || id == R.id.smallSearchButton) {
             Intent intent = new Intent(this, SearchActivity.class);
             startActivity(intent);
+        }
+        if (id == R.id.clearButton) {
+            SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
+            SharedPreferences.Editor editor = setPref.edit();
+            editor.putString("compare1", "-");
+            editor.putString("compare2", "-");
+            editor.commit();
+
+            setNoneToCompare();
         }
     }
 }
