@@ -18,13 +18,28 @@
             android:exported="false" />
         <activity
             android:name=".NewPropertyListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SearchActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchActivity"/>
+        </activity>
         <activity
             android:name=".FavouritesListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SearchActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchActivity"/>
+        </activity>/>
         <activity
             android:name=".RegisterActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LoginActivity"/>
+        </activity>>
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
@@ -33,7 +48,12 @@
             android:exported="false" />
         <activity
             android:name=".LoanCalculatorActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".SearchActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchActivity"/>
+        </activity>/>
         <activity
             android:name=".SearchActivity"
             android:exported="true">
@@ -51,7 +71,12 @@
             android:exported="false" />
         <activity
             android:name=".PropertyListActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".SearchActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SearchActivity"/>
+        </activity>/>
     </application>
 
 </manifest>

@@ -355,6 +355,28 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
             startActivity(intent);
         }
+
+        if (id == R.id.favouriteToggleButton) {
+            sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+            int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+            ToggleButton fave = findViewById(R.id.favouriteToggleButton);
+
+            if (selectedUserId == -1) {
+                Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+            else {
+                saveFavourites(selectedProperty);
+                if (fave.isChecked()) {
+                    fave.setChecked(true);
+                }
+                else {
+                    fave.setChecked(false);
+                }
+            }
+
+        }
     }
 
     private void readCompare() {
@@ -399,27 +421,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         clearAddButton.setVisibility(View.GONE);
         compareButton.setVisibility(View.VISIBLE);
 
-        if (id == R.id.favouriteToggleButton) {
-            sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-            int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
 
-            ToggleButton fave = findViewById(R.id.favouriteToggleButton);
-
-            if (selectedUserId == -1) {
-                Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-            else {
-                saveFavourites(selectedProperty);
-                if (fave.isChecked()) {
-                    fave.setChecked(true);
-                }
-                else {
-                    fave.setChecked(false);
-                }
-            }
-
-        }
     }
 
 

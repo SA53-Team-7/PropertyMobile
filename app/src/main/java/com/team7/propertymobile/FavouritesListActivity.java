@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,9 +30,38 @@ public class FavouritesListActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourites_list);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.favourites_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
         userId = sharedPreferences.getInt(ID_KEY, -1);
 
+        refreshFavouritesList();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        refreshFavouritesList();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent,
+                            View view, int position, long id) {
+
+        Property selectedProperty = propertyList.get(position);
+        Intent intent = new Intent(this, PropertyDetailsActivity.class);
+        intent.putExtra("Property", selectedProperty);
+
+        startActivity(intent);
+    }
+
+    private void refreshFavouritesList() {
         ProgressBar progressBar = findViewById(R.id.favouritesListProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -54,16 +85,5 @@ public class FavouritesListActivity extends AppCompatActivity implements Adapter
                 }
             }
         });
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent,
-                            View view, int position, long id) {
-
-        Property selectedProperty = propertyList.get(position);
-        Intent intent = new Intent(this, PropertyDetailsActivity.class);
-        intent.putExtra("Property", selectedProperty);
-
-        startActivity(intent);
     }
 }

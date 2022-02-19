@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/login_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Login"
+        android:elevation="4dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <EditText
         android:id="@+id/loginTextEmailAddress"
         android:layout_width="wrap_content"
@@ -13,7 +24,7 @@
         android:ems="14"
         android:hint="Enter Email Address"
         android:inputType="textEmailAddress"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_toolbar"
         app:layout_constraintBottom_toTopOf="@id/loginTextPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,6 +87,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginButton"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
