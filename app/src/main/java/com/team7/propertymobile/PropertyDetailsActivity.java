@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.json.JSONException;
@@ -20,7 +23,6 @@ import org.json.JSONObject;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.List;
 
 public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,12 +37,11 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
     Property selectedProperty;
 
-    Transaction transactionDistrict;
+    String compare1;
+    String compare2;
 
-
-    List<Property> propertyList;
-
-    RecommendDataService recommendDataService = new RecommendDataService(this);
+    Button clearAddButton;
+    Button compareButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,14 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.propertyDetails_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle(selectedProperty.getPropertyName());
+        ab.setSubtitle(selectedProperty.getStreet());
 
         TextView projectInfoTextView = findViewById(R.id.projectInfoTextView);
         projectInfoTextView.setText(selectedProperty.getPropertyName());
@@ -123,85 +132,59 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Button priceEstimator = findViewById(R.id.priceEstimatorButton);
         priceEstimator.setOnClickListener(this);
 
+        compareButton = findViewById(R.id.compareButton);
+        compareButton.setOnClickListener(this);
+
+        clearAddButton = findViewById(R.id.clearAndCompareButton);
+        clearAddButton.setOnClickListener(this);
+
+        readCompare();
+
+        if (!compare1.equals("-") & !compare2.equals("-")){
+            clearAddButton.setVisibility(View.VISIBLE);
+            compareButton.setVisibility(View.GONE);
+        }
+      
         ToggleButton toggleButton = findViewById(R.id.favouriteToggleButton);
+        toggleButton.setOnClickListener(this);
 
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
         int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
 
-        if (selectedUserId == -1) {
-            toggleButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
-        else {
-            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                    sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-//                    int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
-
-                        if (b) {
-                            saveFavourites(selectedProperty);
-                        }
-                        else {
-                            saveFavourites(selectedProperty);
-                        }
-
-                }
-            });
-        }
-
-        recommendDataService.recommendDistrictProject(selectedProperty.getProjectId(), new RecommendDataService.RecommendDistrictResponseListener() {
-            @Override
-            public void onError(String message) {
-
-            }
-
-            @Override
-            public void onResponse(Transaction transactions) {
-                progressBar.setVisibility(View.INVISIBLE);
-                TextView districtInfoTextView = findViewById(R.id.districtInfoTextView);
-                transactionDistrict = transactions;
-
-                if (districtInfoTextView != null)
-                {
-                    districtInfoTextView.setText("District "+transactionDistrict.getDistrict());
-
-                    recommendDataService.callRecommendProjects(transactionDistrict.getDistrict(), new RecommendDataService.RecommendResponseListener() {
-                        @Override
-                        public void onError(String message) {
+//        if (selectedUserId == -1) {
+//            toggleButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
+//        }
+//        else {
+//            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+////                    sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+////                    int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+//
+//                        if (b) {
+//                            saveFavourites(selectedProperty);
+//                        }
+//                        else {
+//                            saveFavourites(selectedProperty);
+//                        }
+//
+//                }
+//            });
+//        }
 
 
-                        }
+    }
 
-
-                        @Override
-                        public void onResponse(List<Property> projects) {
-                            progressBar.setVisibility(View.INVISIBLE);
-                            TextView recommendTextView1 = findViewById(R.id.recommendTextView1);
-                            TextView recommendTextView2 = findViewById(R.id.recommendTextView2);
-                            propertyList = projects;
-
-                            if (recommendTextView1 != null)
-                            {
-                                recommendTextView1.setText(propertyList.get(0).getPropertyName());
-                            }
-
-                            if (recommendTextView2 != null)
-                            {
-                                recommendTextView2.setText(propertyList.get(1).getPropertyName());
-                            }
-
-                        }
-                    });
-                }
-
-            }
-        });
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override
@@ -290,24 +273,78 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             startActivity(intent);
         }
 
-
-        if (id == R.id.recommendTextView1)
-        {
-            Property recommendProperty1 = propertyList.get(0);
-            Intent intent = new Intent(this, PropertyDetailsActivity.class);
-            intent.putExtra("Property", recommendProperty1);
-
-            startActivity(intent);
-
+        if (id == R.id.compareButton) {
+            setComparisonProperty();
         }
 
-        if (id == R.id.recommendTextView2)
-        {
-            Property recommendProperty2 = propertyList.get(1);
-            Intent intent = new Intent(this, PropertyDetailsActivity.class);
-            intent.putExtra("Property", recommendProperty2);
+        if (id == R.id.clearAndCompareButton) {
+            clearCompare();
+            setComparisonProperty();
+        }
+    }
 
-            startActivity(intent);
+    private void readCompare() {
+        SharedPreferences pref = getSharedPreferences("compare", MODE_PRIVATE);
+        compare1 = pref.getString("compare1", "-");
+        compare2 = pref.getString("compare2", "-");
+    }
+
+    private void setComparisonProperty() {
+        readCompare();
+        if (compare1.equals(String.valueOf(selectedProperty.getProjectId())) || compare2.equals(String.valueOf(selectedProperty.getProjectId()))){
+            Toast toast = Toast.makeText(this, "This property is already selected", Toast.LENGTH_LONG);
+            toast.show();
+        }
+        else {
+            if (compare1.equals("-")) {
+                SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
+                SharedPreferences.Editor editor = setPref.edit();
+                editor.putString("compare1", String.valueOf(selectedProperty.getProjectId()));
+                editor.commit();
+                Toast toast = Toast.makeText(this, "Added to comparison as 1", Toast.LENGTH_LONG);
+                toast.show();
+            }
+            else if (compare2.equals("-")){
+                SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
+                SharedPreferences.Editor editor = setPref.edit();
+                editor.putString("compare2", String.valueOf(selectedProperty.getProjectId()));
+                editor.commit();
+                Toast toast = Toast.makeText(this, "Added to comparison as 2", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+    }
+
+    private void clearCompare() {
+        SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
+        SharedPreferences.Editor editor = setPref.edit();
+        editor.putString("compare1", "-");
+        editor.putString("compare2", "-");
+        editor.commit();
+
+        clearAddButton.setVisibility(View.GONE);
+        compareButton.setVisibility(View.VISIBLE);
+      
+        if (id == R.id.favouriteToggleButton) {
+            sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+            int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+            ToggleButton fave = findViewById(R.id.favouriteToggleButton);
+
+            if (selectedUserId == -1) {
+                Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+            else {
+                saveFavourites(selectedProperty);
+                if (fave.isChecked()) {
+                    fave.setChecked(true);
+                }
+                else {
+                    fave.setChecked(false);
+                }
+            }
+
         }
     }
 

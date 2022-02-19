@@ -119,7 +119,7 @@ public class MapDataService {
     }
 
     public void callStaticMapAfterConversion (String x, String y, CallStaticMapAfterConversionResponseListener callStaticMapAfterConversionResponseListener) {
-        if (x.equals("null") || y.equals("null"))
+        if (x.equals("null") || y.equals("null") || y.equals(null) || x.equals(null))
         {
             callStaticMapAfterConversionResponseListener.onResponse(null);
         }

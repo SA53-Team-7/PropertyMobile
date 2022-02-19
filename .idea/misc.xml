@@ -6,7 +6,9 @@
         <entry key="..\:/GdipSA/AD project/Deliverables/Sprint 1/Prototype/Android Prototype/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
         <entry key="..\:/GdipSA/AD project/Deliverables/Sprint 1/Prototype/Android Prototype/app/src/main/res/layout/activity_search.xml" value="0.1" />
         <entry key="..\:/GdipSA/AD project/Deliverables/Sprint 1/Prototype/Android Prototype/app/src/main/res/layout/activity_transaction_list.xml" value="0.5541666666666667" />
+        <entry key="..\:/Projects/PropertyMobile/app/src/main/res/layout/activity_comparison.xml" value="0.45" />
         <entry key="..\:/Projects/PropertyMobile/app/src/main/res/layout/activity_price_estimator.xml" value="0.25" />
+        <entry key="..\:/Projects/PropertyMobile/app/src/main/res/layout/activity_property_info.xml" value="0.11" />
         <entry key="..\:/Projects/PropertyMobile/app/src/main/res/layout/activity_property_info.xml" value="0.16394927536231885" />
         <entry key="..\:/Users/User/Documents/GitHub/PropertyMobile/app/src/main/res/layout/activity_property_info.xml" value="0.1" />
         <entry key="..\:/Users/ohany/gitrepos/PropertyMobile/app/src/main/res/drawable/button_favorite.xml" value="0.5275" />
@@ -34,5 +36,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.11" />
+      </ProjectState>
+    </option>
   </component>
 </project>
