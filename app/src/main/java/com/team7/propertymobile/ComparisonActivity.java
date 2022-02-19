@@ -75,14 +75,6 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
 
         setViews();
 
-        //set test shared preferences -- change editor for different project and scenarios
-//        SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = setPref.edit();
-//        editor.putString("compare1", "2");
-//        editor.putString("compare2", "32");
-//        editor.commit();
-
-
         SharedPreferences pref = getSharedPreferences("compare", MODE_PRIVATE);
         String compare1 = pref.getString("compare1", "-");
         String compare2 = pref.getString("compare2", "-");
@@ -98,7 +90,6 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
             loadProjectData(compare1, 1);
             loadProjectData(compare2, 2);
         }
-
     }
 
     private void setViews() {
@@ -146,6 +137,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         search.setVisibility(View.VISIBLE);
         spinny.setVisibility(View.GONE);
         clearButton.setVisibility(View.GONE);
+        smallSearch.setVisibility(View.GONE);
     }
 
     private void setCompareOneOnly() {

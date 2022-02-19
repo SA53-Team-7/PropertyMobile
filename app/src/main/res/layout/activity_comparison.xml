@@ -79,7 +79,7 @@
             <TextView
                 android:id="@+id/leftNameTextView"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:text="name" />
 
             <TextView
@@ -237,9 +237,9 @@
             <TextView
                 android:id="@+id/rightNameTextView"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="name"
-                android:gravity="right" />
+                android:layout_height="40dp"
+                android:gravity="right"
+                android:text="name" />
 
             <TextView
                 android:id="@+id/rightDistrictLabelView"

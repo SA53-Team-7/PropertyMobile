@@ -129,10 +129,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         clearAddButton = findViewById(R.id.clearAndCompareButton);
         clearAddButton.setOnClickListener(this);
 
-
-        SharedPreferences pref = getSharedPreferences("compare", MODE_PRIVATE);
-        compare1 = pref.getString("compare1", "-");
-        compare2 = pref.getString("compare2", "-");
+        readCompare();
 
         if (!compare1.equals("-") & !compare2.equals("-")){
             clearAddButton.setVisibility(View.VISIBLE);
@@ -171,8 +168,14 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private void setComparisonProperty() {
+    private void readCompare() {
+        SharedPreferences pref = getSharedPreferences("compare", MODE_PRIVATE);
+        compare1 = pref.getString("compare1", "-");
+        compare2 = pref.getString("compare2", "-");
+    }
 
+    private void setComparisonProperty() {
+        readCompare();
         if (compare1.equals(String.valueOf(selectedProperty.getProjectId())) || compare2.equals(String.valueOf(selectedProperty.getProjectId()))){
             Toast toast = Toast.makeText(this, "This property is already selected", Toast.LENGTH_LONG);
             toast.show();
