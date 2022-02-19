@@ -1,387 +1,426 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ComparisonActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/compareTitle"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Compare Properties"
-        android:textSize="20sp"
-        android:padding="6dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".ComparisonActivity">
 
-    <TextView
-        android:id="@+id/errorTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:text="Please add 2 projects to be compared"
-        android:textSize="15sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/searchButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/compareTitle" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/compare_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:title="Compare Properties"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat" />
 
-    <ProgressBar
-        android:id="@+id/loadProgressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="visible"/>
+<!--        <TextView-->
+<!--            android:id="@+id/compareTitle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="6dp"-->
+<!--            android:text="Compare Properties"-->
+<!--            android:textSize="20sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/compare_toolbar" />-->
 
-    <LinearLayout
-        android:id="@+id/compareLayout"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:layout_constraintTop_toBottomOf="@id/compareTitle" >
+        <TextView
+            android:id="@+id/errorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:text="Please add 2 projects to be compared"
+            android:textSize="15sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/compare_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/loadProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/compare_toolbar"
+            android:layout_marginTop="250dp"/>
 
         <LinearLayout
-            android:id="@+id/leftCompareLayout"
+            android:id="@+id/compareLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="0.5">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/compare_toolbar">
 
-            <ImageView
-                android:id="@+id/leftStaticMapImageView"
-                android:layout_width="450px"
-                android:layout_height="450px"
-                android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/leftTOPTextView"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/leftNameLabelView"
+            <LinearLayout
+                android:id="@+id/leftCompareLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Property Name:" />
+                android:layout_weight="0.5"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/leftNameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="name" />
+                <ImageView
+                    android:id="@+id/leftStaticMapImageView"
+                    android:layout_width="450px"
+                    android:layout_height="450px"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/leftTOPTextView"
+                    tools:srcCompat="@tools:sample/avatars" />
 
-            <TextView
-                android:id="@+id/leftDistrictLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="District:" />
+                <TextView
+                    android:id="@+id/leftNameLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Property Name:" />
 
-            <TextView
-                android:id="@+id/leftDistrictTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="district" />
+                <TextView
+                    android:id="@+id/leftNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="name" />
 
-            <TextView
-                android:id="@+id/leftRoadLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Road:" />
+                <TextView
+                    android:id="@+id/leftDistrictLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="District:" />
 
-            <TextView
-                android:id="@+id/leftRoadTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="road" />
+                <TextView
+                    android:id="@+id/leftDistrictTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="district" />
 
-            <TextView
-                android:id="@+id/leftMRTLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nearest MRT:" />
+                <TextView
+                    android:id="@+id/leftRoadLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Road:" />
 
-            <TextView
-                android:id="@+id/leftMRTTextView"
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:text="mrt" />
+                <TextView
+                    android:id="@+id/leftRoadTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="road" />
 
-            <TextView
-                android:id="@+id/leftTimeLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Walking Time to MRT:" />
+                <TextView
+                    android:id="@+id/leftMRTLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Nearest MRT:" />
 
-            <TextView
-                android:id="@+id/leftTimeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="time" />
+                <TextView
+                    android:id="@+id/leftMRTTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="mrt" />
 
-            <TextView
-                android:id="@+id/leftPriceLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Average Price:" />
+                <TextView
+                    android:id="@+id/leftTimeLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Walking Time to MRT:" />
 
-            <TextView
-                android:id="@+id/leftPriceTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="$price" />
+                <TextView
+                    android:id="@+id/leftTimeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="time" />
 
-            <TextView
-                android:id="@+id/leftRangeLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Floor Range:" />
+                <TextView
+                    android:id="@+id/leftPriceLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Average Price:" />
 
-            <TextView
-                android:id="@+id/leftRangeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="floors" />
+                <TextView
+                    android:id="@+id/leftPriceTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="$price" />
 
-            <TextView
-                android:id="@+id/leftTenureLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tenure(years):" />
+                <TextView
+                    android:id="@+id/leftRangeLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Floor Range:" />
 
-            <TextView
-                android:id="@+id/leftTenureTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="tenure" />
+                <TextView
+                    android:id="@+id/leftRangeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="floors" />
 
-            <TextView
-                android:id="@+id/leftTOPLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TOP:" />
+                <TextView
+                    android:id="@+id/leftTenureLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Tenure(years):" />
 
-            <TextView
-                android:id="@+id/leftTOPTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="topyears" />
+                <TextView
+                    android:id="@+id/leftTenureTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="tenure" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/leftTOPLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="TOP:" />
 
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:background="?android:attr/listDivider" />
+                <TextView
+                    android:id="@+id/leftTOPTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="topyears" />
 
-        <LinearLayout
-            android:id="@+id/blankCompareLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="0.5"
-            android:visibility="gone">
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/addProjectTextView"
-                android:layout_width="match_parent"
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:padding="6dp"
-                android:text="Please add another project to be compared"
-                android:textSize="15sp"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="260dp"/>
+                android:layout_weight="0"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:id="@+id/blankCompareLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/addProjectTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="260dp"
+                    android:padding="6dp"
+                    android:text="Please add another project to be compared"
+                    android:textSize="15sp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rightCompareLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <ImageView
+                    android:id="@+id/rightStaticMapImageView"
+                    android:layout_width="450px"
+                    android:layout_height="450px"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rightTOPTextView"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/rightNameLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="Property Name:" />
+
+                <TextView
+                    android:id="@+id/rightNameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="right"
+                    android:text="name" />
+
+                <TextView
+                    android:id="@+id/rightDistrictLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="District:" />
+
+                <TextView
+                    android:id="@+id/rightDistrictTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="right"
+                    android:text="district" />
+
+                <TextView
+                    android:id="@+id/rightRoadLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="Road:" />
+
+                <TextView
+                    android:id="@+id/rightRoadTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="right"
+                    android:text="road" />
+
+                <TextView
+                    android:id="@+id/rightMRTLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="Nearest MRT:" />
+
+                <TextView
+                    android:id="@+id/rightMRTTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="right"
+                    android:text="mrt" />
+
+                <TextView
+                    android:id="@+id/rightTimeLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="Walking Time to MRT:" />
+
+                <TextView
+                    android:id="@+id/rightTimeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="right"
+                    android:text="time" />
+
+                <TextView
+                    android:id="@+id/rightPriceLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="Average Price:" />
+
+                <TextView
+                    android:id="@+id/rightPriceTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="right"
+                    android:text="$price" />
+
+                <TextView
+                    android:id="@+id/rightRangeLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="Floor Range:" />
+
+                <TextView
+                    android:id="@+id/rightRangeTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="right"
+                    android:text="floors" />
+
+                <TextView
+                    android:id="@+id/rightTenureLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="Tenure(years):" />
+
+                <TextView
+                    android:id="@+id/rightTenureTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="right"
+                    android:text="tenure" />
+
+                <TextView
+                    android:id="@+id/rightTOPLabelView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:text="TOP:" />
+
+                <TextView
+                    android:id="@+id/rightTOPTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="topyears" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/rightCompareLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="0.5"
-            android:visibility="visible">
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Search properties to compare"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/errorTextView" />
+
+        <Button
+            android:id="@+id/smallSearchButton"
+            android:layout_width="192dp"
+            android:layout_height="52dp"
+            android:text="Search"
+            android:visibility="invisible"
+            android:layout_marginTop="400dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="165dp"
+            android:layout_height="57dp"
+            android:text="Clear selected"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/compareLayout"/>
 
 
-            <ImageView
-                android:id="@+id/rightStaticMapImageView"
-                android:layout_width="450px"
-                android:layout_height="450px"
-                android:layout_gravity="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rightTOPTextView"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/rightNameLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Property Name:"
-                android:gravity="right"/>
-
-            <TextView
-                android:id="@+id/rightNameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="right"
-                android:text="name" />
-
-            <TextView
-                android:id="@+id/rightDistrictLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="District:"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightDistrictTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="district"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightRoadLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Road:"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightRoadTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="road"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightMRTLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nearest MRT:"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightMRTTextView"
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:gravity="right"
-                android:text="mrt" />
-
-            <TextView
-                android:id="@+id/rightTimeLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Walking Time to MRT:"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightTimeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="time"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightPriceLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Average Price:"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightPriceTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="$price"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightRangeLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Floor Range:"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightRangeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="floors"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightTenureLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tenure(years):"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightTenureTextView"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:text="tenure"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightTOPLabelView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TOP:"
-                android:gravity="right" />
-
-            <TextView
-                android:id="@+id/rightTOPTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="topyears" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-    android:id="@+id/searchButton"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:text="Search properties to compare"
-    android:visibility="gone"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/smallSearchButton"
-        android:layout_width="192dp"
-        android:layout_height="52dp"
-        android:text="Search"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/clearButton"
-        android:layout_width="165dp"
-        android:layout_height="57dp"
-        android:text="Clear selected"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

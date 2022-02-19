@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +38,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(this);
 
@@ -48,7 +55,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Button logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(this);
 
-        Button testButton = findViewById(R.id.testButton);
+        Button testButton = findViewById(R.id.toCompareButton);
         testButton.setOnClickListener(this);
 
         Button myListButton = findViewById(R.id.myListButton);
@@ -120,7 +127,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         EditText searchText = findViewById(R.id.searchEditText);
         String searchInput = searchText.getText().toString();
 
-        if (id == R.id.testButton) {
+        if (id == R.id.toCompareButton) {
             Intent intent = new Intent(this, ComparisonActivity.class);
             startActivity(intent);
         }

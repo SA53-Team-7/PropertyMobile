@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,6 +25,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.register_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
         Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(this);

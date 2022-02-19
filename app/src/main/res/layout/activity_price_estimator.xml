@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".PriceEstimatorActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/priceestimator_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Property Price Estimator"
+        android:elevation="4dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/projectInfoTextView"
         android:layout_width="0dp"
@@ -17,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/priceestimator_toolbar" />
 
     <Spinner
         android:id="@+id/spinnerRange"

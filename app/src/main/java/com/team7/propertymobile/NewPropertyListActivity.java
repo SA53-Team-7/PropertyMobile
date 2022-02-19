@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +22,12 @@ public class NewPropertyListActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_property_list);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.newpropertypredict_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
         ProgressBar progressBar = findViewById(R.id.newPropertyListProgressBar);
         progressBar.setVisibility(View.VISIBLE);

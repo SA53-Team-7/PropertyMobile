@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,13 @@ public class LoanCalculatorActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_calculator);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.homeloan_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
         Button calculateButton = findViewById(R.id.calculateButton);
         calculateButton.setOnClickListener(this);
     }

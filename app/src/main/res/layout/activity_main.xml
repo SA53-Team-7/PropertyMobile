@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".PropertyListActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/properties_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Search Results"
+        android:elevation="4dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <ProgressBar
         android:id="@+id/propertyProgressBar"
         style="?android:attr/progressBarStyle"
@@ -15,14 +26,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"/>
+        android:visibility="invisible"/>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:divider="#e5e5ff"
         android:dividerHeight="1dp"
-        android:id="@+id/propertyListView">
+        android:id="@+id/propertyListView"
+        app:layout_constraintTop_toBottomOf="@+id/properties_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
 
     </ListView>

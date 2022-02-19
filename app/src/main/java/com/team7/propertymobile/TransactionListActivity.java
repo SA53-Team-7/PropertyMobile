@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +24,12 @@ public class TransactionListActivity extends AppCompatActivity implements Adapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_list);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.transactions_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
@@ -50,6 +58,12 @@ public class TransactionListActivity extends AppCompatActivity implements Adapte
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override

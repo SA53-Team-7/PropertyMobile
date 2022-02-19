@@ -66,15 +66,15 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         ab.setTitle(selectedProperty.getPropertyName());
         ab.setSubtitle(selectedProperty.getStreet());
 
-        TextView projectInfoTextView = findViewById(R.id.projectInfoTextView);
-        projectInfoTextView.setText(selectedProperty.getPropertyName());
+//        TextView projectInfoTextView = findViewById(R.id.projectInfoTextView);
+//        projectInfoTextView.setText(selectedProperty.getPropertyName());
 
         TextView regionInfoTextView = findViewById(R.id.regionInfoTextView);
         String region = segmentToRegion(selectedProperty.getRegion());
         regionInfoTextView.setText(region);
 
-        TextView streetInfoTextView = findViewById(R.id.streetInfoTextView);
-        streetInfoTextView.setText(selectedProperty.getStreet());
+//        TextView streetInfoTextView = findViewById(R.id.streetInfoTextView);
+//        streetInfoTextView.setText(selectedProperty.getStreet());
 
         TextView distanceFromTrain = findViewById(R.id.distanceToTrainTextView);
         ProgressBar distanceProgressBar = findViewById(R.id.distanceLoadProgressBar);
@@ -149,9 +149,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         if (!compare1.equals("-") & !compare2.equals("-")){
             clearAddButton.setVisibility(View.VISIBLE);
-            compareButton.setVisibility(View.GONE);
+            compareButton.setVisibility(View.INVISIBLE);
         }
-      
+
         ToggleButton toggleButton = findViewById(R.id.favouriteToggleButton);
         toggleButton.setOnClickListener(this);
 
@@ -185,6 +185,12 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 //            });
 //        }
 
+        ProgressBar recommendLoadBar = findViewById(R.id.recommendLoadProgressBar);
+        recommendLoadBar.setVisibility(View.VISIBLE);
+
+        ProgressBar districtLoadBar = findViewById(R.id.districtLoadProgressBar);
+        districtLoadBar.setVisibility(View.VISIBLE);
+
         recommendDataService.recommendDistrictProject(selectedProperty.getProjectId(), new RecommendDataService.RecommendDistrictResponseListener() {
             @Override
             public void onError(String message) {
@@ -193,8 +199,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
             @Override
             public void onResponse(Transaction transactions) {
-                progressBar.setVisibility(View.INVISIBLE);
+                districtLoadBar.setVisibility(View.INVISIBLE);
                 TextView districtInfoTextView = findViewById(R.id.districtInfoTextView);
+                districtInfoTextView.setVisibility(View.VISIBLE);
                 transactionDistrict = transactions;
 
                 if (districtInfoTextView != null)
@@ -211,7 +218,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
                         @Override
                         public void onResponse(List<Property> projects) {
-                            progressBar.setVisibility(View.INVISIBLE);
+                            recommendLoadBar.setVisibility(View.INVISIBLE);
                             TextView recommendTextView1 = findViewById(R.id.recommendTextView1);
                             TextView recommendTextView2 = findViewById(R.id.recommendTextView2);
                             propertyList = projects;
@@ -219,11 +226,13 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                             if (recommendTextView1 != null)
                             {
                                 recommendTextView1.setText(propertyList.get(0).getPropertyName());
+                                recommendTextView1.setVisibility(View.VISIBLE);
                             }
 
                             if (recommendTextView2 != null)
                             {
                                 recommendTextView2.setText(propertyList.get(1).getPropertyName());
+                                recommendTextView2.setVisibility(View.VISIBLE);
                             }
 
                         }
@@ -418,7 +427,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         editor.putString("compare2", "-");
         editor.commit();
 
-        clearAddButton.setVisibility(View.GONE);
+        clearAddButton.setVisibility(View.INVISIBLE);
         compareButton.setVisibility(View.VISIBLE);
 
 

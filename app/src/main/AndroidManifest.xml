@@ -15,10 +15,17 @@
         android:usesCleartextTraffic="true">
       <activity
             android:name=".ComparisonActivity"
-            android:exported="false" />
+            android:exported="false"
+          android:screenOrientation="portrait"
+          android:parentActivityName=".SearchActivity" >
+          <meta-data
+              android:name="android.support.PARENT_ACTIVITY"
+              android:value=".SearchActivity"/>
+      </activity>
         <activity
             android:name=".NewPropertyListActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".SearchActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -27,6 +34,7 @@
         <activity
             android:name=".FavouritesListActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".SearchActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -35,6 +43,7 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".LoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -42,13 +51,16 @@
         </activity>>
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".PriceEstimatorActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".LoanCalculatorActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".SearchActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -56,6 +68,7 @@
         </activity>/>
         <activity
             android:name=".SearchActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -65,13 +78,16 @@
         </activity>
         <activity
             android:name=".TransactionListActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".PropertyDetailsActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".PropertyListActivity"
-            android:exported="true"
+            android:screenOrientation="portrait"
+            android:exported="false"
             android:parentActivityName=".SearchActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -52,14 +54,18 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_price_estimator);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.priceestimator_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
 
         name = selectedProperty.getPropertyName();
 
         loadSpinnerData();
-        Toast toast = Toast.makeText(this, "oncreate", Toast.LENGTH_SHORT);
-        toast.show();
 
         predictButton = findViewById(R.id.buttonPredict);
         predictButton.setOnClickListener(this);
@@ -67,6 +73,12 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         estimateView = findViewById(R.id.textViewEstimate);
         estimateView.setVisibility(View.INVISIBLE);
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void loadSpinnerData() {
@@ -78,8 +90,6 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
 
             @Override
             public void onResponse(List<Transaction> transactions) {
-                Toast toast = Toast.makeText(PriceEstimatorActivity.this, "reply", Toast.LENGTH_LONG);
-                toast.show();
                 transactionList = transactions;
 
                 if (transactionList != null) {
@@ -218,7 +228,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         formatter.setRoundingMode(RoundingMode.UP);
         predict = predict.substring(2, predict.length() -2);
         Double price = Double.parseDouble(predict);
-        String display = "$" + formatter.format(price);
+        String display = formatter.format(price);
         return display;
 
     }
