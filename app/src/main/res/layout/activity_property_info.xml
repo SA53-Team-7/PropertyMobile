@@ -187,8 +187,30 @@
         android:text="@string/price_estimator_button"
         app:layout_constraintTop_toBottomOf="@id/transactionButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/compareButton" />
 
+    <Button
+        android:id="@+id/compareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to comparison"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/priceEstimatorButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/clearAndCompareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear and Add to Compare"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/priceEstimatorButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 

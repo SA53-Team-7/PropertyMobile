@@ -48,11 +48,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Button logoutButton = findViewById(R.id.logoutButton);
         logoutButton.setOnClickListener(this);
 
+        Button testButton = findViewById(R.id.testButton);
+        testButton.setOnClickListener(this);
+
         Button myListButton = findViewById(R.id.myListButton);
         myListButton.setOnClickListener(this);
 
         Button newPropertyListButton = findViewById(R.id.toNewPropertyListButton);
         newPropertyListButton.setOnClickListener(this);
+
 
     }
 
@@ -115,6 +119,11 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         EditText searchText = findViewById(R.id.searchEditText);
         String searchInput = searchText.getText().toString();
+
+        if (id == R.id.testButton) {
+            Intent intent = new Intent(this, ComparisonActivity.class);
+            startActivity(intent);
+        }
 
         if (id == R.id.searchButton)
         {
