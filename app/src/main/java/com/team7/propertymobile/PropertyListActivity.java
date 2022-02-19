@@ -24,7 +24,7 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_property_list);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.properties_toolbar);
         setSupportActionBar(myToolbar);
