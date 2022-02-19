@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     continueToApp();
                 }
             }
-        },20000);
+        },30000);
 
     }
     private void retryConnection() {
