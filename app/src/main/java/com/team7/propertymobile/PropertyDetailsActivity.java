@@ -139,11 +139,20 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    saveFavourites(selectedProperty);
+                sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+                int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+                if (selectedUserId == -1) {
+                    Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }
                 else {
-                    saveFavourites(selectedProperty);
+                    if (b) {
+                        saveFavourites(selectedProperty);
+                    }
+                    else {
+                        saveFavourites(selectedProperty);
+                    }
                 }
             }
         });
@@ -183,29 +192,35 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
-        progressBar.setVisibility(View.VISIBLE);
 
-        favouritesDataService.isSaved(selectedUserAndProperty, new FavouritesDataService.SaveResponseListener() {
-            @Override
-            public void onError(String message) {
+        if (selectedUserId == -1) {
+            fave.setChecked(false);
+        }
+        else {
+            ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
+            progressBar.setVisibility(View.VISIBLE);
 
-            }
+            favouritesDataService.isSaved(selectedUserAndProperty, new FavouritesDataService.SaveResponseListener() {
+                @Override
+                public void onError(String message) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
 
-            @Override
-            public void onResponse(boolean isSaved) {
-                progressBar.setVisibility(View.INVISIBLE);
-                if (isSaved)
-                {
+                @Override
+                public void onResponse(boolean isSaved) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    if (isSaved)
+                    {
 //                    unsave.setVisibility(View.VISIBLE);
-                    fave.setChecked(true);
-                }
-                else {
+                        fave.setChecked(true);
+                    }
+                    else {
 //                    save.setVisibility(View.VISIBLE);
-                    fave.setChecked(false);
+                        fave.setChecked(false);
+                    }
                 }
-            }
-        });
+            });
+        }
 
     }
 
@@ -312,7 +327,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         return region;
     }
 
-    private void saveFavourites (Property selectedProperty) {
+    public void saveFavourites (Property selectedProperty) {
         ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
