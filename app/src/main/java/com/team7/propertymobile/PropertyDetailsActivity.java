@@ -1,24 +1,39 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener{
+public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private SharedPreferences sharedPreferences;
+    public static final String USER_CREDENTIALS = "user_credentials";
+    public static final String USER_KEY = "user_key";
+    public static final String NAME_KEY = "name_key";
+    public static final String ID_KEY = "id_key";
 
     MapDataService mapDataService = new MapDataService(this);
+    FavouritesDataService favouritesDataService = new FavouritesDataService(this);
 
     Property selectedProperty;
 
@@ -36,17 +51,13 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
 
-//        Location pasirRisMRT = new Location("Pasir Ris MRT", 1.37304331635804, 103.949284527763);
-//        Location jurongEastMRT = new Location("Jurong East MRT", 1.33315281585758, 103.742286332403);
-//        Location woodlandsMRT = new Location("Woodlands MRT", 1.43681962961519, 103.786066799253);
-//        Location marinaBayMRT = new Location("Marina Bay MRT", 1.276410298755, 103.854595522263);
-//        Location orchardMRT = new Location("Orchard MRT", 1.30398013681715, 103.832245244375);
-//
-//        locationList.add(pasirRisMRT);
-//        locationList.add(jurongEastMRT);
-//        locationList.add(woodlandsMRT);
-//        locationList.add(marinaBayMRT);
-//        locationList.add(orchardMRT);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.propertyDetails_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle(selectedProperty.getPropertyName());
+        ab.setSubtitle(selectedProperty.getStreet());
 
         TextView projectInfoTextView = findViewById(R.id.projectInfoTextView);
         projectInfoTextView.setText(selectedProperty.getPropertyName());
@@ -78,7 +89,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 }
                 else
                 {
-
                     DecimalFormat df = new DecimalFormat("0.00");
                     df.setRoundingMode(RoundingMode.UP);
 
@@ -87,10 +97,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
                     double time = nearestDistance / 5 * 60;
 
-                    String mrtDistance = "Nearest Train Station\n" + nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk" ;
+                    String mrtDistance = nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk" ;
                     distanceFromTrain.setText(mrtDistance);
                     distanceFromTrain.setVisibility(View.VISIBLE);
-
                 }
             }
         });
@@ -135,7 +144,113 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             clearAddButton.setVisibility(View.VISIBLE);
             compareButton.setVisibility(View.GONE);
         }
+      
+        ToggleButton toggleButton = findViewById(R.id.favouriteToggleButton);
+        toggleButton.setOnClickListener(this);
+
+        sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+        int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+//        if (selectedUserId == -1) {
+//            toggleButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
+//        }
+//        else {
+//            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+////                    sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+////                    int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+//
+//                        if (b) {
+//                            saveFavourites(selectedProperty);
+//                        }
+//                        else {
+//                            saveFavourites(selectedProperty);
+//                        }
+//
+//                }
+//            });
+//        }
+
+
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+
+        ToggleButton fave = findViewById(R.id.favouriteToggleButton);
+
+        int selectedPropertyId = selectedProperty.getProjectId();
+        int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+        JSONObject jsonSelectedProperty = new JSONObject();
+        try {
+            jsonSelectedProperty.put("projectId", selectedPropertyId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jsonSelecetedUser = new JSONObject();
+        try {
+            jsonSelecetedUser.put("userId", selectedUserId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject selectedUserAndProperty = new JSONObject();
+        try {
+            selectedUserAndProperty.put("project", jsonSelectedProperty);
+            selectedUserAndProperty.put("user", jsonSelecetedUser);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if (selectedUserId == -1) {
+            fave.setChecked(false);
+        }
+        else {
+            ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
+            progressBar.setVisibility(View.VISIBLE);
+
+            favouritesDataService.isSaved(selectedUserAndProperty, new FavouritesDataService.SaveResponseListener() {
+                @Override
+                public void onError(String message) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onResponse(boolean isSaved) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    if (isSaved)
+                    {
+//                    unsave.setVisibility(View.VISIBLE);
+                        fave.setChecked(true);
+                    }
+                    else {
+//                    save.setVisibility(View.VISIBLE);
+                        fave.setChecked(false);
+                    }
+                }
+            });
+        }
+
+    }
+
 
     @Override
     public void onClick(View v)
@@ -209,6 +324,28 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         clearAddButton.setVisibility(View.GONE);
         compareButton.setVisibility(View.VISIBLE);
+      
+        if (id == R.id.favouriteToggleButton) {
+            sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+            int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+            ToggleButton fave = findViewById(R.id.favouriteToggleButton);
+
+            if (selectedUserId == -1) {
+                Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+            else {
+                saveFavourites(selectedProperty);
+                if (fave.isChecked()) {
+                    fave.setChecked(true);
+                }
+                else {
+                    fave.setChecked(false);
+                }
+            }
+
+        }
     }
 
 
@@ -217,16 +354,62 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         switch (segment) {
             case "CCR":
-                region = "Core Central Region (CCR)";
+                region = "Core Central Region";
                 break;
             case "RCR":
-                region = "Rest of Central Region (RCR)";
+                region = "Rest of Central Region";
                 break;
             case "OCR":
-                region = "Outside Central Region (OCR)";
+                region = "Outside Central Region";
                 break;
         }
 
         return region;
+    }
+
+    public void saveFavourites (Property selectedProperty) {
+        ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+        ToggleButton fave = findViewById(R.id.favouriteToggleButton);
+
+
+        int selectedPropertyId = selectedProperty.getProjectId();
+        int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+        JSONObject jsonSelectedProperty = new JSONObject();
+        try {
+            jsonSelectedProperty.put("projectId", selectedPropertyId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject jsonSelecetedUser = new JSONObject();
+        try {
+            jsonSelecetedUser.put("userId", selectedUserId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject selectedUserAndProperty = new JSONObject();
+        try {
+            selectedUserAndProperty.put("project", jsonSelectedProperty);
+            selectedUserAndProperty.put("user", jsonSelecetedUser);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        favouritesDataService.save(selectedUserAndProperty, new FavouritesDataService.SaveResponseListener() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(boolean isSaved) {
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }

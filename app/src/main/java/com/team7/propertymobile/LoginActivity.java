@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -26,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public static final String PASSWORD_KEY = "hello";
     public static final String TOKEN_KEY = "token_key";
     public static final String NAME_KEY = "name_key";
+    public static final String ID_KEY = "id_key";
     public static final String IS_LOGGEDIN = "is_loggedin";
     private String email;
     private String password;
@@ -92,18 +92,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     e.printStackTrace();
                 }
 
-                loginRegisterDataService.getName(user, new LoginRegisterDataService.GetNameResponseListener() {
-                    @Override
-                    public void onError(String message) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String name) {
-                        editor.putString(NAME_KEY, name);
-                        editor.apply();
-                    }
-                });
+//                loginRegisterDataService.getName(user, new LoginRegisterDataService.GetNameResponseListener() {
+//                    @Override
+//                    public void onError(String message) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String name) {
+//                        editor.putString(NAME_KEY, name);
+//                        editor.apply();
+//                    }
+//                });
 
                 loginRegisterDataService.login(user, new LoginRegisterDataService.AuthResponseListener() {
                     @Override
@@ -112,11 +112,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                     @Override
-                    public void onResponse(boolean success) {
+                    public void onResponse(boolean success, int id, String name) {
                         progressBar.setVisibility(View.INVISIBLE);
 
                         if (success) {
                             editor.putString(USER_KEY, loginEmail.getText().toString());
+                            editor.putInt(ID_KEY, id);
+                            editor.putString(NAME_KEY, name);
                             editor.putBoolean(IS_LOGGEDIN, true);
                             editor.apply();
                             loginSuccessTextView.setVisibility(View.VISIBLE);

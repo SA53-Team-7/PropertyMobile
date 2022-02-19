@@ -13,8 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PropertyMobile"
         android:usesCleartextTraffic="true">
-        <activity
+      <activity
             android:name=".ComparisonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewPropertyListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavouritesListActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"

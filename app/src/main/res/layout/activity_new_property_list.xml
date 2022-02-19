@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TransactionListActivity">
+    tools:context=".NewPropertyListActivity">
 
     <ProgressBar
-        android:id="@+id/transactionProgressBar"
+        android:id="@+id/newPropertyListProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:visibility="gone"/>
 
     <ListView
-        android:id="@+id/transactionListView"
+        android:id="@+id/newPropertyListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#e5e5ff"
@@ -27,4 +27,5 @@
         tools:layout_editor_absoluteY="120dp">
 
     </ListView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

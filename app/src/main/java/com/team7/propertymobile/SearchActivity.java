@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -23,6 +23,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String USER_KEY = "user_key";
     public static final String NAME_KEY = "name_key";
+//    public static final String ID_KEY = "id_key";
     private String token;
 
     List<Property> propertyList;
@@ -50,6 +51,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Button testButton = findViewById(R.id.testButton);
         testButton.setOnClickListener(this);
 
+        Button myListButton = findViewById(R.id.myListButton);
+        myListButton.setOnClickListener(this);
+
+        Button newPropertyListButton = findViewById(R.id.toNewPropertyListButton);
+        newPropertyListButton.setOnClickListener(this);
+
+
     }
 
     @Override
@@ -59,6 +67,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
         Button loginButton = findViewById(R.id.toLoginButton);
         Button logoutButton = findViewById(R.id.logoutButton);
+        Button myListButton = findViewById(R.id.myListButton);
 //        ProgressBar progressBar = findViewById(R.id.nameLoadProgressBar);
         TextView welcomeBack = findViewById(R.id.welcomeBackTextView);
 
@@ -78,11 +87,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 //            progressBar.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.INVISIBLE);
             logoutButton.setVisibility(View.VISIBLE);
-
+            myListButton.setVisibility(View.VISIBLE);
             String name = sharedPreferences.getString(NAME_KEY, null);
+//            int id = sharedPreferences.getInt(ID_KEY, -1);
 
             welcomeBack.setText("Welcome back, \n" + name + "!");
             welcomeBack.setVisibility(View.VISIBLE);
+
+
 
 //            loginRegisterDataService.getName(user, new LoginRegisterDataService.GetNameResponseListener() {
 //                @Override
@@ -115,9 +127,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         if (id == R.id.searchButton)
         {
-            Intent intent = new Intent(this, PropertyListActivity.class);
-            intent.putExtra("Search", searchInput);
-            startActivity(intent);
+            if (TextUtils.isEmpty(searchText.getText().toString())) {
+                searchText.setError("Please enter a search query.");
+            }
+            else {
+                Intent intent = new Intent(this, PropertyListActivity.class);
+                intent.putExtra("Search", searchInput);
+                startActivity(intent);
+            }
+
         }
 
         if (id == R.id.toCalculatorButton)
@@ -147,6 +165,21 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
             Button loginButton = findViewById(R.id.toLoginButton);
             loginButton.setVisibility(View.VISIBLE);
+
+            Button myListButton = findViewById(R.id.myListButton);
+            myListButton.setVisibility(View.INVISIBLE);
+        }
+
+        if (id == R.id.myListButton) {
+            Intent intent = new Intent(this, FavouritesListActivity.class);
+
+            startActivity(intent);
+        }
+
+        if (id == R.id.toNewPropertyListButton) {
+            Intent intent = new Intent(this, NewPropertyListActivity.class);
+
+            startActivity(intent);
         }
     }
 }
