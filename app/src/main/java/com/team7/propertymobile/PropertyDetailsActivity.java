@@ -1,6 +1,8 @@
 package com.team7.propertymobile;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +43,14 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.propertyDetails_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle(selectedProperty.getPropertyName());
+        ab.setSubtitle(selectedProperty.getStreet());
 
         TextView projectInfoTextView = findViewById(R.id.projectInfoTextView);
         projectInfoTextView.setText(selectedProperty.getPropertyName());
@@ -116,38 +126,45 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         priceEstimator.setOnClickListener(this);
 
         ToggleButton toggleButton = findViewById(R.id.favouriteToggleButton);
+        toggleButton.setOnClickListener(this);
 
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
         int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
 
-        if (selectedUserId == -1) {
-            toggleButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
-        else {
-            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                    sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-//                    int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+//        if (selectedUserId == -1) {
+//            toggleButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                }
+//            });
+//        }
+//        else {
+//            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                @Override
+//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+////                    sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+////                    int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+//
+//                        if (b) {
+//                            saveFavourites(selectedProperty);
+//                        }
+//                        else {
+//                            saveFavourites(selectedProperty);
+//                        }
+//
+//                }
+//            });
+//        }
 
-                        if (b) {
-                            saveFavourites(selectedProperty);
-                        }
-                        else {
-                            saveFavourites(selectedProperty);
-                        }
 
-                }
-            });
-        }
+    }
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override
@@ -234,6 +251,28 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             intent.putExtra("Property", selectedProperty);
 
             startActivity(intent);
+        }
+
+        if (id == R.id.favouriteToggleButton) {
+            sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+            int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+            ToggleButton fave = findViewById(R.id.favouriteToggleButton);
+
+            if (selectedUserId == -1) {
+                Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+            else {
+                saveFavourites(selectedProperty);
+                if (fave.isChecked()) {
+                    fave.setChecked(true);
+                }
+                else {
+                    fave.setChecked(false);
+                }
+            }
+
         }
     }
 
