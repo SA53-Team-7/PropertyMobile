@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -56,6 +57,11 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onResponse(List<Property> projects) {
                 progressBar.setVisibility(View.GONE);
+
+                if (projects.size() == 0) {
+                    TextView textView = findViewById(R.id.noPropertyFound);
+                    textView.setVisibility(View.VISIBLE);
+                }
 
                 ListView propertyListView = findViewById(R.id.propertyListView);
                 propertyList = projects;

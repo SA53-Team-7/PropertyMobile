@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -74,6 +75,12 @@ public class FavouritesListActivity extends AppCompatActivity implements Adapter
             @Override
             public void onResponse(List<Property> projects) {
                 progressBar.setVisibility(View.INVISIBLE);
+
+                if (projects.size() == 0) {
+                    TextView textView = findViewById(R.id.noFavouritesFound);
+                    textView.setVisibility(View.VISIBLE);
+                }
+
                 ListView favouritesListView = findViewById(R.id.favouritesListView);
                 propertyList = projects;
 
