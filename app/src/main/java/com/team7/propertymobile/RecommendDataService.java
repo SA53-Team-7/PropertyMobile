@@ -19,7 +19,7 @@ public class RecommendDataService {
 
     Context context;
     public static final String QUERY_PROJECT_Recommendation = "http://10.0.2.2:8080/api/mobile/projects/recommend/";
-    public static final String QUERY_PROJECT_RecommendationDistrict = "http://10.0.2.2:8080/api/mobile/transactions/district/";
+    public static final String QUERY_PROJECT_RecommendationDistrict = "http://10.0.2.2:8080/api/mobile/transactions/top/";
 
 
     public RecommendDataService(Context context) {
@@ -94,10 +94,17 @@ public class RecommendDataService {
                     Transaction transaction = new Transaction();
                     for (int i = 0; i < response.length(); i++)
                     {
-                        JSONObject jsonProperty = response.getJSONObject(i);
-
-                        transaction.setTransactionId(jsonProperty.getInt("txnId"));
-                        transaction.setDistrict(jsonProperty.getString("District"));
+                        JSONObject jsonTransaction = response.getJSONObject(i);
+                        transaction.setTransactionId(jsonTransaction.getInt("txnId"));
+                        transaction.setContractDate(jsonTransaction.getString("contractDate"));
+                        transaction.setFloorArea(jsonTransaction.getDouble("floorArea"));
+                        transaction.setPrice(jsonTransaction.getDouble("price"));
+                        transaction.setPropertyType(jsonTransaction.getString("propType"));
+                        transaction.setAreaType(jsonTransaction.getString("areaType"));
+                        transaction.setTenure(jsonTransaction.getString("tenure"));
+                        transaction.setFloorRange(jsonTransaction.getString("floorRange"));
+                        transaction.setDistrict(jsonTransaction.getString("district"));
+                        transaction.setUnitsSold(jsonTransaction.getInt("noOfUnits"));
 
                     }
 

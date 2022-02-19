@@ -36,7 +36,10 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
     Property selectedProperty;
 
+    Transaction transactionDistrict;
+
     private String district;
+
 
     List<Property> propertyList;
 
@@ -166,7 +169,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             @Override
             public void onResponse(Transaction transactions) {
 
-                district = transactions.getDistrict();
+                transactionDistrict=transactions;
+                district = transactionDistrict.getDistrict();
+
 
             }
         });
