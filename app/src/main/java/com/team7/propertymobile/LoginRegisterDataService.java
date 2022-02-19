@@ -26,7 +26,7 @@ public class LoginRegisterDataService {
     public interface AuthResponseListener {
         void onError(String message);
 
-        void onResponse(boolean success, int id);
+        void onResponse(boolean success, int id, String name);
     }
 
     public void login (JSONObject user, AuthResponseListener authResponseListener) {
@@ -35,14 +35,14 @@ public class LoginRegisterDataService {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    int success = response.getInt("login");
+                    int success = Integer.valueOf(response.getInt("login"));
 
                     switch (success) {
                         case 0:
-                            authResponseListener.onResponse(false, -1);
+                            authResponseListener.onResponse(false, -1, null);
                             break;
                         case 1:
-                            authResponseListener.onResponse(true, response.getInt("id"));
+                            authResponseListener.onResponse(true, Integer.valueOf(response.getInt("id")), response.getString("name"));
                             break;
                     }
                 } catch (JSONException e) {
@@ -114,33 +114,33 @@ public class LoginRegisterDataService {
         void onResponse(String name);
     }
 
-    public void getName (JSONObject user, GetNameResponseListener getNameResponseListener) {
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, NAME_CALL, user, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    String name = response.getString("name");
-                    getNameResponseListener.onResponse(name);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10000,
-                2,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        ));
-
-        DataRequestSingleton.getInstance(context).addToRequestQueue(request);
-    }
+//    public void getName (JSONObject user, GetNameResponseListener getNameResponseListener) {
+//
+//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, NAME_CALL, user, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    String name = response.getString("name");
+//                    getNameResponseListener.onResponse(name);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
+//
+//        request.setRetryPolicy(new DefaultRetryPolicy(
+//                10000,
+//                2,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+//        ));
+//
+//        DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+//    }
 
 
 }

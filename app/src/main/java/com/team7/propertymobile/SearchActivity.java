@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -50,6 +50,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         Button myListButton = findViewById(R.id.myListButton);
         myListButton.setOnClickListener(this);
+
+        Button newPropertyListButton = findViewById(R.id.toNewPropertyListButton);
+        newPropertyListButton.setOnClickListener(this);
 
     }
 
@@ -115,9 +118,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         if (id == R.id.searchButton)
         {
-            Intent intent = new Intent(this, PropertyListActivity.class);
-            intent.putExtra("Search", searchInput);
-            startActivity(intent);
+            if (TextUtils.isEmpty(searchText.getText().toString())) {
+                searchText.setError("Please enter a search query.");
+            }
+            else {
+                Intent intent = new Intent(this, PropertyListActivity.class);
+                intent.putExtra("Search", searchInput);
+                startActivity(intent);
+            }
+
         }
 
         if (id == R.id.toCalculatorButton)
@@ -154,6 +163,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         if (id == R.id.myListButton) {
             Intent intent = new Intent(this, FavouritesListActivity.class);
+
+            startActivity(intent);
+        }
+
+        if (id == R.id.toNewPropertyListButton) {
+            Intent intent = new Intent(this, NewPropertyListActivity.class);
 
             startActivity(intent);
         }

@@ -92,18 +92,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     e.printStackTrace();
                 }
 
-                loginRegisterDataService.getName(user, new LoginRegisterDataService.GetNameResponseListener() {
-                    @Override
-                    public void onError(String message) {
-
-                    }
-
-                    @Override
-                    public void onResponse(String name) {
-                        editor.putString(NAME_KEY, name);
-                        editor.apply();
-                    }
-                });
+//                loginRegisterDataService.getName(user, new LoginRegisterDataService.GetNameResponseListener() {
+//                    @Override
+//                    public void onError(String message) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(String name) {
+//                        editor.putString(NAME_KEY, name);
+//                        editor.apply();
+//                    }
+//                });
 
                 loginRegisterDataService.login(user, new LoginRegisterDataService.AuthResponseListener() {
                     @Override
@@ -112,12 +112,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                     @Override
-                    public void onResponse(boolean success, int id) {
+                    public void onResponse(boolean success, int id, String name) {
                         progressBar.setVisibility(View.INVISIBLE);
 
                         if (success) {
                             editor.putString(USER_KEY, loginEmail.getText().toString());
                             editor.putInt(ID_KEY, id);
+                            editor.putString(NAME_KEY, name);
                             editor.putBoolean(IS_LOGGEDIN, true);
                             editor.apply();
                             loginSuccessTextView.setVisibility(View.VISIBLE);
