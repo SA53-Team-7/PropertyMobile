@@ -49,15 +49,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     continueToApp();
                 }
             }
-        },15000);
+        },20000);
 
     }
     private void retryConnection() {
+        error.setVisibility(View.INVISIBLE);
+        retryButton.setVisibility(View.INVISIBLE);
         wakePrediction();
         wakeSpringWeb();
         if (flaskFlag == true & springFlag == true) {
             continueToApp();
         }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                error.setVisibility(View.VISIBLE);
+                retryButton.setVisibility(View.VISIBLE);
+            }
+        },10000);
     }
 
     private void continueToApp() {
