@@ -26,9 +26,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // set the toolbar as the app bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.register_toolbar);
         setSupportActionBar(myToolbar);
 
+        // can click the icon (at the left of the activity title) to go back to previous page
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
@@ -53,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             EditText name = findViewById(R.id.nameTextPersonName);
             EditText password = findViewById(R.id.registerTextPassword);
 
+            // display registration error message and use REST API to save user info after registration
             if (TextUtils.isEmpty(email.getText().toString()) && TextUtils.isEmpty(password.getText().toString()) && TextUtils.isEmpty(name.getText().toString())){
                 email.setError("Please enter your email address.");
                 password.setError("Please enter your password.");
@@ -67,12 +70,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 registerButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
             }
-//            else if (!patternMatches(email.getText().toString(), "^(.+)@(\\S+)$")) {
-//                email.setError("Please enter a valid email address.");
-//
-//                registerButton.setVisibility(View.VISIBLE);
-//                progressBar.setVisibility(View.INVISIBLE);
-//            }
             else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                 email.setError("Please enter a valid email address.");
 
@@ -136,13 +133,4 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         }
     }
-
-
-//    public static boolean patternMatches(String emailAddress, String regexPattern) {
-//        return Pattern.compile(regexPattern)
-//                .matcher(emailAddress)
-//                .matches();
-//    }
-
-
 }

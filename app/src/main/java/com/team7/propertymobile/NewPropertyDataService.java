@@ -46,9 +46,6 @@ public class NewPropertyDataService {
                         newProperty.setNewProjectId(jsonProperty.getInt("id"));
                         newProperty.setPropertyName(jsonProperty.getString("projectName"));
 
-//                        String date = jsonProperty.getString("landTxnDate").replace('/', '-');
-//                        String localDate = LocalDate.parse(date);
-//                        newProperty.setDate(localDate);
                         newProperty.setDate(jsonProperty.getString("landTxnDate"));
 
                         newProperty.setLandPrice(jsonProperty.getDouble("landTxnPrice"));

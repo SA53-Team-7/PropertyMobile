@@ -25,12 +25,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String USER_KEY = "user_key";
     public static final String NAME_KEY = "name_key";
-//    public static final String ID_KEY = "id_key";
+
     private String token;
-
-    List<Property> propertyList;
-
-    LoginRegisterDataService loginRegisterDataService = new LoginRegisterDataService(this);
 
 
     @Override
@@ -75,9 +71,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         Button loginButton = findViewById(R.id.toLoginButton);
         Button logoutButton = findViewById(R.id.logoutButton);
         Button myListButton = findViewById(R.id.myListButton);
-//        ProgressBar progressBar = findViewById(R.id.nameLoadProgressBar);
         TextView welcomeBack = findViewById(R.id.welcomeBackTextView);
 
+        // set the token for displaying login/logout, my shortlist, and user's name
         token = sharedPreferences.getString(USER_KEY, null);
         JSONObject user = new JSONObject();
         try {
@@ -91,31 +87,13 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             logoutButton.setVisibility(View.INVISIBLE);
         }
         else {
-//            progressBar.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.INVISIBLE);
             logoutButton.setVisibility(View.VISIBLE);
             myListButton.setVisibility(View.VISIBLE);
             String name = sharedPreferences.getString(NAME_KEY, null);
-//            int id = sharedPreferences.getInt(ID_KEY, -1);
 
             welcomeBack.setText("Welcome back, \n" + name + "!");
             welcomeBack.setVisibility(View.VISIBLE);
-
-
-
-//            loginRegisterDataService.getName(user, new LoginRegisterDataService.GetNameResponseListener() {
-//                @Override
-//                public void onError(String message) {
-//
-//                }
-//
-//                @Override
-//                public void onResponse(String name) {
-//                    progressBar.setVisibility(View.INVISIBLE);
-//                    welcomeBack.setText("Welcome back, \n" + name + "!");
-//                    welcomeBack.setVisibility(View.VISIBLE);
-//                }
-//            });
 
         }
     }

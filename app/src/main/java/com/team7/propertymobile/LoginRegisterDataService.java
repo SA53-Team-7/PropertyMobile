@@ -16,7 +16,6 @@ public class LoginRegisterDataService {
 
     public static final String LOGIN_CALL = "http://10.0.2.2:8080/api/mobile/auth/login";
     public static final String REGISTER_CALL = "http://10.0.2.2:8080/api/mobile/auth/register";
-    public static final String NAME_CALL = "http://10.0.2.2:8080/api/mobile/auth/name";
 
     public LoginRegisterDataService(Context context) {
         this.context = context;
@@ -113,34 +112,4 @@ public class LoginRegisterDataService {
 
         void onResponse(String name);
     }
-
-//    public void getName (JSONObject user, GetNameResponseListener getNameResponseListener) {
-//
-//        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, NAME_CALL, user, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    String name = response.getString("name");
-//                    getNameResponseListener.onResponse(name);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//
-//        request.setRetryPolicy(new DefaultRetryPolicy(
-//                10000,
-//                2,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-//        ));
-//
-//        DataRequestSingleton.getInstance(context).addToRequestQueue(request);
-//    }
-
-
 }

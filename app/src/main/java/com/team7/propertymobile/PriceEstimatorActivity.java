@@ -157,6 +157,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         rangeSpinner.setAdapter(adapterRange);
     }
 
+    // take in parameters for resale property model
     private JSONArray createRequestPackage() throws JSONException {
 
         JSONArray request = new JSONArray();
@@ -233,6 +234,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
 
     }
 
+    // use REST API to call resale property model then predict the estimated price of the property
     private void getPrediction() throws JSONException {
 
         JSONArray data = createRequestPackage();

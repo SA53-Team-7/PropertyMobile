@@ -22,8 +22,6 @@ public class TransactionDataService {
 
     public static final String QUERY_FOR_TRANSACTIONS_BY_ID = "http://10.0.2.2:8080/api/mobile/transactions/";
 
-    public static final String QUERY_FOR_TRANSACTIONS_BY_ID_TEST = "http://10.0.2.2:8080/api/mobile/transactions/1";
-
     public TransactionDataService(Context context) {
         this.context = context;
     }

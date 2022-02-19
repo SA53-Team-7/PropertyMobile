@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -30,12 +31,15 @@ public class FavouritesListActivity extends AppCompatActivity implements Adapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourites_list);
 
+        // set the toolbar as the app bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.favourites_toolbar);
         setSupportActionBar(myToolbar);
 
+        // can click the icon (at the left of the activity title) to go back to previous page
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
+        // use shared preferences to store and pass user id
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
         userId = sharedPreferences.getInt(ID_KEY, -1);
 
@@ -61,6 +65,7 @@ public class FavouritesListActivity extends AppCompatActivity implements Adapter
         startActivity(intent);
     }
 
+    // use REST API to call and set shortlist
     private void refreshFavouritesList() {
         ProgressBar progressBar = findViewById(R.id.favouritesListProgressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -74,6 +79,12 @@ public class FavouritesListActivity extends AppCompatActivity implements Adapter
             @Override
             public void onResponse(List<Property> projects) {
                 progressBar.setVisibility(View.INVISIBLE);
+
+                if (projects.size() == 0) {
+                    TextView textView = findViewById(R.id.noFavouritesFound);
+                    textView.setVisibility(View.VISIBLE);
+                }
+
                 ListView favouritesListView = findViewById(R.id.favouritesListView);
                 propertyList = projects;
 

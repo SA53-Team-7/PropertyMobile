@@ -20,9 +20,11 @@ public class LoanCalculatorActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loan_calculator);
 
+        // set the toolbar as the app bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.homeloan_toolbar);
         setSupportActionBar(myToolbar);
 
+        // can click the icon (at the left of the activity title) to go back to previous page
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
@@ -40,6 +42,7 @@ public class LoanCalculatorActivity extends AppCompatActivity implements View.On
             EditText loanLengthInput = findViewById(R.id.loanLengthInput);
             EditText interestRateInput = findViewById(R.id.interestRateInput);
 
+            // calculate home loan
             double price = Double.valueOf(priceInput.getText().toString());
             double deposit = Double.valueOf(depositInput.getText().toString());
 

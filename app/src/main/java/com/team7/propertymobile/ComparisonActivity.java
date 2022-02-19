@@ -75,14 +75,17 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comparison);
 
+        // set the toolbar as the app bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.compare_toolbar);
         setSupportActionBar(myToolbar);
 
+        // can click the icon (at the left of the activity title) to go back to previous page
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
         setViews();
 
+        // set property info from PropertyDetailsActivity to this activity
         SharedPreferences pref = getSharedPreferences("compare", MODE_PRIVATE);
         String compare1 = pref.getString("compare1", "-");
         String compare2 = pref.getString("compare2", "-");
@@ -165,6 +168,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         clearButton.setVisibility(View.VISIBLE);
     }
 
+    // use REST API to call and set property info
     private void loadProjectData(String pId, Integer side) {
         propertyDataService.getSingleProject(pId, new PropertyDataService.SingleProjectResponseListener() {
             @Override
@@ -197,6 +201,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+    // use REST API to call and set MRT info
     private void loadMRTData(Property selectedProperty, Integer side) {
         mapDataService.distanceListLocations(selectedProperty, new MapDataService.DistanceListLocationsResponseListener() {
             @Override
@@ -240,6 +245,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+    // use REST API to call and set transaction info
     private void loadTransactionsData(Property selectedProperty, Integer side){
         transactionDataService.callTransactionsById(selectedProperty.getProjectId(), new TransactionDataService.TransactionResponseListener() {
             @Override
@@ -318,6 +324,8 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
             }
         });
     }
+
+    // use REST API to call and set property's map
     private void loadMiniMaps(Property selectedProperty, Integer side) {
         mapDataService.callStaticMapAfterConversion(selectedProperty.getxCoordinates(), selectedProperty.getyCoordinates(), new MapDataService.CallStaticMapAfterConversionResponseListener() {
             @Override

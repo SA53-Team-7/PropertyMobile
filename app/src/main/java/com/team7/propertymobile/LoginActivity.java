@@ -41,12 +41,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // set the toolbar as the app bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.login_toolbar);
         setSupportActionBar(myToolbar);
 
+        // can click the icon (at the left of the activity title) to go back to previous page
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-
 
         Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(this);
@@ -76,9 +77,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             EditText loginEmail = findViewById(R.id.loginTextEmailAddress);
             EditText loginPassword = findViewById(R.id.loginTextPassword);
 
+
             sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
+            // display login error message and use REST API to call and authenticate user info
             if (TextUtils.isEmpty(loginEmail.getText().toString()) && TextUtils.isEmpty(loginPassword.getText().toString())){
                 loginEmail.setError("Please enter your email address.");
                 loginPassword.setError("Please enter your password.");
@@ -107,19 +110,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     e.printStackTrace();
                 }
 
-//                loginRegisterDataService.getName(user, new LoginRegisterDataService.GetNameResponseListener() {
-//                    @Override
-//                    public void onError(String message) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onResponse(String name) {
-//                        editor.putString(NAME_KEY, name);
-//                        editor.apply();
-//                    }
-//                });
-
                 loginRegisterDataService.login(user, new LoginRegisterDataService.AuthResponseListener() {
                     @Override
                     public void onError(String message) {
@@ -147,22 +137,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     }
                 });
-
-
-
-//                if (TextUtils.equals(loginEmail.getText().toString(), EMAIL_KEY) && TextUtils.equals(loginPassword.getText().toString(), PASSWORD_KEY)) {
-//                    editor.putString(TOKEN_KEY, "abcde12345"@);
-//                    editor.putBoolean(IS_LOGGEDIN, true);
-//                    editor.apply();
-//
-//                    finish();
-//                }
-//                else {
-//                    Toast toast = Toast.makeText(this, "Wrong Email Address or Password. Please try again", Toast.LENGTH_LONG);
-//                    toast.show();
-//                }
             }
-
         }
 
         if (id == R.id.toRegisterTextView) {

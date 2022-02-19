@@ -16,9 +16,6 @@ public class PropertyAdapter extends ArrayAdapter<Property> {
 
     protected List<Property> propertyList;
 
-//    protected String[] projectName;
-
-
     public PropertyAdapter(Context context, List<Property> propertyList)
     {
         super(context, R.layout.item_property);

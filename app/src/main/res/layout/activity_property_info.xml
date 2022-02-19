@@ -23,18 +23,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/ThemeOverlay.AppCompat" />
 
-        <!--    <TextView-->
-        <!--        android:id="@+id/projectInfoTextView"-->
-        <!--        android:layout_width="0dp"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:textAlignment="center"-->
-        <!--        android:textSize="36sp"-->
-        <!--        android:textStyle="bold"-->
-        <!--        android:text="TextView"-->
-        <!--        app:layout_constraintEnd_toStartOf="@id/favouriteToggleButton"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toBottomOf="@+id/propertyDetails_toolbar" />-->
-
 
         <ProgressBar
             android:id="@+id/isSavedLoadProgressBar"
@@ -133,30 +121,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/regionInfoTextView"
             app:layout_constraintTop_toBottomOf="@+id/regionTitleTextView" />
-
-        <!--    <TextView-->
-        <!--        android:id="@+id/streetTitleTextView"-->
-        <!--        android:layout_width="0dp"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:textSize="22sp"-->
-        <!--        android:textStyle="bold"-->
-        <!--        android:textAlignment="center"-->
-        <!--        android:layout_marginTop="20dp"-->
-        <!--        android:text="Location"-->
-        <!--        app:layout_constraintTop_toBottomOf="@+id/districtInfoTextView"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"/>-->
-
-        <!--    <TextView-->
-        <!--        android:id="@+id/streetInfoTextView"-->
-        <!--        android:layout_width="0dp"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:textSize="18sp"-->
-        <!--        android:textAlignment="center"-->
-        <!--        android:text="TextView"-->
-        <!--        app:layout_constraintTop_toBottomOf="@+id/streetTitleTextView"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"/>-->
 
         <TextView
             android:id="@+id/nearestTrainInfoTextView"

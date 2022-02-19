@@ -58,28 +58,25 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
 
+        // set the toolbar as the app bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.propertyDetails_toolbar);
         setSupportActionBar(myToolbar);
 
+        // can click the icon (at the left of the property's name and location(street)) to go back to previous page
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setTitle(selectedProperty.getPropertyName());
         ab.setSubtitle(selectedProperty.getStreet());
 
-//        TextView projectInfoTextView = findViewById(R.id.projectInfoTextView);
-//        projectInfoTextView.setText(selectedProperty.getPropertyName());
-
         TextView regionInfoTextView = findViewById(R.id.regionInfoTextView);
         String region = segmentToRegion(selectedProperty.getRegion());
         regionInfoTextView.setText(region);
-
-//        TextView streetInfoTextView = findViewById(R.id.streetInfoTextView);
-//        streetInfoTextView.setText(selectedProperty.getStreet());
 
         TextView distanceFromTrain = findViewById(R.id.distanceToTrainTextView);
         ProgressBar distanceProgressBar = findViewById(R.id.distanceLoadProgressBar);
         distanceProgressBar.setVisibility(View.VISIBLE);
 
+        // use REST API to call and set the distance between the property and its nearest MRT station
         mapDataService.distanceListLocations(selectedProperty, new MapDataService.DistanceListLocationsResponseListener() {
             @Override
             public void onError(String message) {
@@ -116,6 +113,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         ProgressBar progressBar = findViewById(R.id.mapLoadProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
+        // use REST API to call and set the property's map
         mapDataService.callStaticMapAfterConversion(selectedProperty.getxCoordinates(), selectedProperty.getyCoordinates(), new MapDataService.CallStaticMapAfterConversionResponseListener() {
             @Override
             public void onError(String message) {
@@ -158,39 +156,13 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
         int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
 
-//        if (selectedUserId == -1) {
-//            toggleButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                }
-//            });
-//        }
-//        else {
-//            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                @Override
-//                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-////                    sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-////                    int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
-//
-//                        if (b) {
-//                            saveFavourites(selectedProperty);
-//                        }
-//                        else {
-//                            saveFavourites(selectedProperty);
-//                        }
-//
-//                }
-//            });
-//        }
-
         ProgressBar recommendLoadBar = findViewById(R.id.recommendLoadProgressBar);
         recommendLoadBar.setVisibility(View.VISIBLE);
 
         ProgressBar districtLoadBar = findViewById(R.id.districtLoadProgressBar);
         districtLoadBar.setVisibility(View.VISIBLE);
 
+        // use REST API to call and set the recommended properties based on same district
         recommendDataService.recommendDistrictProject(selectedProperty.getProjectId(), new RecommendDataService.RecommendDistrictResponseListener() {
             @Override
             public void onError(String message) {
@@ -241,8 +213,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
             }
         });
-
-
     }
 
     @Override
@@ -259,6 +229,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         ToggleButton fave = findViewById(R.id.favouriteToggleButton);
 
+        // check whether the property is saved in shortlist
         int selectedPropertyId = selectedProperty.getProjectId();
         int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
 
@@ -269,9 +240,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             e.printStackTrace();
         }
 
-        JSONObject jsonSelecetedUser = new JSONObject();
+        JSONObject jsonSelectedUser = new JSONObject();
         try {
-            jsonSelecetedUser.put("userId", selectedUserId);
+            jsonSelectedUser.put("userId", selectedUserId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -279,7 +250,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         JSONObject selectedUserAndProperty = new JSONObject();
         try {
             selectedUserAndProperty.put("project", jsonSelectedProperty);
-            selectedUserAndProperty.put("user", jsonSelecetedUser);
+            selectedUserAndProperty.put("user", jsonSelectedUser);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -302,11 +273,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                     progressBar.setVisibility(View.INVISIBLE);
                     if (isSaved)
                     {
-//                    unsave.setVisibility(View.VISIBLE);
                         fave.setChecked(true);
                     }
                     else {
-//                    save.setVisibility(View.VISIBLE);
                         fave.setChecked(false);
                     }
                 }
@@ -388,6 +357,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         }
     }
 
+    // store and set selected properties for comparison
     private void readCompare() {
         SharedPreferences pref = getSharedPreferences("compare", MODE_PRIVATE);
         compare1 = pref.getString("compare1", "-");
@@ -452,6 +422,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         return region;
     }
 
+    // store user and project id for adding the property to shortlist
     public void saveFavourites (Property selectedProperty) {
         ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
         progressBar.setVisibility(View.VISIBLE);
@@ -470,9 +441,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             e.printStackTrace();
         }
 
-        JSONObject jsonSelecetedUser = new JSONObject();
+        JSONObject jsonSelectedUser = new JSONObject();
         try {
-            jsonSelecetedUser.put("userId", selectedUserId);
+            jsonSelectedUser.put("userId", selectedUserId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -480,7 +451,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         JSONObject selectedUserAndProperty = new JSONObject();
         try {
             selectedUserAndProperty.put("project", jsonSelectedProperty);
-            selectedUserAndProperty.put("user", jsonSelecetedUser);
+            selectedUserAndProperty.put("user", jsonSelectedUser);
         } catch (JSONException e) {
             e.printStackTrace();
         }

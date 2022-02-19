@@ -25,9 +25,11 @@ public class TransactionListActivity extends AppCompatActivity implements Adapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_list);
 
+        // set the toolbar as the app bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.transactions_toolbar);
         setSupportActionBar(myToolbar);
 
+        // can click the icon (at the left of the activity title) to go back to previous page
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
@@ -37,6 +39,7 @@ public class TransactionListActivity extends AppCompatActivity implements Adapte
         ProgressBar progressBar = findViewById(R.id.transactionProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
+        // use REST API to call and set all transactions of the selected property
         transactionDataService.callTransactionsById(selectedProperty.getProjectId(), new TransactionDataService.TransactionResponseListener() {
 
 

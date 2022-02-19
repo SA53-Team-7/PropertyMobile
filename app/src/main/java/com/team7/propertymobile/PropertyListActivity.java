@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -26,26 +27,22 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_property_list);
 
+        // set the toolbar as the app bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.properties_toolbar);
         setSupportActionBar(myToolbar);
 
+        // can click the icon (at the left of the activity title) to go back to previous page
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         String searchInput = intent.getStringExtra("Search");
 
-//        ListView propertyListView = findViewById(R.id.propertyListView);
-//        propertyList = Arrays.asList(
-//                new Property("London", "test"),
-//                new Property("Singapore", "test"),
-//                new Property("Kuala Lumpur", "test"),
-//                new Property("Paris", "test")
-//        );
 
         ProgressBar progressBar = findViewById(R.id.propertyProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
+        // use REST API to search properties based on the keyword input
         propertyDataService.searchProjects(searchInput, new PropertyDataService.ProjectsResponseListener() {
             @Override
             public void onError(String message) {
@@ -56,6 +53,11 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onResponse(List<Property> projects) {
                 progressBar.setVisibility(View.GONE);
+
+                if (projects.size() == 0) {
+                    TextView textView = findViewById(R.id.noPropertyFound);
+                    textView.setVisibility(View.VISIBLE);
+                }
 
                 ListView propertyListView = findViewById(R.id.propertyListView);
                 propertyList = projects;
@@ -68,8 +70,6 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
                 }
             }
         });
-
-
     }
 
 
@@ -83,28 +83,6 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
         intent.putExtra("Property", selectedProperty);
 
         startActivity(intent);
-
-
-//        TextView textView = view.findViewById(R.id.propertyTextView);
-//        String caption = selectedProperty.getPropertyName();
-
-//        Toast toast = Toast.makeText(this, caption, Toast.LENGTH_SHORT);
-//        toast.show();
-
-//        propertyDataService.getCityID(caption, new PropertyDataService.VolleyResponseListener() {
-//            @Override
-//            public void onError(String message) {
-//                Toast toast = Toast.makeText(MainActivity.this, "Something wrong", Toast.LENGTH_SHORT);
-//                toast.show();
-//            }
-//
-//            @Override
-//            public void onResponse(String cityID) {
-//                Toast toast = Toast.makeText(MainActivity.this, "Returned an ID of " + cityID, Toast.LENGTH_SHORT);
-//                toast.show();
-//            }
-//        });
-
 
     }
 }

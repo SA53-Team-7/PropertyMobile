@@ -32,6 +32,7 @@ public class NewPropertyListActivity extends AppCompatActivity{
         ProgressBar progressBar = findViewById(R.id.newPropertyListProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
+        // use REST API to call and set new launch property
         newPropertyDataService.callAllNewProjects(new NewPropertyDataService.NewProjectsResponseListener() {
             @Override
             public void onError(String message) {
@@ -49,20 +50,8 @@ public class NewPropertyListActivity extends AppCompatActivity{
                 {
                     NewPropertyAdapter adapter = new NewPropertyAdapter(NewPropertyListActivity.this, propertyList);
                     propertyListView.setAdapter(adapter);
-//                    propertyListView.setOnItemClickListener(NewPropertyListActivity.this);
                 }
             }
         });
     }
-
-//    @Override
-//    public void onItemClick(AdapterView<?> parent,
-//                            View view, int position, long id) {
-
-//        Property selectedProperty = propertyList.get(position);
-//        Intent intent = new Intent(this, PropertyDetailsActivity.class);
-//        intent.putExtra("Property", selectedProperty);
-//
-//        startActivity(intent);
-//    }
 }
