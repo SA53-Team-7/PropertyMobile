@@ -28,6 +28,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="invisible"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/noPropertyFound"
+        android:text="No result found. \nPlease try again."
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/properties_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
