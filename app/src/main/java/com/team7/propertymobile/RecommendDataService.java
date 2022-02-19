@@ -19,6 +19,8 @@ public class RecommendDataService {
 
     Context context;
     public static final String QUERY_PROJECT_Recommendation = "http://10.0.2.2:8080/api/mobile/projects/recommend/";
+    public static final String QUERY_PROJECT_RecommendationDistrict = "http://10.0.2.2:8080/api/mobile/transactions/district/";
+
 
     public RecommendDataService(Context context) {
         this.context = context;
@@ -28,6 +30,12 @@ public class RecommendDataService {
         void onError(String message);
 
         void onResponse(List<Property> projects);
+    }
+
+    public interface RecommendDistrictResponseListener {
+        void onError(String message);
+
+        void onResponse(Transaction transactions);
     }
 
     public void callRecommendProjects(String district, RecommendResponseListener recommendResponseListener) {
@@ -57,6 +65,48 @@ public class RecommendDataService {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10000,
+                2,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public void recommendDistrictProject(int id, RecommendDistrictResponseListener recommendDistrictResponseListener)
+    {
+        String url = QUERY_PROJECT_RecommendationDistrict + id;
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                try {
+                    Transaction transaction = new Transaction();
+                    for (int i = 0; i < response.length(); i++)
+                    {
+                        JSONObject jsonProperty = response.getJSONObject(i);
+
+                        transaction.setTransactionId(jsonProperty.getInt("txnId"));
+                        transaction.setDistrict(jsonProperty.getString("District"));
+
+                    }
+
+                    recommendDistrictResponseListener.onResponse(transaction);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override

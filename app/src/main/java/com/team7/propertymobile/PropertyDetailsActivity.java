@@ -36,6 +36,8 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
     Property selectedProperty;
 
+    private String district;
+
     List<Property> propertyList;
 
     RecommendDataService recommendDataService = new RecommendDataService(this);
@@ -155,9 +157,25 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         });
 
 
-        recommendDataService.callRecommendProjects("03", new RecommendDataService.RecommendResponseListener() {
+        recommendDataService.recommendDistrictProject(selectedProperty.getProjectId(), new RecommendDataService.RecommendDistrictResponseListener() {
             @Override
             public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(Transaction transactions) {
+
+                district = transactions.getDistrict();
+
+            }
+        });
+
+
+        recommendDataService.callRecommendProjects(district, new RecommendDataService.RecommendResponseListener() {
+            @Override
+            public void onError(String message) {
+
 
             }
 
