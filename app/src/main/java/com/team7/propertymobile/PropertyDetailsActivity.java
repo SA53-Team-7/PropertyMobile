@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -42,6 +43,12 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
     Button clearAddButton;
     Button compareButton;
+
+    Transaction transactionDistrict;
+
+    List<Property> propertyList;
+
+    RecommendDataService recommendDataService = new RecommendDataService(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +185,54 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 //            });
 //        }
 
+        recommendDataService.recommendDistrictProject(selectedProperty.getProjectId(), new RecommendDataService.RecommendDistrictResponseListener() {
+            @Override
+            public void onError(String message) {
+
+            }
+
+            @Override
+            public void onResponse(Transaction transactions) {
+                progressBar.setVisibility(View.INVISIBLE);
+                TextView districtInfoTextView = findViewById(R.id.districtInfoTextView);
+                transactionDistrict = transactions;
+
+                if (districtInfoTextView != null)
+                {
+                    districtInfoTextView.setText("District "+transactionDistrict.getDistrict());
+
+                    recommendDataService.callRecommendProjects(transactionDistrict.getDistrict(), new RecommendDataService.RecommendResponseListener() {
+                        @Override
+                        public void onError(String message) {
+
+
+                        }
+
+
+                        @Override
+                        public void onResponse(List<Property> projects) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            TextView recommendTextView1 = findViewById(R.id.recommendTextView1);
+                            TextView recommendTextView2 = findViewById(R.id.recommendTextView2);
+                            propertyList = projects;
+
+                            if (recommendTextView1 != null)
+                            {
+                                recommendTextView1.setText(propertyList.get(0).getPropertyName());
+                            }
+
+                            if (recommendTextView2 != null)
+                            {
+                                recommendTextView2.setText(propertyList.get(1).getPropertyName());
+                            }
+
+                        }
+                    });
+                }
+
+            }
+        });
+
 
     }
 
@@ -281,6 +336,25 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             clearCompare();
             setComparisonProperty();
         }
+
+        if (id == R.id.recommendTextView1)
+        {
+            Property recommendProperty1 = propertyList.get(0);
+            Intent intent = new Intent(this, PropertyDetailsActivity.class);
+            intent.putExtra("Property", recommendProperty1);
+
+            startActivity(intent);
+
+        }
+
+        if (id == R.id.recommendTextView2)
+        {
+            Property recommendProperty2 = propertyList.get(1);
+            Intent intent = new Intent(this, PropertyDetailsActivity.class);
+            intent.putExtra("Property", recommendProperty2);
+
+            startActivity(intent);
+        }
     }
 
     private void readCompare() {
@@ -324,7 +398,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         clearAddButton.setVisibility(View.GONE);
         compareButton.setVisibility(View.VISIBLE);
-      
+
         if (id == R.id.favouriteToggleButton) {
             sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
             int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
