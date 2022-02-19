@@ -42,18 +42,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Intent intent = getIntent();
         selectedProperty = (Property) intent.getSerializableExtra("Property");
 
-//        Location pasirRisMRT = new Location("Pasir Ris MRT", 1.37304331635804, 103.949284527763);
-//        Location jurongEastMRT = new Location("Jurong East MRT", 1.33315281585758, 103.742286332403);
-//        Location woodlandsMRT = new Location("Woodlands MRT", 1.43681962961519, 103.786066799253);
-//        Location marinaBayMRT = new Location("Marina Bay MRT", 1.276410298755, 103.854595522263);
-//        Location orchardMRT = new Location("Orchard MRT", 1.30398013681715, 103.832245244375);
-//
-//        locationList.add(pasirRisMRT);
-//        locationList.add(jurongEastMRT);
-//        locationList.add(woodlandsMRT);
-//        locationList.add(marinaBayMRT);
-//        locationList.add(orchardMRT);
-
         TextView projectInfoTextView = findViewById(R.id.projectInfoTextView);
         projectInfoTextView.setText(selectedProperty.getPropertyName());
 
@@ -84,7 +72,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 }
                 else
                 {
-
                     DecimalFormat df = new DecimalFormat("0.00");
                     df.setRoundingMode(RoundingMode.UP);
 
@@ -96,7 +83,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                     String mrtDistance = nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk" ;
                     distanceFromTrain.setText(mrtDistance);
                     distanceFromTrain.setVisibility(View.VISIBLE);
-
                 }
             }
         });
@@ -129,33 +115,39 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         Button priceEstimator = findViewById(R.id.priceEstimatorButton);
         priceEstimator.setOnClickListener(this);
 
-//        Button save = findViewById(R.id.saveButton);
-//        save.setOnClickListener(this);
-//        Button unsave = findViewById(R.id.unsaveButton);
-//        unsave.setOnClickListener(this);
-
         ToggleButton toggleButton = findViewById(R.id.favouriteToggleButton);
 
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-                int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+        sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+        int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
 
-                if (selectedUserId == -1) {
+        if (selectedUserId == -1) {
+            toggleButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
-                else {
-                    if (b) {
-                        saveFavourites(selectedProperty);
-                    }
-                    else {
-                        saveFavourites(selectedProperty);
-                    }
+            });
+        }
+        else {
+            toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                    sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+//                    int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
+
+                        if (b) {
+                            saveFavourites(selectedProperty);
+                        }
+                        else {
+                            saveFavourites(selectedProperty);
+                        }
+
                 }
-            }
-        });
+            });
+        }
+
+
     }
 
     @Override
@@ -163,8 +155,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         super.onStart();
 
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-//        Button save = findViewById(R.id.saveButton);
-//        Button unsave = findViewById(R.id.unsaveButton);
 
         ToggleButton fave = findViewById(R.id.favouriteToggleButton);
 
@@ -245,67 +235,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
             startActivity(intent);
         }
-
-//        if (id == R.id.saveButton || id == R.id.unsaveButton)
-//        if (id == R.id.favouriteToggleButton)
-//        {
-//            ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
-//            progressBar.setVisibility(View.VISIBLE);
-//
-//            sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-////            Button save = findViewById(R.id.saveButton);
-////            Button unsave = findViewById(R.id.unsaveButton);
-//            ToggleButton fave = findViewById(R.id.favouriteToggleButton);
-//
-////            save.setVisibility(View.INVISIBLE);
-////            unsave.setVisibility(View.INVISIBLE);
-//
-//            int selectedPropertyId = selectedProperty.getProjectId();
-//            int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
-//
-//            JSONObject jsonSelectedProperty = new JSONObject();
-//            try {
-//                jsonSelectedProperty.put("projectId", selectedPropertyId);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//
-//            JSONObject jsonSelecetedUser = new JSONObject();
-//            try {
-//                jsonSelecetedUser.put("userId", selectedUserId);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//
-//            JSONObject selectedUserAndProperty = new JSONObject();
-//            try {
-//                selectedUserAndProperty.put("project", jsonSelectedProperty);
-//                selectedUserAndProperty.put("user", jsonSelecetedUser);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//
-//            favouritesDataService.save(selectedUserAndProperty, new FavouritesDataService.SaveResponseListener() {
-//                @Override
-//                public void onError(String message) {
-//
-//                }
-//
-//                @Override
-//                public void onResponse(boolean isSaved) {
-//                    progressBar.setVisibility(View.INVISIBLE);
-//                    if (isSaved)
-//                    {
-////                        unsave.setVisibility(View.VISIBLE);
-//                        fave.setChecked(true);
-//                    }
-//                    else {
-////                        save.setVisibility(View.VISIBLE);
-//                        fave.setChecked(false);
-//                    }
-//                }
-//            });
-//        }
     }
 
 
@@ -332,12 +261,8 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         progressBar.setVisibility(View.VISIBLE);
 
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-//            Button save = findViewById(R.id.saveButton);
-//            Button unsave = findViewById(R.id.unsaveButton);
         ToggleButton fave = findViewById(R.id.favouriteToggleButton);
 
-//            save.setVisibility(View.INVISIBLE);
-//            unsave.setVisibility(View.INVISIBLE);
 
         int selectedPropertyId = selectedProperty.getProjectId();
         int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
@@ -373,15 +298,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             @Override
             public void onResponse(boolean isSaved) {
                 progressBar.setVisibility(View.INVISIBLE);
-//                if (isSaved)
-//                {
-////                        unsave.setVisibility(View.VISIBLE);
-//                    fave.setChecked(true);
-//                }
-//                else {
-////                        save.setVisibility(View.VISIBLE);
-//                    fave.setChecked(false);
-//                }
             }
         });
     }
