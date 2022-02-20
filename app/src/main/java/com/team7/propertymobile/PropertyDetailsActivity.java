@@ -1,9 +1,5 @@
 package com.team7.propertymobile;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,26 +26,19 @@ import java.util.List;
 
 public class PropertyDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private SharedPreferences sharedPreferences;
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String ID_KEY = "id_key";
-
     MapDataService mapDataService = new MapDataService(this);
     FavouritesDataService favouritesDataService = new FavouritesDataService(this);
-
     Property selectedProperty;
-
     String compare1;
     String compare2;
-
     Button clearAddButton;
     Button compareButton;
-
     Transaction transactionDistrict;
-
     List<Property> propertyList;
-
     RecommendDataService recommendDataService = new RecommendDataService(this);
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

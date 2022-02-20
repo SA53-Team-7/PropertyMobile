@@ -14,19 +14,12 @@ import java.util.List;
 
 public class TransactionDataService {
 
-    Context context;
-
     public static final String QUERY_FOR_TRANSACTIONS_BY_ID = "http://10.0.2.2:8080/api/mobile/transactions/";
     public static final String LIVE_QUERY_FOR_TRANSACTIONS_BY_ID = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/transactions/";
+    Context context;
 
     public TransactionDataService(Context context) {
         this.context = context;
-    }
-
-    public interface TransactionResponseListener {
-        void onError(String message);
-
-        void onResponse(List<Transaction> transactions);
     }
 
     // use REST API to get transaction info by project(property) id
@@ -71,6 +64,12 @@ public class TransactionDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface TransactionResponseListener {
+        void onError(String message);
+
+        void onResponse(List<Transaction> transactions);
     }
 
 

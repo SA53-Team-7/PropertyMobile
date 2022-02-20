@@ -14,27 +14,14 @@ import java.util.List;
 
 public class PropertyDataService {
 
-    Context context;
     public static final String QUERY_PROJECT_SEARCH = "http://10.0.2.2:8080/api/mobile/projects/search/";
     public static final String LIVE_QUERY_PROJECT_SEARCH = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/projects/search/";
     public static final String QUERY_PROJECT_GET = "http://10.0.2.2:8080/api/mobile/projects/get/";
     public static final String LIVE_QUERY_PROJECT_GET = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/projects/get/";
+    Context context;
 
     public PropertyDataService(Context context) {
         this.context = context;
-    }
-
-
-    public interface ProjectsResponseListener {
-        void onError(String message);
-
-        void onResponse(List<Property> projects);
-    }
-
-    public interface SingleProjectResponseListener {
-        void onError(String message);
-
-        void onResponse(Property projects);
     }
 
     // use REST API to get property info using keyword input
@@ -116,6 +103,18 @@ public class PropertyDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface ProjectsResponseListener {
+        void onError(String message);
+
+        void onResponse(List<Property> projects);
+    }
+
+    public interface SingleProjectResponseListener {
+        void onError(String message);
+
+        void onResponse(Property projects);
     }
 
 }

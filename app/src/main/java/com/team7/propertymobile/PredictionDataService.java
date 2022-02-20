@@ -10,21 +10,14 @@ import org.json.JSONArray;
 
 public class PredictionDataService {
 
-    Context context;
-
     // for local server
     public static final String QUERY_FOR_PREDICTION_LOCAL = "http://10.0.2.2:5000/";
     // for cloud server
     public static final String QUERY_FOR_PREDICTION = "https://msdocs-python-webapp-quickstart-te7.azurewebsites.net/";
+    Context context;
 
     public PredictionDataService(Context context) {
         this.context = context;
-    }
-
-    public interface PredictionResponseListener {
-        void onError(String message);
-
-        void onResponse(String response);
     }
 
     // use REST API to get resale property model
@@ -46,6 +39,12 @@ public class PredictionDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface PredictionResponseListener {
+        void onError(String message);
+
+        void onResponse(String response);
     }
 
 }

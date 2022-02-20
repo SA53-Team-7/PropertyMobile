@@ -1,9 +1,5 @@
 package com.team7.propertymobile;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,16 +10,18 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import java.util.List;
 
 public class FavouritesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String ID_KEY = "id_key";
-    private int userId = -1;
-
     List<Property> propertyList;
-
     FavouritesDataService favouritesDataService = new FavouritesDataService(this);
+    private int userId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

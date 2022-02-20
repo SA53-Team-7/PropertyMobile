@@ -13,19 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewPropertyDataService {
-    Context context;
-
     public static final String QUERY_FOR_NEW_PROJECTS = "http://10.0.2.2:8080/api/mobile/newprojects";
     public static final String LIVE_QUERY_FOR_NEW_PROJECTS = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/newprojects";
+    Context context;
 
     public NewPropertyDataService(Context context) {
         this.context = context;
-    }
-
-    public interface NewProjectsResponseListener {
-        void onError(String message);
-
-        void onResponse(List<NewProperty> projects);
     }
 
     // use REST API to get new launch property info
@@ -65,5 +58,11 @@ public class NewPropertyDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface NewProjectsResponseListener {
+        void onError(String message);
+
+        void onResponse(List<NewProperty> projects);
     }
 }

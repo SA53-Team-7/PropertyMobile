@@ -1,8 +1,5 @@
 package com.team7.propertymobile;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,16 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private SharedPreferences sharedPreferences;
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String USER_KEY = "user_key";
     public static final String NAME_KEY = "name_key";
-
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

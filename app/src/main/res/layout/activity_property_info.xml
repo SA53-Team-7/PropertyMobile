@@ -163,11 +163,11 @@
             android:layout_width="750px"
             android:layout_height="750px"
             android:layout_marginTop="20dp"
+            android:contentDescription="@string/map_of_property"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/distanceToTrainTextView"
-            tools:srcCompat="@tools:sample/avatars"
-            android:contentDescription="@string/map_of_property" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <ProgressBar
             android:id="@+id/mapLoadProgressBar"

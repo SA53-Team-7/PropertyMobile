@@ -28,6 +28,9 @@ public class Property implements Serializable {
         this.propertyName = propertyName;
     }
 
+    public Property() {
+    }
+
     public String getRegion() {
         return region;
     }
@@ -36,46 +39,43 @@ public class Property implements Serializable {
         this.region = region;
     }
 
-    public Property() {
-    }
-
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public String getPropertyName() {
+        return propertyName;
     }
 
     public void setPropertyName(String propertyName) {
         this.propertyName = propertyName;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public void setxCoordinates(String xCoordinates) {
-        this.xCoordinates = xCoordinates;
-    }
-
-    public void setyCoordinates(String yCoordinates) {
-        this.yCoordinates = yCoordinates;
-    }
-
-    public String getPropertyName() {
-        return propertyName;
-    }
-
     public int getProjectId() {
         return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
     public String getStreet() {
         return street;
     }
 
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
     public String getxCoordinates() {
         return xCoordinates;
     }
 
+    public void setxCoordinates(String xCoordinates) {
+        this.xCoordinates = xCoordinates;
+    }
+
     public String getyCoordinates() {
         return yCoordinates;
+    }
+
+    public void setyCoordinates(String yCoordinates) {
+        this.yCoordinates = yCoordinates;
     }
 }

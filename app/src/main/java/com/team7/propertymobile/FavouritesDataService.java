@@ -15,22 +15,16 @@ import java.util.List;
 
 public class FavouritesDataService {
 
-    Context context;
     public static final String QUERY_FOR_MY_LIST = "http://10.0.2.2:8080/api/mobile/favourites/list/";
     public static final String LIVE_QUERY_FOR_MY_LIST = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/favourites/list/";
     public static final String IS_FAVE_SAVED = "http://10.0.2.2:8080/api/mobile/favourites/check";
     public static final String LIVE_IS_FAVE_SAVED = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/favourites/check";
     public static final String SAVE_OR_UPDATE = "http://10.0.2.2:8080/api/mobile/favourites/save";
     public static final String LIVE_SAVE_OR_UPDATE = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/favourites/save";
+    Context context;
 
     public FavouritesDataService(Context context) {
         this.context = context;
-    }
-
-    public interface CallMyListResponseListener {
-        void onError(String message);
-
-        void onResponse(List<Property> projects);
     }
 
     // use REST API to get shortlist info
@@ -71,12 +65,6 @@ public class FavouritesDataService {
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
-    public interface SaveResponseListener {
-        void onError(String message);
-
-        void onResponse(boolean isSaved);
-    }
-
     // use REST API to check the shortlist info
     public void isSaved(JSONObject userAndProject, SaveResponseListener saveResponseListener) {
 
@@ -108,7 +96,6 @@ public class FavouritesDataService {
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
-
     // use REST API to update the shortlist info
     public void save(JSONObject userAndProject, SaveResponseListener saveResponseListener) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_SAVE_OR_UPDATE, userAndProject, response -> {
@@ -137,5 +124,18 @@ public class FavouritesDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface CallMyListResponseListener {
+        void onError(String message);
+
+        void onResponse(List<Property> projects);
+    }
+
+
+    public interface SaveResponseListener {
+        void onError(String message);
+
+        void onResponse(boolean isSaved);
     }
 }

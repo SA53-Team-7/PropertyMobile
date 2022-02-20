@@ -10,9 +10,9 @@ import com.android.volley.toolbox.Volley;
 public class DataRequestSingleton {
     @SuppressLint("StaticFieldLeak")
     private static DataRequestSingleton instance;
-    private RequestQueue requestQueue;
     @SuppressLint("StaticFieldLeak")
     private static Context ctx;
+    private RequestQueue requestQueue;
 
     private DataRequestSingleton(Context context) {
         ctx = context;

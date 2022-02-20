@@ -20,25 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 public class MapDataService {
-    Context context;
-
     public static final String STATIC_MAP1 = "https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=default&lat=";
     public static final String STATIC_MAP2 = "&zoom=17&height=512&width=512";
-
     public static final String QUERY_FOR_ALL_LOCATIONS = "http://10.0.2.2:8080/api/mobile/amenities";
     public static final String QUERY_FOR_ALL_TRAIN_STATIONS = "http://10.0.2.2:8080/api/mobile/amenities/trains";
     public static final String LIVE_QUERY_FOR_ALL_TRAIN_STATIONS = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/amenities/trains";
+    Context context;
 
 
     public MapDataService(Context context) {
         this.context = context;
-    }
-
-
-    public interface StaticMapResponseListener {
-        void onError(String message);
-
-        void onResponse(Bitmap bitmap);
     }
 
     // use OneMap API to get the property's map info
@@ -58,12 +49,6 @@ public class MapDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
-    }
-
-    public interface CoordinatesConverterResponseListener {
-        void onError(String message);
-
-        void onResponse(double latitude, double longitude);
     }
 
     // get x and y coordinate of the specific location from OneMap API
@@ -91,12 +76,6 @@ public class MapDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
-    }
-
-    public interface CallStaticMapAfterConversionResponseListener {
-        void onError(String message);
-
-        void onResponse(Bitmap bitmap);
     }
 
     // get the property's map using coordinate converter
@@ -127,13 +106,6 @@ public class MapDataService {
             });
         }
 
-    }
-
-
-    public interface DistanceLocationsMapResponseListener {
-        void onError(String message);
-
-        void onResponse(String name, double distance);
     }
 
     // use REST API to get x and y coordinate of the specific location then compute the distance between two places
@@ -191,12 +163,6 @@ public class MapDataService {
         }
     }
 
-    public interface CallNearbyTrainStationsResponseListener {
-        void onError(String message);
-
-        void onResponse(Property property, List<Location> locationList);
-    }
-
     // use REST API to get MRT station info
     public void callNearbyTrainStations(Property property, CallNearbyTrainStationsResponseListener callNearbyTrainStationsResponseListener) {
         List<Location> locationList = new ArrayList<>();
@@ -237,12 +203,6 @@ public class MapDataService {
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
-    public interface DistanceListLocationsResponseListener {
-        void onError(String message);
-
-        void onResponse(String name, double distance);
-    }
-
     // create the list of the property's name and the distance between the property and nearest MRT station
     public void distanceListLocations(Property property, DistanceListLocationsResponseListener distanceListLocationsResponseListener) {
 
@@ -267,6 +227,43 @@ public class MapDataService {
                 });
             }
         });
+    }
+
+
+    public interface StaticMapResponseListener {
+        void onError(String message);
+
+        void onResponse(Bitmap bitmap);
+    }
+
+    public interface CoordinatesConverterResponseListener {
+        void onError(String message);
+
+        void onResponse(double latitude, double longitude);
+    }
+
+    public interface CallStaticMapAfterConversionResponseListener {
+        void onError(String message);
+
+        void onResponse(Bitmap bitmap);
+    }
+
+    public interface DistanceLocationsMapResponseListener {
+        void onError(String message);
+
+        void onResponse(String name, double distance);
+    }
+
+    public interface CallNearbyTrainStationsResponseListener {
+        void onError(String message);
+
+        void onResponse(Property property, List<Location> locationList);
+    }
+
+    public interface DistanceListLocationsResponseListener {
+        void onError(String message);
+
+        void onResponse(String name, double distance);
     }
 
 

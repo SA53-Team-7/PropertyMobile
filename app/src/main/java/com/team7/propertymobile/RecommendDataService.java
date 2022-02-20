@@ -14,27 +14,15 @@ import java.util.List;
 
 public class RecommendDataService {
 
-    Context context;
     public static final String QUERY_PROJECT_Recommendation = "http://10.0.2.2:8080/api/mobile/projects/recommend/";
     public static final String LIVE_QUERY_PROJECT_Recommendation = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/projects/recommend/";
     public static final String QUERY_PROJECT_RecommendationDistrict = "http://10.0.2.2:8080/api/mobile/transactions/top/";
     public static final String LIVE_QUERY_PROJECT_RecommendationDistrict = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/transactions/top/";
+    Context context;
 
 
     public RecommendDataService(Context context) {
         this.context = context;
-    }
-
-    public interface RecommendResponseListener {
-        void onError(String message);
-
-        void onResponse(List<Property> projects);
-    }
-
-    public interface RecommendDistrictResponseListener {
-        void onError(String message);
-
-        void onResponse(Transaction transactions);
     }
 
     // use REST API to get recommended properties based on same district
@@ -115,6 +103,18 @@ public class RecommendDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface RecommendResponseListener {
+        void onError(String message);
+
+        void onResponse(List<Property> projects);
+    }
+
+    public interface RecommendDistrictResponseListener {
+        void onError(String message);
+
+        void onResponse(Transaction transactions);
     }
 
 

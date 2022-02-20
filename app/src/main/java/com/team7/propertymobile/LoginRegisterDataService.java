@@ -10,22 +10,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginRegisterDataService {
-    Context context;
-
     public static final String LOGIN_CALL = "http://10.0.2.2:8080/api/mobile/auth/login";
     public static final String LIVE_LOGIN_CALL = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/auth/login";
     public static final String REGISTER_CALL = "http://10.0.2.2:8080/api/mobile/auth/register";
     public static final String LIVE_REGISTER_CALL = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/auth/register";
+    Context context;
 
     public LoginRegisterDataService(Context context) {
         this.context = context;
-    }
-
-
-    public interface AuthResponseListener {
-        void onError(String message);
-
-        void onResponse(boolean success, int id, String name);
     }
 
     // use REST API to authenticate user info
@@ -60,12 +52,6 @@ public class LoginRegisterDataService {
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
-    public interface RegisterResponseListener {
-        void onError(String message);
-
-        void onResponse(boolean success);
-    }
-
     // use REST API to update user info after registration
     public void register(JSONObject newUser, RegisterResponseListener registerResponseListener) {
 
@@ -95,5 +81,17 @@ public class LoginRegisterDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public interface AuthResponseListener {
+        void onError(String message);
+
+        void onResponse(boolean success, int id, String name);
+    }
+
+    public interface RegisterResponseListener {
+        void onError(String message);
+
+        void onResponse(boolean success);
     }
 }
