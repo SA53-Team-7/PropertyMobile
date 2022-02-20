@@ -10,8 +10,10 @@
         <item name="colorSecondaryVariant">@color/md_theme_light_secondaryContainer</item>
         <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="android:statusBarColor" tools:targetApi="l">
+            @color/md_theme_light_onPrimaryContainer
+        </item>
         <!-- Customize your theme here. -->
-<!--        <item name="android:background">@color/md_theme_light_background</item>-->
+        <!--        <item name="android:background">@color/md_theme_light_background</item>-->
     </style>
 </resources>

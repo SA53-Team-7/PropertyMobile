@@ -20,6 +20,7 @@ public class NewPropertyDataService {
     Context context;
 
     public static final String QUERY_FOR_NEW_PROJECTS = "http://10.0.2.2:8080/api/mobile/newprojects";
+    public static final String LIVE_QUERY_FOR_NEW_PROJECTS = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/newprojects";
 
     public NewPropertyDataService(Context context) {
         this.context = context;
@@ -35,12 +36,11 @@ public class NewPropertyDataService {
     public void callAllNewProjects(NewProjectsResponseListener newProjectsResponseListener) {
         List<NewProperty> newProjectsList = new ArrayList<>();
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, QUERY_FOR_NEW_PROJECTS, null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, LIVE_QUERY_FOR_NEW_PROJECTS, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    for (int i = 0; i < response.length(); i++)
-                    {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonProperty = response.getJSONObject(i);
                         NewProperty newProperty = new NewProperty();
 

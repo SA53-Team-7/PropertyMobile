@@ -11,84 +11,82 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Login / Register"
         android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:title="Login / Register" />
 
     <EditText
         android:id="@+id/loginTextEmailAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autofillHints="emailAddress"
         android:ems="14"
         android:hint="Enter Email Address"
         android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/login_toolbar"
         app:layout_constraintBottom_toTopOf="@id/loginTextPassword"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:autofillHints="emailAddress" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_toolbar" />
 
     <EditText
         android:id="@+id/loginTextPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter password"
+        android:autofillHints="password"
         android:ems="14"
+        android:hint="Enter password"
         android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginTextEmailAddress"
         app:layout_constraintBottom_toTopOf="@id/loginButton"
-        android:autofillHints="password" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginTextEmailAddress" />
 
     <ProgressBar
         android:id="@+id/loginLoadProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginTextPassword"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/toRegisterTextView"
-        android:visibility="invisible"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginTextPassword" />
 
     <TextView
         android:id="@+id/loginSuccessTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_success"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginTextPassword"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/toRegisterTextView"
-        android:visibility="invisible" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginTextPassword" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"
         android:backgroundTint="@color/indigo_500"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/login"
+        app:layout_constraintBottom_toTopOf="@id/toRegisterTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginTextPassword"
-        app:layout_constraintBottom_toTopOf="@id/toRegisterTextView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginTextPassword" />
 
     <TextView
         android:id="@+id/toRegisterTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/new_here"
-        android:textSize="20sp"
         android:textColor="@color/teal_700"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginButton"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loginButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

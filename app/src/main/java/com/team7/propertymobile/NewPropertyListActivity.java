@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
-public class NewPropertyListActivity extends AppCompatActivity{
+public class NewPropertyListActivity extends AppCompatActivity {
     List<NewProperty> propertyList;
 
     NewPropertyDataService newPropertyDataService = new NewPropertyDataService(this);
@@ -46,8 +46,7 @@ public class NewPropertyListActivity extends AppCompatActivity{
                 ListView propertyListView = findViewById(R.id.newPropertyListView);
                 propertyList = projects;
 
-                if (propertyListView != null)
-                {
+                if (propertyListView != null) {
                     NewPropertyAdapter adapter = new NewPropertyAdapter(NewPropertyListActivity.this, propertyList);
                     propertyListView.setAdapter(adapter);
                 }

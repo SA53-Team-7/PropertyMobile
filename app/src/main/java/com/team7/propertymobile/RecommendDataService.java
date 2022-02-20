@@ -19,7 +19,9 @@ public class RecommendDataService {
 
     Context context;
     public static final String QUERY_PROJECT_Recommendation = "http://10.0.2.2:8080/api/mobile/projects/recommend/";
+    public static final String LIVE_QUERY_PROJECT_Recommendation = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/projects/recommend/";
     public static final String QUERY_PROJECT_RecommendationDistrict = "http://10.0.2.2:8080/api/mobile/transactions/top/";
+    public static final String LIVE_QUERY_PROJECT_RecommendationDistrict = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/transactions/top/";
 
 
     public RecommendDataService(Context context) {
@@ -42,14 +44,13 @@ public class RecommendDataService {
     public void callRecommendProjects(String district, RecommendResponseListener recommendResponseListener) {
 
         List<Property> projects = new ArrayList<>();
-        String url = QUERY_PROJECT_Recommendation + district;
+        String url = LIVE_QUERY_PROJECT_Recommendation + district;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    for (int i = 0; i < response.length(); i++)
-                    {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonProperty = response.getJSONObject(i);
                         Property property = new Property();
                         property.setProjectId(jsonProperty.getInt("projectId"));
@@ -84,9 +85,8 @@ public class RecommendDataService {
     }
 
     // use REST API to get district info for recommendation
-    public void recommendDistrictProject(int id, RecommendDistrictResponseListener recommendDistrictResponseListener)
-    {
-        String url = QUERY_PROJECT_RecommendationDistrict + id;
+    public void recommendDistrictProject(int id, RecommendDistrictResponseListener recommendDistrictResponseListener) {
+        String url = LIVE_QUERY_PROJECT_RecommendationDistrict + id;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -94,8 +94,7 @@ public class RecommendDataService {
 
                 try {
                     Transaction transaction = new Transaction();
-                    for (int i = 0; i < response.length(); i++)
-                    {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonTransaction = response.getJSONObject(i);
                         transaction.setTransactionId(jsonTransaction.getInt("txnId"));
                         transaction.setContractDate(jsonTransaction.getString("contractDate"));

@@ -15,7 +15,9 @@ public class LoginRegisterDataService {
     Context context;
 
     public static final String LOGIN_CALL = "http://10.0.2.2:8080/api/mobile/auth/login";
+    public static final String LIVE_LOGIN_CALL = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/auth/login";
     public static final String REGISTER_CALL = "http://10.0.2.2:8080/api/mobile/auth/register";
+    public static final String LIVE_REGISTER_CALL = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/auth/register";
 
     public LoginRegisterDataService(Context context) {
         this.context = context;
@@ -29,9 +31,9 @@ public class LoginRegisterDataService {
     }
 
     // use REST API to authenticate user info
-    public void login (JSONObject user, AuthResponseListener authResponseListener) {
+    public void login(JSONObject user, AuthResponseListener authResponseListener) {
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LOGIN_CALL, user, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_LOGIN_CALL, user, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -73,9 +75,9 @@ public class LoginRegisterDataService {
     }
 
     // use REST API to update user info after registration
-    public void register (JSONObject newUser, RegisterResponseListener registerResponseListener) {
+    public void register(JSONObject newUser, RegisterResponseListener registerResponseListener) {
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, REGISTER_CALL, newUser, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_REGISTER_CALL, newUser, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {

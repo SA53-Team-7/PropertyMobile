@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Property Price Estimator"
         android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:title="Property Price Estimator" />
 
     <TextView
         android:id="@+id/projectInfoTextView"

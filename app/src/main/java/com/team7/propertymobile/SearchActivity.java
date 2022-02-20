@@ -85,8 +85,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (token == null) {
             loginButton.setVisibility(View.VISIBLE);
             logoutButton.setVisibility(View.INVISIBLE);
-        }
-        else {
+        } else {
             loginButton.setVisibility(View.INVISIBLE);
             logoutButton.setVisibility(View.VISIBLE);
             myListButton.setVisibility(View.VISIBLE);
@@ -110,12 +109,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(intent);
         }
 
-        if (id == R.id.searchButton)
-        {
+        if (id == R.id.searchButton) {
             if (TextUtils.isEmpty(searchText.getText().toString())) {
                 searchText.setError("Please enter a search query.");
-            }
-            else {
+            } else {
                 Intent intent = new Intent(this, PropertyListActivity.class);
                 intent.putExtra("Search", searchInput);
                 startActivity(intent);
@@ -123,20 +120,17 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         }
 
-        if (id == R.id.toCalculatorButton)
-        {
+        if (id == R.id.toCalculatorButton) {
             Intent intent = new Intent(this, LoanCalculatorActivity.class);
             startActivity(intent);
         }
 
-        if (id == R.id.toLoginButton)
-        {
+        if (id == R.id.toLoginButton) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
 
-        if (id == R.id.logoutButton)
-        {
+        if (id == R.id.logoutButton) {
             TextView welcomeBack = findViewById(R.id.welcomeBackTextView);
             welcomeBack.setVisibility(View.INVISIBLE);
             sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);

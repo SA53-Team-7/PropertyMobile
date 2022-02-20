@@ -11,9 +11,7 @@
     <color name="red_500">#F44336</color>
     <color name="green_500">#8BC34A</color>
     <color name="indigo_500">#3F51B5</color>
-
-
-    ><color name="md_theme_light_primary">#6750A4</color>
+    <color name="md_theme_light_primary">#6750A4</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_light_primaryContainer">#EADDFF</color>
     <color name="md_theme_light_onPrimaryContainer">#21005D</color>

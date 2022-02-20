@@ -13,10 +13,10 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:title="Property Market Indicator"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat"
+        app:title="Property Market Indicator" />
 
     <EditText
         android:id="@+id/searchEditText"
@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:ems="14"
         android:gravity="center|top"
-        android:inputType="textAutoComplete"
         android:hint="@string/search_hint"
+        android:inputType="textAutoComplete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,8 +35,8 @@
         android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/search_button"
         android:backgroundTint="@color/md_theme_light_secondary"
+        android:text="@string/search_button"
         app:layout_constraintBottom_toTopOf="@id/toCompareButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,46 +60,46 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toCalculatorButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/toCalculatorButton" />
 
     <Button
         android:id="@+id/toLoginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"
         android:backgroundTint="@color/indigo_500"
+        android:text="@string/login"
         app:layout_constraintBottom_toTopOf="@id/searchEditText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.1"/>
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/logout"
         android:backgroundTint="@color/red_500"
+        android:text="@string/logout"
         app:layout_constraintBottom_toTopOf="@id/searchEditText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.1" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/myListButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My List"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/searchEditText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_toolbar"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.9"
-        android:visibility="invisible"/>
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/welcomeBackTextView"
@@ -107,23 +107,23 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="20sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/toLoginButton"
         app:layout_constraintEnd_toStartOf="@id/myListButton"
         app:layout_constraintStart_toEndOf="@+id/toLoginButton"
-        app:layout_constraintTop_toTopOf="@+id/toLoginButton"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="@+id/toLoginButton" />
 
     <ProgressBar
         android:id="@+id/nameLoadProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminate="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/toLoginButton"
         app:layout_constraintEnd_toStartOf="@id/myListButton"
         app:layout_constraintStart_toEndOf="@+id/toLoginButton"
-        app:layout_constraintTop_toTopOf="@+id/toLoginButton"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="@+id/toLoginButton" />
 
     <Button
         android:id="@+id/toCompareButton"

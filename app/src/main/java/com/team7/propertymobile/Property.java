@@ -19,8 +19,7 @@ public class Property implements Serializable {
         this.yCoordinates = yCoordinates;
     }
 
-    public Property(String propertyName, String street)
-    {
+    public Property(String propertyName, String street) {
         this.propertyName = propertyName;
         this.street = street;
     }

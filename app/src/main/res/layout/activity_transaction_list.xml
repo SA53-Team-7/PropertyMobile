@@ -11,22 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Transactions"
         android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:title="Transactions" />
 
     <ProgressBar
         android:id="@+id/transactionProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/transactionListView"
@@ -34,10 +34,10 @@
         android:layout_height="0dp"
         android:divider="#e5e5ff"
         android:dividerHeight="1dp"
-        app:layout_constraintTop_toBottomOf="@+id/transactions_toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/transactions_toolbar">
 
     </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>
