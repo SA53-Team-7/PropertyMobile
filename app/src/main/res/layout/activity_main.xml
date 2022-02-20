@@ -10,8 +10,8 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Property Market Indicator"
-        android:textSize="30dp"
+        android:text="@string/property_market_indicator"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
         android:id="@+id/subTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="by Team 7"
-        android:textSize="20dp"
+        android:text="@string/by_team_7"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
         android:id="@+id/errorTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Unable to connect to the server. Please try again later."
+        android:text="@string/unable_to_connect_to_the_server_please_try_again_later"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,5 +72,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.94"
-        app:srcCompat="@drawable/house_icon" />
+        app:srcCompat="@drawable/house_icon"
+        android:contentDescription="@string/an_image_of_a_house" />
 </androidx.constraintlayout.widget.ConstraintLayout>

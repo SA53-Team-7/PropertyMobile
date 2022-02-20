@@ -32,7 +32,7 @@
         android:id="@+id/noFavouritesFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No favourites found. \nPlease add some."
+        android:text="@string/no_favourites_found_nplease_add_some"
         android:textSize="24sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="6dp"
-            android:text="Please add 2 projects to be compared"
+            android:text="@string/please_add_2_projects_to_be_compared"
             android:textSize="15sp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,124 +72,125 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/leftTOPTextView"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:contentDescription="@string/map_of_property1" />
 
                 <TextView
                     android:id="@+id/leftNameLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Property Name:" />
+                    android:text="@string/property_name" />
 
                 <TextView
                     android:id="@+id/leftNameTextView"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="name" />
+                    android:text="@string/name" />
 
                 <TextView
                     android:id="@+id/leftDistrictLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="District:" />
+                    android:text="@string/district" />
 
                 <TextView
                     android:id="@+id/leftDistrictTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="district" />
+                    android:text="@string/districttext" />
 
                 <TextView
                     android:id="@+id/leftRoadLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Road:" />
+                    android:text="@string/roadlabel" />
 
                 <TextView
                     android:id="@+id/leftRoadTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="road" />
+                    android:text="@string/road" />
 
                 <TextView
                     android:id="@+id/leftMRTLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Nearest MRT:" />
+                    android:text="@string/nearest_mrtlabel" />
 
                 <TextView
                     android:id="@+id/leftMRTTextView"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="mrt" />
+                    android:text="@string/mrt" />
 
                 <TextView
                     android:id="@+id/leftTimeLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Walking Time to MRT:" />
+                    android:text="@string/walking_time_to_mrtlabel" />
 
                 <TextView
                     android:id="@+id/leftTimeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="time" />
+                    android:text="@string/time" />
 
                 <TextView
                     android:id="@+id/leftPriceLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Average Price:" />
+                    android:text="@string/average_price_label" />
 
                 <TextView
                     android:id="@+id/leftPriceTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="$price" />
+                    android:text="@string/price" />
 
                 <TextView
                     android:id="@+id/leftRangeLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Floor Range:" />
+                    android:text="@string/floor_range_label" />
 
                 <TextView
                     android:id="@+id/leftRangeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="floors" />
+                    android:text="@string/floors" />
 
                 <TextView
                     android:id="@+id/leftTenureLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Tenure(years):" />
+                    android:text="@string/tenure_years_label" />
 
                 <TextView
                     android:id="@+id/leftTenureTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="tenure" />
+                    android:text="@string/tenure" />
 
                 <TextView
                     android:id="@+id/leftTOPLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="TOP:" />
+                    android:text="@string/top_label" />
 
                 <TextView
                     android:id="@+id/leftTOPTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="topyears" />
+                    android:text="@string/topyears" />
 
             </LinearLayout>
 
@@ -214,7 +215,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="260dp"
                     android:padding="6dp"
-                    android:text="Please add another project to be compared"
+                    android:text="@string/please_add_another_project_to_be_compared"
                     android:textSize="15sp"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -239,142 +240,143 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rightTOPTextView"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:contentDescription="@string/map_of_property2" />
 
                 <TextView
                     android:id="@+id/rightNameLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-                    android:text="Property Name:" />
+                    android:gravity="end"
+                    android:text="@string/property_name" />
 
                 <TextView
                     android:id="@+id/rightNameTextView"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:gravity="right"
-                    android:text="name" />
+                    android:gravity="end"
+                    android:text="@string/name" />
 
                 <TextView
                     android:id="@+id/rightDistrictLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-                    android:text="District:" />
+                    android:gravity="end"
+                    android:text="@string/district" />
 
                 <TextView
                     android:id="@+id/rightDistrictTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:gravity="right"
-                    android:text="district" />
+                    android:gravity="end"
+                    android:text="@string/districttext" />
 
                 <TextView
                     android:id="@+id/rightRoadLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-                    android:text="Road:" />
+                    android:gravity="end"
+                    android:text="@string/roadlabel" />
 
                 <TextView
                     android:id="@+id/rightRoadTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:gravity="right"
-                    android:text="road" />
+                    android:gravity="end"
+                    android:text="@string/road" />
 
                 <TextView
                     android:id="@+id/rightMRTLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-                    android:text="Nearest MRT:" />
+                    android:gravity="end"
+                    android:text="@string/nearest_mrtlabel" />
 
                 <TextView
                     android:id="@+id/rightMRTTextView"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:gravity="right"
-                    android:text="mrt" />
+                    android:gravity="end"
+                    android:text="@string/mrt" />
 
                 <TextView
                     android:id="@+id/rightTimeLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-                    android:text="Walking Time to MRT:" />
+                    android:gravity="end"
+                    android:text="@string/walking_time_to_mrtlabel" />
 
                 <TextView
                     android:id="@+id/rightTimeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:gravity="right"
-                    android:text="time" />
+                    android:gravity="end"
+                    android:text="@string/time" />
 
                 <TextView
                     android:id="@+id/rightPriceLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-                    android:text="Average Price:" />
+                    android:gravity="end"
+                    android:text="@string/average_price_label" />
 
                 <TextView
                     android:id="@+id/rightPriceTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:gravity="right"
-                    android:text="$price" />
+                    android:gravity="end"
+                    android:text="@string/price" />
 
                 <TextView
                     android:id="@+id/rightRangeLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-                    android:text="Floor Range:" />
+                    android:gravity="end"
+                    android:text="@string/floor_range_label" />
 
                 <TextView
                     android:id="@+id/rightRangeTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:gravity="right"
-                    android:text="floors" />
+                    android:gravity="end"
+                    android:text="@string/floors" />
 
                 <TextView
                     android:id="@+id/rightTenureLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-                    android:text="Tenure(years):" />
+                    android:gravity="end"
+                    android:text="@string/tenure_years_label" />
 
                 <TextView
                     android:id="@+id/rightTenureTextView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:gravity="right"
-                    android:text="tenure" />
+                    android:gravity="end"
+                    android:text="@string/tenure" />
 
                 <TextView
                     android:id="@+id/rightTOPLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:gravity="right"
-                    android:text="TOP:" />
+                    android:gravity="end"
+                    android:text="@string/top_label" />
 
                 <TextView
                     android:id="@+id/rightTOPTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="topyears" />
+                    android:gravity="end"
+                    android:text="@string/topyears" />
 
             </LinearLayout>
         </LinearLayout>
@@ -383,7 +385,7 @@
             android:id="@+id/searchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search properties to compare"
+            android:text="@string/search_properties_to_compare"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -395,7 +397,7 @@
             android:layout_height="52dp"
             android:layout_marginTop="400dp"
             android:layout_marginEnd="5dp"
-            android:text="Search"
+            android:text="@string/search"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -404,7 +406,7 @@
             android:id="@+id/clearButton"
             android:layout_width="165dp"
             android:layout_height="57dp"
-            android:text="Clear selected"
+            android:text="@string/clear_selected"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
