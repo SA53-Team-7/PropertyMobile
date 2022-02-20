@@ -279,6 +279,7 @@ public class MapDataService {
         void onResponse(Property property, List<Location> locationList);
     }
 
+    // use REST API to get MRT station info
     public void callNearbyTrainStations (Property property, CallNearbyTrainStationsResponseListener callNearbyTrainStationsResponseListener) {
         List<Location> locationList = new ArrayList<>();
 
@@ -327,7 +328,7 @@ public class MapDataService {
         void onResponse(String name, double distance);
     }
 
-    // use REST API to get the distance between
+    // create the list of the property's name and the distance between the property and nearest MRT station
     public void distanceListLocations (Property property, DistanceListLocationsResponseListener distanceListLocationsResponseListener) {
 
         callNearbyTrainStations(property, new CallNearbyTrainStationsResponseListener() {
