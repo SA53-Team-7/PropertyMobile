@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
@@ -33,30 +31,24 @@ public class LoginRegisterDataService {
     // use REST API to authenticate user info
     public void login(JSONObject user, AuthResponseListener authResponseListener) {
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_LOGIN_CALL, user, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    int success = Integer.valueOf(response.getInt("login"));
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_LOGIN_CALL, user, response -> {
+            try {
+                int success = response.getInt("login");
 
-                    switch (success) {
-                        case 0:
-                            authResponseListener.onResponse(false, -1, null);
-                            break;
-                        case 1:
-                            authResponseListener.onResponse(true, Integer.valueOf(response.getInt("id")), response.getString("name"));
-                            break;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                switch (success) {
+                    case 0:
+                        authResponseListener.onResponse(false, -1, null);
+                        break;
+                    case 1:
+                        authResponseListener.onResponse(true, response.getInt("id"), response.getString("name"));
+                        break;
                 }
-
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-            }
+        }, error -> {
+
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -77,29 +69,23 @@ public class LoginRegisterDataService {
     // use REST API to update user info after registration
     public void register(JSONObject newUser, RegisterResponseListener registerResponseListener) {
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_REGISTER_CALL, newUser, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    int success = response.getInt("register");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_REGISTER_CALL, newUser, response -> {
+            try {
+                int success = response.getInt("register");
 
-                    switch (success) {
-                        case 0:
-                            registerResponseListener.onResponse(false);
-                            break;
-                        case 1:
-                            registerResponseListener.onResponse(true);
-                            break;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                switch (success) {
+                    case 0:
+                        registerResponseListener.onResponse(false);
+                        break;
+                    case 1:
+                        registerResponseListener.onResponse(true);
+                        break;
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        }, error -> {
 
-            }
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -109,11 +95,5 @@ public class LoginRegisterDataService {
         ));
 
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
-    }
-
-    public interface GetNameResponseListener {
-        void onError(String message);
-
-        void onResponse(String name);
     }
 }

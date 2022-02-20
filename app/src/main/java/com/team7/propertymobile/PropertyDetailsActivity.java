@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -29,8 +28,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
     private SharedPreferences sharedPreferences;
     public static final String USER_CREDENTIALS = "user_credentials";
-    public static final String USER_KEY = "user_key";
-    public static final String NAME_KEY = "name_key";
     public static final String ID_KEY = "id_key";
 
     MapDataService mapDataService = new MapDataService(this);
@@ -87,8 +84,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             public void onResponse(String nearestLocation, double nearestDistance) {
                 distanceProgressBar.setVisibility(View.GONE);
                 if (nearestDistance == -1.00) {
-                    distanceFromTrain.setText("GPS Coordinates Unavailable");
-                    distanceFromTrain.setVisibility(View.VISIBLE);
+                    distanceFromTrain.setText(R.string.gps_unavailable);
                 } else {
                     DecimalFormat df = new DecimalFormat("0.00");
                     df.setRoundingMode(RoundingMode.UP);
@@ -100,8 +96,8 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
                     String mrtDistance = nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk";
                     distanceFromTrain.setText(mrtDistance);
-                    distanceFromTrain.setVisibility(View.VISIBLE);
                 }
+                distanceFromTrain.setVisibility(View.VISIBLE);
             }
         });
 
@@ -150,9 +146,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         ToggleButton toggleButton = findViewById(R.id.favouriteToggleButton);
         toggleButton.setOnClickListener(this);
 
-        sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-        int selectedUserId = sharedPreferences.getInt(ID_KEY, -1);
-
         ProgressBar recommendLoadBar = findViewById(R.id.recommendLoadProgressBar);
         recommendLoadBar.setVisibility(View.VISIBLE);
 
@@ -173,37 +166,35 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 districtInfoTextView.setVisibility(View.VISIBLE);
                 transactionDistrict = transactions;
 
-                if (districtInfoTextView != null) {
-                    districtInfoTextView.setText("District " + transactionDistrict.getDistrict());
+                districtInfoTextView.setText(String.format("%s%s", getString(R.string.district_with_space), transactionDistrict.getDistrict()));
 
-                    recommendDataService.callRecommendProjects(transactionDistrict.getDistrict(), new RecommendDataService.RecommendResponseListener() {
-                        @Override
-                        public void onError(String message) {
+                recommendDataService.callRecommendProjects(transactionDistrict.getDistrict(), new RecommendDataService.RecommendResponseListener() {
+                    @Override
+                    public void onError(String message) {
 
 
+                    }
+
+
+                    @Override
+                    public void onResponse(List<Property> projects) {
+                        recommendLoadBar.setVisibility(View.INVISIBLE);
+                        TextView recommendTextView1 = findViewById(R.id.recommendTextView1);
+                        TextView recommendTextView2 = findViewById(R.id.recommendTextView2);
+                        propertyList = projects;
+
+                        if (recommendTextView1 != null) {
+                            recommendTextView1.setText(propertyList.get(0).getPropertyName());
+                            recommendTextView1.setVisibility(View.VISIBLE);
                         }
 
-
-                        @Override
-                        public void onResponse(List<Property> projects) {
-                            recommendLoadBar.setVisibility(View.INVISIBLE);
-                            TextView recommendTextView1 = findViewById(R.id.recommendTextView1);
-                            TextView recommendTextView2 = findViewById(R.id.recommendTextView2);
-                            propertyList = projects;
-
-                            if (recommendTextView1 != null) {
-                                recommendTextView1.setText(propertyList.get(0).getPropertyName());
-                                recommendTextView1.setVisibility(View.VISIBLE);
-                            }
-
-                            if (recommendTextView2 != null) {
-                                recommendTextView2.setText(propertyList.get(1).getPropertyName());
-                                recommendTextView2.setVisibility(View.VISIBLE);
-                            }
-
+                        if (recommendTextView2 != null) {
+                            recommendTextView2.setText(propertyList.get(1).getPropertyName());
+                            recommendTextView2.setVisibility(View.VISIBLE);
                         }
-                    });
-                }
+
+                    }
+                });
 
             }
         });
@@ -264,11 +255,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 @Override
                 public void onResponse(boolean isSaved) {
                     progressBar.setVisibility(View.INVISIBLE);
-                    if (isSaved) {
-                        fave.setChecked(true);
-                    } else {
-                        fave.setChecked(false);
-                    }
+                    fave.setChecked(isSaved);
                 }
             });
         }
@@ -331,11 +318,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 startActivity(intent);
             } else {
                 saveFavourites(selectedProperty);
-                if (fave.isChecked()) {
-                    fave.setChecked(true);
-                } else {
-                    fave.setChecked(false);
-                }
+                fave.setChecked(fave.isChecked());
             }
 
         }
@@ -358,14 +341,14 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
                 SharedPreferences.Editor editor = setPref.edit();
                 editor.putString("compare1", String.valueOf(selectedProperty.getProjectId()));
-                editor.commit();
+                editor.apply();
                 Toast toast = Toast.makeText(this, "Added to comparison as 1", Toast.LENGTH_LONG);
                 toast.show();
             } else if (compare2.equals("-")) {
                 SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
                 SharedPreferences.Editor editor = setPref.edit();
                 editor.putString("compare2", String.valueOf(selectedProperty.getProjectId()));
-                editor.commit();
+                editor.apply();
                 Toast toast = Toast.makeText(this, "Added to comparison as 2", Toast.LENGTH_LONG);
                 toast.show();
             }
@@ -377,7 +360,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         SharedPreferences.Editor editor = setPref.edit();
         editor.putString("compare1", "-");
         editor.putString("compare2", "-");
-        editor.commit();
+        editor.apply();
 
         clearAddButton.setVisibility(View.INVISIBLE);
         compareButton.setVisibility(View.VISIBLE);
@@ -410,7 +393,6 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         progressBar.setVisibility(View.VISIBLE);
 
         sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
-        ToggleButton fave = findViewById(R.id.favouriteToggleButton);
 
 
         int selectedPropertyId = selectedProperty.getProjectId();

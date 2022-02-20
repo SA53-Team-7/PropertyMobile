@@ -43,20 +43,20 @@ public class LoanCalculatorActivity extends AppCompatActivity implements View.On
             EditText interestRateInput = findViewById(R.id.interestRateInput);
 
             // calculate home loan
-            double price = Double.valueOf(priceInput.getText().toString());
-            double deposit = Double.valueOf(depositInput.getText().toString());
+            double price = Double.parseDouble(priceInput.getText().toString());
+            double deposit = Double.parseDouble(depositInput.getText().toString());
 
             double amountToLoan = price - deposit;
 
-            int numberOfPayments = Integer.valueOf(loanLengthInput.getText().toString()) * 12;
-            double interestRate = Double.valueOf(interestRateInput.getText().toString()) / 1200;
+            int numberOfPayments = Integer.parseInt(loanLengthInput.getText().toString()) * 12;
+            double interestRate = Double.parseDouble(interestRateInput.getText().toString()) / 1200;
 
             double monthlyPayment = (amountToLoan * interestRate * Math.pow((1 + interestRate), numberOfPayments)) / (Math.pow((1 + interestRate), numberOfPayments) - 1);
 
             TextView result = findViewById(R.id.monthlyPaymentView);
             Locale sg = new Locale("en", "SG");
             NumberFormat formatter = NumberFormat.getCurrencyInstance(sg);
-            result.setText(formatter.format(monthlyPayment) + " per month");
+            result.setText(String.format("%s per month", formatter.format(monthlyPayment)));
             result.setVisibility(View.VISIBLE);
         }
     }

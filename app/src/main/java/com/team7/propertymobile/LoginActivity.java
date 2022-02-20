@@ -23,16 +23,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String USER_KEY = "user_key";
-    public static final String EMAIL_KEY = "hello@hello.com";
-    public static final String PASSWORD_KEY = "hello";
-    public static final String TOKEN_KEY = "token_key";
     public static final String NAME_KEY = "name_key";
     public static final String ID_KEY = "id_key";
-    public static final String IS_LOGGEDIN = "is_loggedin";
-    private String email;
-    private String password;
-    private String token;
-    private SharedPreferences sharedPreferences;
+    public static final String IS_LOGIN = "is_login";
 
     LoginRegisterDataService loginRegisterDataService = new LoginRegisterDataService(this);
 
@@ -78,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             EditText loginPassword = findViewById(R.id.loginTextPassword);
 
 
-            sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             // display login error message and authenticate user info
@@ -121,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editor.putString(USER_KEY, loginEmail.getText().toString());
                             editor.putInt(ID_KEY, id);
                             editor.putString(NAME_KEY, name);
-                            editor.putBoolean(IS_LOGGEDIN, true);
+                            editor.putBoolean(IS_LOGIN, true);
                             editor.apply();
                             loginSuccessTextView.setVisibility(View.VISIBLE);
 

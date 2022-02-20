@@ -14,9 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -181,18 +179,15 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                     leftName.setText(project.getPropertyName());
                     leftRoad.setText(project.getStreet());
 
-                    loadMRTData(project, side);
-                    loadTransactionsData(project, side);
-                    loadMiniMaps(project, side);
                 } else {
                     project2 = project;
                     rightName.setText(project.getPropertyName());
                     rightRoad.setText(project.getStreet());
 
-                    loadMRTData(project, side);
-                    loadTransactionsData(project, side);
-                    loadMiniMaps(project, side);
                 }
+                loadMRTData(project, side);
+                loadTransactionsData(project, side);
+                loadMiniMaps(project, side);
 
             }
         });
@@ -210,11 +205,11 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
             public void onResponse(String nearestLocation, double nearestDistance) {
                 if (nearestDistance == -1.00) {
                     if (side == 1) {
-                        leftMRT.setText("GPS Coordinates Unavailable");
-                        leftTime.setText("GPS Coordinates Unavailable");
+                        leftMRT.setText(R.string.gps_unavailable);
+                        leftTime.setText(R.string.gps_unavailable);
                     } else {
-                        rightMRT.setText("GPS Coordinates Unavailable");
-                        rightTime.setText("GPS Coordinates Unavailable");
+                        rightMRT.setText(R.string.gps_unavailable);
+                        rightTime.setText(R.string.gps_unavailable);
                     }
                 } else {
                     DecimalFormat df = new DecimalFormat("0.00");
@@ -226,11 +221,11 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                     double time = nearestDistance / 5 * 60;
 
                     if (side == 1) {
-                        leftMRT.setText(nearestLocation + " (" + df.format(nearestDistance) + " KM)");
-                        leftTime.setText(df2.format(time) + " minutes walk");
+                        leftMRT.setText(String.format("%s (%s KM)", nearestLocation, df.format(nearestDistance)));
+                        leftTime.setText(String.format("%s minutes walk", df2.format(time)));
                     } else {
-                        rightMRT.setText(nearestLocation + " (" + df.format(nearestDistance) + " KM)");
-                        rightTime.setText(df2.format(time) + " minutes walk");
+                        rightMRT.setText(String.format("%s (%s KM)", nearestLocation, df.format(nearestDistance)));
+                        rightTime.setText(String.format("%s minutes walk", df2.format(time)));
                     }
                 }
             }
@@ -247,14 +242,13 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onResponse(List<Transaction> transactions) {
-                List<Transaction> transactionList = transactions;
                 String tenure;
                 String district;
                 String year;
 
-                if (transactionList != null) {
+                if (transactions != null) {
 
-                    Transaction ref = transactionList.get(1);
+                    Transaction ref = transactions.get(1);
 
                     district = ref.getDistrict();
 
@@ -275,7 +269,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                     ArrayList<String> floorRange = new ArrayList<>();
                     ArrayList<String> floorArea = new ArrayList<>();
                     ArrayList<Double> prices = new ArrayList<>();
-                    for (Transaction t : transactionList) {
+                    for (Transaction t : transactions) {
                         if (!floorRange.contains(t.getFloorRange())) {
                             floorRange.add(t.getFloorRange());
                         }
@@ -298,13 +292,13 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
 
                     if (side == 1) {
                         leftDistrict.setText(district);
-                        leftTenure.setText(tenure + " years");
+                        leftTenure.setText(String.format("%s years", tenure));
                         leftTOP.setText(year);
                         leftFloor.setText(floors);
                         leftPrice.setText(formatter.format(averagePrice));
                     } else {
                         rightDistrict.setText(district);
-                        rightTenure.setText(tenure + " years");
+                        rightTenure.setText(String.format("%s years", tenure));
                         rightTOP.setText(year);
                         rightFloor.setText(floors);
                         rightPrice.setText(formatter.format(averagePrice));
@@ -315,7 +309,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-    // set property's map via onemap API and coordinate converter
+    // set property's map via OneMap API and coordinate converter
     private void loadMiniMaps(Property selectedProperty, Integer side) {
         mapDataService.callStaticMapAfterConversion(selectedProperty.getxCoordinates(), selectedProperty.getyCoordinates(), new MapDataService.CallStaticMapAfterConversionResponseListener() {
             @Override
@@ -352,7 +346,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
             SharedPreferences.Editor editor = setPref.edit();
             editor.putString("compare1", "-");
             editor.putString("compare2", "-");
-            editor.commit();
+            editor.apply();
 
             setNoneToCompare();
         }

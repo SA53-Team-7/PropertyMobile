@@ -4,12 +4,9 @@ import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,33 +39,27 @@ public class FavouritesDataService {
 
         String url = LIVE_QUERY_FOR_MY_LIST + userId;
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject jsonProperty = response.getJSONObject(i);
-                        Property property = new Property();
-                        property.setProjectId(jsonProperty.getInt("projectId"));
-                        property.setPropertyName(jsonProperty.getString("name"));
-                        property.setRegion(jsonProperty.getString("segment"));
-                        property.setStreet(jsonProperty.getString("street"));
-                        property.setxCoordinates(jsonProperty.getString("x"));
-                        property.setyCoordinates(jsonProperty.getString("y"));
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            try {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject jsonProperty = response.getJSONObject(i);
+                    Property property = new Property();
+                    property.setProjectId(jsonProperty.getInt("projectId"));
+                    property.setPropertyName(jsonProperty.getString("name"));
+                    property.setRegion(jsonProperty.getString("segment"));
+                    property.setStreet(jsonProperty.getString("street"));
+                    property.setxCoordinates(jsonProperty.getString("x"));
+                    property.setyCoordinates(jsonProperty.getString("y"));
 
-                        projects.add(property);
-                    }
-                    callMyListResponseListener.onResponse(projects);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    projects.add(property);
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+                callMyListResponseListener.onResponse(projects);
 
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+        }, error -> {
+
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -89,29 +80,23 @@ public class FavouritesDataService {
     // use REST API to check the shortlist info
     public void isSaved(JSONObject userAndProject, SaveResponseListener saveResponseListener) {
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_IS_FAVE_SAVED, userAndProject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    int isSaved = response.getInt("isSaved");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_IS_FAVE_SAVED, userAndProject, response -> {
+            try {
+                int isSaved = response.getInt("isSaved");
 
-                    switch (isSaved) {
-                        case -1:
-                            saveResponseListener.onResponse(false);
-                            break;
-                        case 1:
-                            saveResponseListener.onResponse(true);
-                            break;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                switch (isSaved) {
+                    case -1:
+                        saveResponseListener.onResponse(false);
+                        break;
+                    case 1:
+                        saveResponseListener.onResponse(true);
+                        break;
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        }, error -> {
 
-            }
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -126,29 +111,23 @@ public class FavouritesDataService {
 
     // use REST API to update the shortlist info
     public void save(JSONObject userAndProject, SaveResponseListener saveResponseListener) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_SAVE_OR_UPDATE, userAndProject, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    int isSaved = response.getInt("success");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_SAVE_OR_UPDATE, userAndProject, response -> {
+            try {
+                int isSaved = response.getInt("success");
 
-                    switch (isSaved) {
-                        case -1:
-                            saveResponseListener.onResponse(false);
-                            break;
-                        case 1:
-                            saveResponseListener.onResponse(true);
-                            break;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                switch (isSaved) {
+                    case -1:
+                        saveResponseListener.onResponse(false);
+                        break;
+                    case 1:
+                        saveResponseListener.onResponse(true);
+                        break;
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        }, error -> {
 
-            }
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(

@@ -1,5 +1,6 @@
 package com.team7.propertymobile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.android.volley.Request;
@@ -7,8 +8,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 public class DataRequestSingleton {
+    @SuppressLint("StaticFieldLeak")
     private static DataRequestSingleton instance;
     private RequestQueue requestQueue;
+    @SuppressLint("StaticFieldLeak")
     private static Context ctx;
 
     private DataRequestSingleton(Context context) {

@@ -17,7 +17,6 @@ import android.widget.TextView;
 import java.util.List;
 
 public class FavouritesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    private SharedPreferences sharedPreferences;
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String ID_KEY = "id_key";
     private int userId = -1;
@@ -40,7 +39,7 @@ public class FavouritesListActivity extends AppCompatActivity implements Adapter
         ab.setDisplayHomeAsUpEnabled(true);
 
         // use shared preferences to store and pass user id
-        sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
         userId = sharedPreferences.getInt(ID_KEY, -1);
 
         refreshFavouritesList();
