@@ -31,6 +31,7 @@ public class NewPropertyDataService {
         void onResponse(List<NewProperty> projects);
     }
 
+    // use REST API to get new launch property info
     public void callAllNewProjects(NewProjectsResponseListener newProjectsResponseListener) {
         List<NewProperty> newProjectsList = new ArrayList<>();
 

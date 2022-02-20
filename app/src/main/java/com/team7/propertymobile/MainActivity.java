@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wakeSpringWeb();
         wakePrediction();
 
+        // create splash screen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         finish();
     }
 
+    // speed up the data transfer for web
     private void wakeSpringWeb() {
         propertyDataService.getSingleProject("1", new PropertyDataService.SingleProjectResponseListener() {
             @Override
@@ -92,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    // speed up the data transfer for machine learning model
     private void wakePrediction() {
         JSONArray request = new JSONArray();
         JSONObject data = new JSONObject();

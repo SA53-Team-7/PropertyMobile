@@ -168,7 +168,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         clearButton.setVisibility(View.VISIBLE);
     }
 
-    // use REST API to call and set property info
+    // set single property info via REST API
     private void loadProjectData(String pId, Integer side) {
         propertyDataService.getSingleProject(pId, new PropertyDataService.SingleProjectResponseListener() {
             @Override
@@ -201,7 +201,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-    // use REST API to call and set MRT info
+    // set the distance between the property and nearest MRT station
     private void loadMRTData(Property selectedProperty, Integer side) {
         mapDataService.distanceListLocations(selectedProperty, new MapDataService.DistanceListLocationsResponseListener() {
             @Override
@@ -245,7 +245,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-    // use REST API to call and set transaction info
+    // set the transaction info of the selected property via REST API
     private void loadTransactionsData(Property selectedProperty, Integer side){
         transactionDataService.callTransactionsById(selectedProperty.getProjectId(), new TransactionDataService.TransactionResponseListener() {
             @Override
@@ -325,7 +325,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
-    // use REST API to call and set property's map
+    // set property's map via onemap API and coordinate converter
     private void loadMiniMaps(Property selectedProperty, Integer side) {
         mapDataService.callStaticMapAfterConversion(selectedProperty.getxCoordinates(), selectedProperty.getyCoordinates(), new MapDataService.CallStaticMapAfterConversionResponseListener() {
             @Override

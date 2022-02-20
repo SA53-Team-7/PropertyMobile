@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             EditText name = findViewById(R.id.nameTextPersonName);
             EditText password = findViewById(R.id.registerTextPassword);
 
-            // display registration error message and use REST API to save user info after registration
+            // display registration error message and save user info after registration
             if (TextUtils.isEmpty(email.getText().toString()) && TextUtils.isEmpty(password.getText().toString()) && TextUtils.isEmpty(name.getText().toString())){
                 email.setError("Please enter your email address.");
                 password.setError("Please enter your password.");

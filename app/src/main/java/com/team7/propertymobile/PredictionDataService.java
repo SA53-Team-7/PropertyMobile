@@ -19,7 +19,9 @@ public class PredictionDataService {
 
     Context context;
 
+    // for local server
     public static final String QUERY_FOR_PREDICTION_LOCAL = "http://10.0.2.2:5000/";
+    // for cloud server
     public static final String QUERY_FOR_PREDICTION= "https://msdocs-python-webapp-quickstart-te7.azurewebsites.net/";
 
     public PredictionDataService(Context context) {
@@ -32,6 +34,7 @@ public class PredictionDataService {
         void onResponse(String response);
     }
 
+    // use REST API to get resale property model
     public void callPrediction (JSONArray data, PredictionDataService.PredictionResponseListener predictionResponseListener)
     {
         String url = QUERY_FOR_PREDICTION;

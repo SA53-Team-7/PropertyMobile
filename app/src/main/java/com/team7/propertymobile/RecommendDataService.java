@@ -38,6 +38,7 @@ public class RecommendDataService {
         void onResponse(Transaction transactions);
     }
 
+    // use REST API to get recommended properties based on same district
     public void callRecommendProjects(String district, RecommendResponseListener recommendResponseListener) {
 
         List<Property> projects = new ArrayList<>();
@@ -82,6 +83,7 @@ public class RecommendDataService {
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
+    // use REST API to get district info for recommendation
     public void recommendDistrictProject(int id, RecommendDistrictResponseListener recommendDistrictResponseListener)
     {
         String url = QUERY_PROJECT_RecommendationDistrict + id;

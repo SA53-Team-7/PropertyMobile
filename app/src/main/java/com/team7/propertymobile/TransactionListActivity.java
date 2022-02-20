@@ -39,7 +39,7 @@ public class TransactionListActivity extends AppCompatActivity implements Adapte
         ProgressBar progressBar = findViewById(R.id.transactionProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        // use REST API to call and set all transactions of the selected property
+        // set all transactions of the selected property via REST API
         transactionDataService.callTransactionsById(selectedProperty.getProjectId(), new TransactionDataService.TransactionResponseListener() {
 
 

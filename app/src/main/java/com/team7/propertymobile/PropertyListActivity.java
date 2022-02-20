@@ -42,7 +42,7 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
         ProgressBar progressBar = findViewById(R.id.propertyProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        // use REST API to search properties based on the keyword input
+        // search properties based on the keyword input via REST API
         propertyDataService.searchProjects(searchInput, new PropertyDataService.ProjectsResponseListener() {
             @Override
             public void onError(String message) {

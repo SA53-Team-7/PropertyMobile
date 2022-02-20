@@ -76,7 +76,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         ProgressBar distanceProgressBar = findViewById(R.id.distanceLoadProgressBar);
         distanceProgressBar.setVisibility(View.VISIBLE);
 
-        // use REST API to call and set the distance between the property and its nearest MRT station
+        // set the distance between the property and its nearest MRT station
         mapDataService.distanceListLocations(selectedProperty, new MapDataService.DistanceListLocationsResponseListener() {
             @Override
             public void onError(String message) {
@@ -113,7 +113,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         ProgressBar progressBar = findViewById(R.id.mapLoadProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        // use REST API to call and set the property's map
+        // set the property's map
         mapDataService.callStaticMapAfterConversion(selectedProperty.getxCoordinates(), selectedProperty.getyCoordinates(), new MapDataService.CallStaticMapAfterConversionResponseListener() {
             @Override
             public void onError(String message) {
@@ -162,7 +162,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
         ProgressBar districtLoadBar = findViewById(R.id.districtLoadProgressBar);
         districtLoadBar.setVisibility(View.VISIBLE);
 
-        // use REST API to call and set the recommended properties based on same district
+        // set the recommended properties based on same district
         recommendDataService.recommendDistrictProject(selectedProperty.getProjectId(), new RecommendDataService.RecommendDistrictResponseListener() {
             @Override
             public void onError(String message) {

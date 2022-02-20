@@ -32,6 +32,7 @@ public class TransactionDataService {
         void onResponse(List<Transaction> transactions);
     }
 
+    // use REST API to get transaction info by project(property) id
     public void callTransactionsById (int id, TransactionResponseListener transactionResponseListener)
     {
         List<Transaction> transactionList = new ArrayList<>();

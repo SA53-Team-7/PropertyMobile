@@ -33,6 +33,7 @@ public class FavouritesDataService {
         void onResponse(List<Property> projects);
     }
 
+    // use REST API to get shortlist info
     public void callAllProjects(int userId, CallMyListResponseListener callMyListResponseListener) {
         List<Property> projects = new ArrayList<>();
 
@@ -83,6 +84,7 @@ public class FavouritesDataService {
         void onResponse(boolean isSaved);
     }
 
+    // use REST API to check the shortlist info
     public void isSaved (JSONObject userAndProject, SaveResponseListener saveResponseListener) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, IS_FAVE_SAVED, userAndProject, new Response.Listener<JSONObject>() {
@@ -120,7 +122,7 @@ public class FavouritesDataService {
     }
 
 
-
+    // use REST API to update the shortlist info
     public void save(JSONObject userAndProject, SaveResponseListener saveResponseListener) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, SAVE_OR_UPDATE, userAndProject, new Response.Listener<JSONObject>() {
             @Override

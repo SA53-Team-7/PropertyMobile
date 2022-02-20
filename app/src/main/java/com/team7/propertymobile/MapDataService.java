@@ -46,6 +46,7 @@ public class MapDataService {
         void onResponse(Bitmap bitmap);
     }
 
+    // use onemap API to get the property's map info
     public void callStaticMap (double latitude, double longitude, StaticMapResponseListener staticMapResponseListener)
     {
 
@@ -79,6 +80,7 @@ public class MapDataService {
         void onResponse(double latitude, double longitude);
     }
 
+    // get x and y coordinate of the specific location from onemap API
     public void coordinatesConverter (String x, String y, CoordinatesConverterResponseListener coordinatesConverterResponseListener)
     {
         String url = "https://developers.onemap.sg/commonapi/convert/3414to4326?X=" + x + "&Y=" + y;
@@ -118,6 +120,7 @@ public class MapDataService {
         void onResponse(Bitmap bitmap);
     }
 
+    // get the property's map using coordinate converter
     public void callStaticMapAfterConversion (String x, String y, CallStaticMapAfterConversionResponseListener callStaticMapAfterConversionResponseListener) {
         if (x.equals("null") || y.equals("null") || y.equals(null) || x.equals(null))
         {
@@ -208,6 +211,7 @@ public class MapDataService {
         void onResponse(String name, double distance);
     }
 
+    // use REST API to get x and y coordinate of the specific location then compute the distance between two places
     public void distanceLocationsMap (Property property, List<Location> locationList, DistanceLocationsMapResponseListener distanceLocationsMapResponseListener) {
         if (property.getxCoordinates().equals("null") || property.getyCoordinates().equals("null"))
         {
@@ -323,6 +327,7 @@ public class MapDataService {
         void onResponse(String name, double distance);
     }
 
+    // use REST API to get the distance between
     public void distanceListLocations (Property property, DistanceListLocationsResponseListener distanceListLocationsResponseListener) {
 
         callNearbyTrainStations(property, new CallNearbyTrainStationsResponseListener() {

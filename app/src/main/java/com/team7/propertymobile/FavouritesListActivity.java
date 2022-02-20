@@ -65,7 +65,7 @@ public class FavouritesListActivity extends AppCompatActivity implements Adapter
         startActivity(intent);
     }
 
-    // use REST API to call and set shortlist
+    // set shortlist info via REST API
     private void refreshFavouritesList() {
         ProgressBar progressBar = findViewById(R.id.favouritesListProgressBar);
         progressBar.setVisibility(View.VISIBLE);

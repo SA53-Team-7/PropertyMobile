@@ -32,7 +32,7 @@ public class NewPropertyListActivity extends AppCompatActivity{
         ProgressBar progressBar = findViewById(R.id.newPropertyListProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 
-        // use REST API to call and set new launch property
+        // set new launch property via REST API
         newPropertyDataService.callAllNewProjects(new NewPropertyDataService.NewProjectsResponseListener() {
             @Override
             public void onError(String message) {

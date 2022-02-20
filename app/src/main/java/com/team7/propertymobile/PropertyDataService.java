@@ -43,7 +43,7 @@ public class PropertyDataService{
         void onResponse(Property projects);
     }
 
-
+    // use REST API to get property info using keyword input
     public void searchProjects(String search, ProjectsResponseListener projectsResponseListener)
     {
         List<Property> projects = new ArrayList<>();
@@ -93,6 +93,7 @@ public class PropertyDataService{
         DataRequestSingleton.getInstance(context).addToRequestQueue(request);
     }
 
+    // use REST API to get single property info
     public void getSingleProject(String id, SingleProjectResponseListener singleProjectResponseListener)
     {
         String url = QUERY_PROJECT_GET + id;

@@ -81,6 +81,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         return true;
     }
 
+    // set the parameters needed in resale property model
     private void loadSpinnerData() {
         transactionDataService.callTransactionsById(selectedProperty.getProjectId(), new TransactionDataService.TransactionResponseListener() {
             @Override
@@ -234,7 +235,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
 
     }
 
-    // use REST API to call resale property model then predict the estimated price of the property
+    // predict the estimated price of the property via REST API
     private void getPrediction() throws JSONException {
 
         JSONArray data = createRequestPackage();

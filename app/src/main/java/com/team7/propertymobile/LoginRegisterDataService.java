@@ -28,6 +28,7 @@ public class LoginRegisterDataService {
         void onResponse(boolean success, int id, String name);
     }
 
+    // use REST API to authenticate user info
     public void login (JSONObject user, AuthResponseListener authResponseListener) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LOGIN_CALL, user, new Response.Listener<JSONObject>() {
@@ -71,6 +72,7 @@ public class LoginRegisterDataService {
         void onResponse(boolean success);
     }
 
+    // use REST API to update user info after registration
     public void register (JSONObject newUser, RegisterResponseListener registerResponseListener) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, REGISTER_CALL, newUser, new Response.Listener<JSONObject>() {

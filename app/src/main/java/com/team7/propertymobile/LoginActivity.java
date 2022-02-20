@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             sharedPreferences = getSharedPreferences(USER_CREDENTIALS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            // display login error message and use REST API to call and authenticate user info
+            // display login error message and authenticate user info
             if (TextUtils.isEmpty(loginEmail.getText().toString()) && TextUtils.isEmpty(loginPassword.getText().toString())){
                 loginEmail.setError("Please enter your email address.");
                 loginPassword.setError("Please enter your password.");
