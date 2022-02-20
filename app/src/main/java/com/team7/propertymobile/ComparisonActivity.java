@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ComparisonActivity extends AppCompatActivity implements View.OnClickListener{
+public class ComparisonActivity extends AppCompatActivity implements View.OnClickListener {
 
     LinearLayout compareLayout;
     LinearLayout leftColumn;
@@ -92,12 +92,10 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
 
         if (compare1.equals("-")) {
             setNoneToCompare();
-        }
-        else if (compare2.equals("-")){
+        } else if (compare2.equals("-")) {
             setCompareOneOnly();
             loadProjectData(compare1, 1);
-        }
-        else {
+        } else {
             loadProjectData(compare1, 1);
             loadProjectData(compare2, 2);
         }
@@ -162,7 +160,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
     private void onDataLoad() {
         compareLayout.setVisibility(View.VISIBLE);
         spinny.setVisibility(View.GONE);
-        if (rightColumn.getVisibility() == View.GONE){
+        if (rightColumn.getVisibility() == View.GONE) {
             leftColumn.setVisibility(View.VISIBLE);
         }
         clearButton.setVisibility(View.VISIBLE);
@@ -178,7 +176,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onResponse(Property project) {
-                if (side == 1){
+                if (side == 1) {
                     project1 = project;
                     leftName.setText(project.getPropertyName());
                     leftRoad.setText(project.getStreet());
@@ -186,8 +184,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                     loadMRTData(project, side);
                     loadTransactionsData(project, side);
                     loadMiniMaps(project, side);
-                }
-                else {
+                } else {
                     project2 = project;
                     rightName.setText(project.getPropertyName());
                     rightRoad.setText(project.getStreet());
@@ -211,19 +208,15 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onResponse(String nearestLocation, double nearestDistance) {
-                if (nearestDistance == -1.00)
-                {
-                    if (side == 1){
+                if (nearestDistance == -1.00) {
+                    if (side == 1) {
                         leftMRT.setText("GPS Coordinates Unavailable");
                         leftTime.setText("GPS Coordinates Unavailable");
-                    }
-                    else {
+                    } else {
                         rightMRT.setText("GPS Coordinates Unavailable");
                         rightTime.setText("GPS Coordinates Unavailable");
                     }
-                }
-                else
-                {
+                } else {
                     DecimalFormat df = new DecimalFormat("0.00");
                     df.setRoundingMode(RoundingMode.UP);
 
@@ -232,11 +225,10 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
 
                     double time = nearestDistance / 5 * 60;
 
-                    if (side == 1){
+                    if (side == 1) {
                         leftMRT.setText(nearestLocation + " (" + df.format(nearestDistance) + " KM)");
                         leftTime.setText(df2.format(time) + " minutes walk");
-                    }
-                    else {
+                    } else {
                         rightMRT.setText(nearestLocation + " (" + df.format(nearestDistance) + " KM)");
                         rightTime.setText(df2.format(time) + " minutes walk");
                     }
@@ -246,7 +238,7 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
     }
 
     // set the transaction info of the selected property via REST API
-    private void loadTransactionsData(Property selectedProperty, Integer side){
+    private void loadTransactionsData(Property selectedProperty, Integer side) {
         transactionDataService.callTransactionsById(selectedProperty.getProjectId(), new TransactionDataService.TransactionResponseListener() {
             @Override
             public void onError(String message) {
@@ -269,26 +261,25 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                     if (ref.getTenure().equals("Freehold")) {
                         tenure = ref.getTenure();
                         year = "0";
-                    }
-                    else {
+                    } else {
                         int indexTenure = ref.getTenure().indexOf("y");
                         int indexYear = ref.getTenure().indexOf("2");
-                        if (indexYear == -1){
+                        if (indexYear == -1) {
                             indexYear = ref.getTenure().indexOf("1");
                         }
                         String temp = ref.getTenure();
-                        tenure = (String)temp.substring(0, indexTenure - 1);
-                        year =  (String) temp.substring(indexYear);
+                        tenure = (String) temp.substring(0, indexTenure - 1);
+                        year = (String) temp.substring(indexYear);
                     }
 
                     ArrayList<String> floorRange = new ArrayList<>();
                     ArrayList<String> floorArea = new ArrayList<>();
                     ArrayList<Double> prices = new ArrayList<>();
-                    for (Transaction t: transactionList) {
-                        if (!floorRange.contains(t.getFloorRange())){
+                    for (Transaction t : transactionList) {
+                        if (!floorRange.contains(t.getFloorRange())) {
                             floorRange.add(t.getFloorRange());
                         }
-                        if (!floorArea.contains(String.valueOf(t.getFloorArea()))){
+                        if (!floorArea.contains(String.valueOf(t.getFloorArea()))) {
                             floorArea.add(String.valueOf(t.getFloorArea()));
                         }
                         prices.add(t.getPrice());
@@ -301,18 +292,17 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                     formatter.setRoundingMode(RoundingMode.UP);
 
 
-                    String minFloor = floorArea.get(floorArea.size()-1);
+                    String minFloor = floorArea.get(floorArea.size() - 1);
                     String maxFloor = floorArea.get(0);
                     String floors = minFloor + " - " + maxFloor;
 
-                    if (side == 1){
+                    if (side == 1) {
                         leftDistrict.setText(district);
                         leftTenure.setText(tenure + " years");
                         leftTOP.setText(year);
                         leftFloor.setText(floors);
                         leftPrice.setText(formatter.format(averagePrice));
-                    }
-                    else {
+                    } else {
                         rightDistrict.setText(district);
                         rightTenure.setText(tenure + " years");
                         rightTOP.setText(year);
@@ -338,17 +328,14 @@ public class ComparisonActivity extends AppCompatActivity implements View.OnClic
                 if (bitmap == null)
                     if (side == 1) {
                         leftImage.setImageResource(R.drawable.no_map);
-                    }
-                    else {
+                    } else {
                         rightImage.setImageResource(R.drawable.no_map);
                     }
-                else
-                    if (side == 1) {
-                        leftImage.setImageBitmap(bitmap);
-                    }
-                    else {
-                        rightImage.setImageBitmap(bitmap);
-                    }
+                else if (side == 1) {
+                    leftImage.setImageBitmap(bitmap);
+                } else {
+                    rightImage.setImageBitmap(bitmap);
+                }
             }
         });
     }

@@ -43,16 +43,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (springFlag == false) {
                     error.setVisibility(View.VISIBLE);
                     retryButton.setVisibility(View.VISIBLE);
-                }
-                else if (flaskFlag == false) {
+                } else if (flaskFlag == false) {
                     error.setVisibility(View.VISIBLE);
                     error.setText("Unable to connect to the Prediction server. Price prediction functions will be unavailable");
                     continueToApp();
                 }
             }
-        },30000);
+        }, 30000);
 
     }
+
     private void retryConnection() {
         error.setVisibility(View.INVISIBLE);
         retryButton.setVisibility(View.INVISIBLE);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 error.setVisibility(View.VISIBLE);
                 retryButton.setVisibility(View.VISIBLE);
             }
-        },10000);
+        }, 10000);
     }
 
     private void continueToApp() {

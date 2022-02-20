@@ -2,7 +2,7 @@ package com.team7.propertymobile;
 
 import java.time.LocalDate;
 
-public class NewProperty extends Property{
+public class NewProperty extends Property {
     private int newProjectId;
     private String date;
     private double landPrice;

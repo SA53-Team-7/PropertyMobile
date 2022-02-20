@@ -16,10 +16,10 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
-            app:title="Compare Properties"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat"
+            app:title="Compare Properties" />
 
         <TextView
             android:id="@+id/errorTextView"
@@ -29,20 +29,20 @@
             android:text="Please add 2 projects to be compared"
             android:textSize="15sp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/compare_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/compare_toolbar" />
 
         <ProgressBar
             android:id="@+id/loadProgressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/compare_toolbar"
-            android:layout_marginTop="250dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/compare_toolbar" />
 
         <LinearLayout
             android:id="@+id/compareLayout"
@@ -245,8 +245,8 @@
                     android:id="@+id/rightNameLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginTop="15dp"
+                    android:gravity="right"
                     android:text="Property Name:" />
 
                 <TextView
@@ -260,8 +260,8 @@
                     android:id="@+id/rightDistrictLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginTop="15dp"
+                    android:gravity="right"
                     android:text="District:" />
 
                 <TextView
@@ -275,8 +275,8 @@
                     android:id="@+id/rightRoadLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginTop="15dp"
+                    android:gravity="right"
                     android:text="Road:" />
 
                 <TextView
@@ -290,8 +290,8 @@
                     android:id="@+id/rightMRTLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginTop="15dp"
+                    android:gravity="right"
                     android:text="Nearest MRT:" />
 
                 <TextView
@@ -305,8 +305,8 @@
                     android:id="@+id/rightTimeLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginTop="15dp"
+                    android:gravity="right"
                     android:text="Walking Time to MRT:" />
 
                 <TextView
@@ -320,8 +320,8 @@
                     android:id="@+id/rightPriceLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginTop="15dp"
+                    android:gravity="right"
                     android:text="Average Price:" />
 
                 <TextView
@@ -335,8 +335,8 @@
                     android:id="@+id/rightRangeLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginTop="15dp"
+                    android:gravity="right"
                     android:text="Floor Range:" />
 
                 <TextView
@@ -350,8 +350,8 @@
                     android:id="@+id/rightTenureLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginTop="15dp"
+                    android:gravity="right"
                     android:text="Tenure(years):" />
 
                 <TextView
@@ -365,8 +365,8 @@
                     android:id="@+id/rightTOPLabelView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
                     android:layout_marginTop="15dp"
+                    android:gravity="right"
                     android:text="TOP:" />
 
                 <TextView
@@ -393,12 +393,12 @@
             android:id="@+id/smallSearchButton"
             android:layout_width="192dp"
             android:layout_height="52dp"
-            android:text="Search"
-            android:visibility="invisible"
             android:layout_marginTop="400dp"
             android:layout_marginEnd="5dp"
+            android:text="Search"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/clearButton"
@@ -408,7 +408,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/compareLayout"/>
+            app:layout_constraintTop_toBottomOf="@+id/compareLayout" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

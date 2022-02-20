@@ -40,8 +40,7 @@ public class NewPropertyDataService {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    for (int i = 0; i < response.length(); i++)
-                    {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonProperty = response.getJSONObject(i);
                         NewProperty newProperty = new NewProperty();
 

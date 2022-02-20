@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class FavouritesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class FavouritesListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private SharedPreferences sharedPreferences;
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String ID_KEY = "id_key";
@@ -88,8 +88,7 @@ public class FavouritesListActivity extends AppCompatActivity implements Adapter
                 ListView favouritesListView = findViewById(R.id.favouritesListView);
                 propertyList = projects;
 
-                if (favouritesListView != null)
-                {
+                if (favouritesListView != null) {
                     FavouritesAdapter adapter = new FavouritesAdapter(FavouritesListActivity.this, propertyList);
                     favouritesListView.setAdapter(adapter);
                     favouritesListView.setOnItemClickListener(FavouritesListActivity.this);

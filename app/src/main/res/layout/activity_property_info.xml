@@ -104,9 +104,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="District 10"
-            android:visibility="invisible"
             android:textAlignment="center"
             android:textSize="18sp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/regionInfoTextView"
             app:layout_constraintTop_toBottomOf="@+id/regionTitleTextView" />
@@ -229,6 +229,7 @@
             android:id="@+id/recommendTextView1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:clickable="true"
             android:onClick="onClick"
             android:text="TextView"
@@ -236,7 +237,6 @@
             android:textColor="#5DADE2"
             android:textSize="20sp"
             android:visibility="invisible"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recommendNearbyProperties" />
@@ -245,6 +245,7 @@
             android:id="@+id/recommendTextView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:clickable="true"
             android:onClick="onClick"
             android:text="TextView"
@@ -252,7 +253,6 @@
             android:textColor="#5DADE2"
             android:textSize="20sp"
             android:visibility="invisible"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recommendTextView1" />

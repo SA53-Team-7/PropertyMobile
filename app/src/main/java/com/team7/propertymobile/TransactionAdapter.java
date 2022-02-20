@@ -17,18 +17,15 @@ import java.util.Locale;
 public class TransactionAdapter extends ArrayAdapter<Transaction> {
     protected List<Transaction> transactionList;
 
-    public TransactionAdapter(Context context, List<Transaction> transactionList)
-    {
+    public TransactionAdapter(Context context, List<Transaction> transactionList) {
         super(context, R.layout.item_transaction);
         this.transactionList = transactionList;
 
         addAll(new Transaction[transactionList.size()]);
     }
 
-    public View getView(int position, View view, @NonNull ViewGroup parent)
-    {
-        if (view == null)
-        {
+    public View getView(int position, View view, @NonNull ViewGroup parent) {
+        if (view == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
             view = inflater.inflate(R.layout.item_transaction, parent, false);

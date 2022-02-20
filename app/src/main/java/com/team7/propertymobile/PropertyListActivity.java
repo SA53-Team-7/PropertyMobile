@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class PropertyListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class PropertyListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     List<Property> propertyList;
 
     PropertyDataService propertyDataService = new PropertyDataService(this);
@@ -62,8 +62,7 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
                 ListView propertyListView = findViewById(R.id.propertyListView);
                 propertyList = projects;
 
-                if (propertyListView != null)
-                {
+                if (propertyListView != null) {
                     PropertyAdapter adapter = new PropertyAdapter(PropertyListActivity.this, propertyList);
                     propertyListView.setAdapter(adapter);
                     propertyListView.setOnItemClickListener(PropertyListActivity.this);
@@ -75,8 +74,7 @@ public class PropertyListActivity extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onItemClick(AdapterView<?> parent,
-                            View view, int position, long id)
-    {
+                            View view, int position, long id) {
 
         Property selectedProperty = propertyList.get(position);
         Intent intent = new Intent(this, PropertyDetailsActivity.class);

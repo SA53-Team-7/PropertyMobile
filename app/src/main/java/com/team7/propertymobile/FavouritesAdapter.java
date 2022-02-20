@@ -16,18 +16,15 @@ public class FavouritesAdapter extends ArrayAdapter<Property> {
 
     protected List<Property> propertyList;
 
-    public FavouritesAdapter(Context context, List<Property> propertyList)
-    {
+    public FavouritesAdapter(Context context, List<Property> propertyList) {
         super(context, R.layout.item_favourite);
         this.propertyList = propertyList;
 
         addAll(new Property[propertyList.size()]);
     }
 
-    public View getView(int position, View view, @NonNull ViewGroup parent)
-    {
-        if (view == null)
-        {
+    public View getView(int position, View view, @NonNull ViewGroup parent) {
+        if (view == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
             view = inflater.inflate(R.layout.item_favourite, parent, false);

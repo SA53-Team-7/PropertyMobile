@@ -17,7 +17,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     LoginRegisterDataService loginRegisterDataService = new LoginRegisterDataService(this);
 
@@ -56,39 +56,34 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             EditText password = findViewById(R.id.registerTextPassword);
 
             // display registration error message and save user info after registration
-            if (TextUtils.isEmpty(email.getText().toString()) && TextUtils.isEmpty(password.getText().toString()) && TextUtils.isEmpty(name.getText().toString())){
+            if (TextUtils.isEmpty(email.getText().toString()) && TextUtils.isEmpty(password.getText().toString()) && TextUtils.isEmpty(name.getText().toString())) {
                 email.setError("Please enter your email address.");
                 password.setError("Please enter your password.");
                 name.setError("Please enter your name.");
 
                 registerButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
-            }
-            else if (TextUtils.isEmpty(email.getText().toString())){
+            } else if (TextUtils.isEmpty(email.getText().toString())) {
                 email.setError("Please enter your email address.");
 
                 registerButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
-            }
-            else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
                 email.setError("Please enter a valid email address.");
 
                 registerButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
-            }
-            else if (TextUtils.isEmpty(password.getText().toString())){
+            } else if (TextUtils.isEmpty(password.getText().toString())) {
                 password.setError("Please enter your password.");
 
                 registerButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
-            }
-            else if (TextUtils.isEmpty(name.getText().toString())){
+            } else if (TextUtils.isEmpty(name.getText().toString())) {
                 name.setError("Please enter your name.");
 
                 registerButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
-            }
-            else {
+            } else {
                 if (TextUtils.isEmpty(name.getText().toString())) {
                     try {
                         newUser.put("email", email.getText().toString());
@@ -96,8 +91,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
-                else {
+                } else {
                     try {
                         newUser.put("email", email.getText().toString());
                         newUser.put("username", name.getText().toString());
@@ -120,8 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         if (success) {
                             registerSuccessTextView.setVisibility(View.VISIBLE);
                             finish();
-                        }
-                        else {
+                        } else {
                             registerButton.setVisibility(View.VISIBLE);
                             Toast toast = Toast.makeText(RegisterActivity.this, "An account with this email already exists. Please use another email address.", Toast.LENGTH_LONG);
                             toast.show();

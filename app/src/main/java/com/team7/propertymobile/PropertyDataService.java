@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PropertyDataService{
+public class PropertyDataService {
 
     Context context;
     public static final String QUERY_PROJECT_SEARCH = "http://10.0.2.2:8080/api/mobile/projects/search/";
@@ -30,7 +30,6 @@ public class PropertyDataService{
     public PropertyDataService(Context context) {
         this.context = context;
     }
-
 
 
     public interface ProjectsResponseListener {
@@ -46,8 +45,7 @@ public class PropertyDataService{
     }
 
     // use REST API to get property info using keyword input
-    public void searchProjects(String search, ProjectsResponseListener projectsResponseListener)
-    {
+    public void searchProjects(String search, ProjectsResponseListener projectsResponseListener) {
         List<Property> projects = new ArrayList<>();
         String url = LIVE_QUERY_PROJECT_SEARCH + search;
 
@@ -58,8 +56,7 @@ public class PropertyDataService{
 
                 try {
 
-                    for (int i = 0; i < response.length(); i++)
-                    {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonProperty = response.getJSONObject(i);
                         Property property = new Property();
                         property.setProjectId(jsonProperty.getInt("projectId"));
@@ -96,8 +93,7 @@ public class PropertyDataService{
     }
 
     // use REST API to get single property info
-    public void getSingleProject(String id, SingleProjectResponseListener singleProjectResponseListener)
-    {
+    public void getSingleProject(String id, SingleProjectResponseListener singleProjectResponseListener) {
         String url = LIVE_QUERY_PROJECT_GET + id;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -106,8 +102,7 @@ public class PropertyDataService{
 
                 try {
                     Property property = new Property();
-                    for (int i = 0; i < response.length(); i++)
-                    {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonProperty = response.getJSONObject(i);
 
                         property.setProjectId(jsonProperty.getInt("projectId"));

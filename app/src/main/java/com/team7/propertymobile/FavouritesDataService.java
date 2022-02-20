@@ -46,8 +46,7 @@ public class FavouritesDataService {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    for (int i = 0; i < response.length(); i++)
-                    {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonProperty = response.getJSONObject(i);
                         Property property = new Property();
                         property.setProjectId(jsonProperty.getInt("projectId"));
@@ -88,7 +87,7 @@ public class FavouritesDataService {
     }
 
     // use REST API to check the shortlist info
-    public void isSaved (JSONObject userAndProject, SaveResponseListener saveResponseListener) {
+    public void isSaved(JSONObject userAndProject, SaveResponseListener saveResponseListener) {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_IS_FAVE_SAVED, userAndProject, new Response.Listener<JSONObject>() {
             @Override

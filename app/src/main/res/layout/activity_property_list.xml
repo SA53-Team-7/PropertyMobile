@@ -11,45 +11,45 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Search Results"
         android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:title="Search Results" />
 
     <ProgressBar
         android:id="@+id/propertyProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/properties_toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/properties_toolbar" />
 
     <TextView
+        android:id="@+id/noPropertyFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/noPropertyFound"
         android:text="No result found. \nPlease try again."
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@+id/properties_toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="invisible" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/properties_toolbar" />
 
     <ListView
+        android:id="@+id/propertyListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:divider="#e5e5ff"
         android:dividerHeight="1dp"
-        android:id="@+id/propertyListView"
-        app:layout_constraintTop_toBottomOf="@+id/properties_toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/properties_toolbar">
 
 
     </ListView>

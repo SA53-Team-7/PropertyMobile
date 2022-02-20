@@ -10,17 +10,17 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:textSize="24sp"
         android:layout_weight="1"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/favouriteStreetTextView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
-        android:textSize="16sp"
-        android:text="TextView" />
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textSize="16sp" />
 </LinearLayout>

@@ -34,8 +34,7 @@ public class TransactionDataService {
     }
 
     // use REST API to get transaction info by project(property) id
-    public void callTransactionsById (int id, TransactionResponseListener transactionResponseListener)
-    {
+    public void callTransactionsById(int id, TransactionResponseListener transactionResponseListener) {
         List<Transaction> transactionList = new ArrayList<>();
 
         String url = LIVE_QUERY_FOR_TRANSACTIONS_BY_ID + id;

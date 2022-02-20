@@ -19,7 +19,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String USER_KEY = "user_key";
@@ -82,26 +82,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             // display login error message and authenticate user info
-            if (TextUtils.isEmpty(loginEmail.getText().toString()) && TextUtils.isEmpty(loginPassword.getText().toString())){
+            if (TextUtils.isEmpty(loginEmail.getText().toString()) && TextUtils.isEmpty(loginPassword.getText().toString())) {
                 loginEmail.setError("Please enter your email address.");
                 loginPassword.setError("Please enter your password.");
 
                 loginButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
-            }
-            else if (TextUtils.isEmpty(loginEmail.getText().toString())){
+            } else if (TextUtils.isEmpty(loginEmail.getText().toString())) {
                 loginEmail.setError("Please enter your email address.");
 
                 loginButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
-            }
-            else if (TextUtils.isEmpty(loginPassword.getText().toString())){
+            } else if (TextUtils.isEmpty(loginPassword.getText().toString())) {
                 loginPassword.setError("Please enter your password.");
 
                 loginButton.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
-            }
-            else {
+            } else {
                 JSONObject user = new JSONObject();
                 try {
                     user.put("email", loginEmail.getText().toString());
@@ -129,8 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             loginSuccessTextView.setVisibility(View.VISIBLE);
 
                             finish();
-                        }
-                        else {
+                        } else {
                             loginButton.setVisibility(View.VISIBLE);
                             Toast toast = Toast.makeText(LoginActivity.this, "Wrong Email Address or Password. Please try again", Toast.LENGTH_LONG);
                             toast.show();

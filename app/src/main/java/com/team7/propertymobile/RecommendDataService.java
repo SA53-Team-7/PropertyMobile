@@ -50,8 +50,7 @@ public class RecommendDataService {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    for (int i = 0; i < response.length(); i++)
-                    {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonProperty = response.getJSONObject(i);
                         Property property = new Property();
                         property.setProjectId(jsonProperty.getInt("projectId"));
@@ -86,8 +85,7 @@ public class RecommendDataService {
     }
 
     // use REST API to get district info for recommendation
-    public void recommendDistrictProject(int id, RecommendDistrictResponseListener recommendDistrictResponseListener)
-    {
+    public void recommendDistrictProject(int id, RecommendDistrictResponseListener recommendDistrictResponseListener) {
         String url = LIVE_QUERY_PROJECT_RecommendationDistrict + id;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -96,8 +94,7 @@ public class RecommendDataService {
 
                 try {
                     Transaction transaction = new Transaction();
-                    for (int i = 0; i < response.length(); i++)
-                    {
+                    for (int i = 0; i < response.length(); i++) {
                         JSONObject jsonTransaction = response.getJSONObject(i);
                         transaction.setTransactionId(jsonTransaction.getInt("txnId"));
                         transaction.setContractDate(jsonTransaction.getString("contractDate"));

@@ -18,18 +18,15 @@ public class NewPropertyAdapter extends ArrayAdapter<Property> {
 
     protected List<NewProperty> propertyList;
 
-    public NewPropertyAdapter(Context context, List<NewProperty> propertyList)
-    {
+    public NewPropertyAdapter(Context context, List<NewProperty> propertyList) {
         super(context, R.layout.item_new_property);
         this.propertyList = propertyList;
 
         addAll(new Property[propertyList.size()]);
     }
 
-    public View getView(int position, View view, @NonNull ViewGroup parent)
-    {
-        if (view == null)
-        {
+    public View getView(int position, View view, @NonNull ViewGroup parent) {
+        if (view == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
             view = inflater.inflate(R.layout.item_new_property, parent, false);

@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
-public class TransactionListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class TransactionListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     List<Transaction> transactionList;
     Property selectedProperty;

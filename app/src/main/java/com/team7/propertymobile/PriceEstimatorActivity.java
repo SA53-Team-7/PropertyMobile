@@ -102,24 +102,23 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
                     if (ref.getTenure().equals("Freehold")) {
                         tenure = ref.getTenure();
                         year = "0";
-                    }
-                    else {
+                    } else {
                         int indexTenure = ref.getTenure().indexOf("y");
                         int indexYear = ref.getTenure().indexOf("2");
-                        if (indexYear == -1){
+                        if (indexYear == -1) {
                             indexYear = ref.getTenure().indexOf("1");
                         }
                         String temp = ref.getTenure();
-                        tenure = (String)temp.substring(0, indexTenure - 1);
-                        year =  (String) temp.substring(indexYear);
+                        tenure = (String) temp.substring(0, indexTenure - 1);
+                        year = (String) temp.substring(indexYear);
                     }
                     floorRange = new ArrayList<>();
                     floorArea = new ArrayList<>();
-                    for (Transaction t: transactionList) {
-                        if (!floorRange.contains(t.getFloorRange())){
+                    for (Transaction t : transactionList) {
+                        if (!floorRange.contains(t.getFloorRange())) {
                             floorRange.add(t.getFloorRange());
                         }
-                        if (!floorArea.contains(String.valueOf(t.getFloorArea()))){
+                        if (!floorArea.contains(String.valueOf(t.getFloorArea()))) {
                             floorArea.add(String.valueOf(t.getFloorArea()));
                         }
                     }
@@ -168,14 +167,13 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         LocalDate date = LocalDate.now();
 
         String currentDate = String.valueOf(date);
-        String inputYear = currentDate.substring(2,4);
+        String inputYear = currentDate.substring(2, 4);
 
         String inputMonth;
-        if (currentDate.substring(5,6).equals("0")){
-            inputMonth = currentDate.substring(6,7);
-        }
-        else {
-            inputMonth = currentDate.substring(5,7);
+        if (currentDate.substring(5, 6).equals("0")) {
+            inputMonth = currentDate.substring(6, 7);
+        } else {
+            inputMonth = currentDate.substring(5, 7);
         }
 
         String floorRange = rangeSpinner.getSelectedItem().toString();
@@ -184,35 +182,33 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         data.put("projectId", String.valueOf(selectedProperty.getProjectId()));
         data.put("district", formatDistrict());
         data.put("floor_range", formatFloor(floorRange));
-        data.put("floor_area", floorArea.substring(0,floorArea.lastIndexOf('.')));
+        data.put("floor_area", floorArea.substring(0, floorArea.lastIndexOf('.')));
         data.put("top", year);
         data.put("tenure", formatTenure());
         data.put("year", inputYear);
         data.put("month", inputMonth);
 
         request.put(data);
-            String debugRequest = request.toString();
+        String debugRequest = request.toString();
         return request;
     }
 
     private String formatFloor(String range) {
-        if (range.equals("-")){
+        if (range.equals("-")) {
             return "1";
-        }
-        else {
-            if (range.charAt(0) == '0'){
-                String floor = range.substring(1,2);
+        } else {
+            if (range.charAt(0) == '0') {
+                String floor = range.substring(1, 2);
                 return floor;
-            }
-            else {
-                String floor = range.substring(0,2);
+            } else {
+                String floor = range.substring(0, 2);
                 return floor;
             }
         }
     }
 
     private String formatDistrict() {
-        if (district.charAt(0) == '0'){
+        if (district.charAt(0) == '0') {
             return district.substring(1);
         }
         return district;
@@ -228,7 +224,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
     private String formatPrice(String predict) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
         formatter.setRoundingMode(RoundingMode.UP);
-        predict = predict.substring(2, predict.length() -2);
+        predict = predict.substring(2, predict.length() - 2);
         Double price = Double.parseDouble(predict);
         String display = formatter.format(price);
         return display;
@@ -261,7 +257,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.buttonPredict){
+        if (id == R.id.buttonPredict) {
             try {
                 getPrediction();
             } catch (JSONException e) {

@@ -49,8 +49,7 @@ public class MapDataService {
     }
 
     // use onemap API to get the property's map info
-    public void callStaticMap (double latitude, double longitude, StaticMapResponseListener staticMapResponseListener)
-    {
+    public void callStaticMap(double latitude, double longitude, StaticMapResponseListener staticMapResponseListener) {
 
         String url = STATIC_MAP1 + latitude + "&lng=" + longitude + STATIC_MAP2
                 + "&points=[" + latitude + "," + longitude + ",\"168,228,160\", \"A\"]";
@@ -83,8 +82,7 @@ public class MapDataService {
     }
 
     // get x and y coordinate of the specific location from onemap API
-    public void coordinatesConverter (String x, String y, CoordinatesConverterResponseListener coordinatesConverterResponseListener)
-    {
+    public void coordinatesConverter(String x, String y, CoordinatesConverterResponseListener coordinatesConverterResponseListener) {
         String url = "https://developers.onemap.sg/commonapi/convert/3414to4326?X=" + x + "&Y=" + y;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -123,14 +121,10 @@ public class MapDataService {
     }
 
     // get the property's map using coordinate converter
-    public void callStaticMapAfterConversion (String x, String y, CallStaticMapAfterConversionResponseListener callStaticMapAfterConversionResponseListener) {
-        if (x.equals("null") || y.equals("null") || y.equals(null) || x.equals(null))
-        {
+    public void callStaticMapAfterConversion(String x, String y, CallStaticMapAfterConversionResponseListener callStaticMapAfterConversionResponseListener) {
+        if (x.equals("null") || y.equals("null") || y.equals(null) || x.equals(null)) {
             callStaticMapAfterConversionResponseListener.onResponse(null);
-        }
-
-        else
-        {
+        } else {
             coordinatesConverter(x, y, new CoordinatesConverterResponseListener() {
                 @Override
                 public void onError(String message) {
@@ -162,16 +156,13 @@ public class MapDataService {
         void onResponse(double distance);
     }
 
-    public void distanceOnEarth (Property property, Location location, DistanceOnEarthResponseListener distanceOnEarthResponseListener) {
+    public void distanceOnEarth(Property property, Location location, DistanceOnEarthResponseListener distanceOnEarthResponseListener) {
 
-        if (property.getxCoordinates().equals("null") || property.getyCoordinates().equals("null"))
-        {
+        if (property.getxCoordinates().equals("null") || property.getyCoordinates().equals("null")) {
             double distanceBetween = -1.0;
 
             distanceOnEarthResponseListener.onResponse(distanceBetween);
-        }
-        else
-        {
+        } else {
             double distanceBetween;
             coordinatesConverter(property.getxCoordinates(), property.getyCoordinates(), new CoordinatesConverterResponseListener() {
                 @Override
@@ -192,7 +183,7 @@ public class MapDataService {
                     double dLat = locationLatitude - propertyLatitude;
                     double dLon = locationLongitude - propertyLongitude;
 
-                    double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(propertyLatitude) * Math.cos(locationLatitude) * Math.pow(Math.sin(dLon / 2),2);
+                    double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(propertyLatitude) * Math.cos(locationLatitude) * Math.pow(Math.sin(dLon / 2), 2);
                     double c = 2 * Math.asin(Math.sqrt(a));
 
                     double r = 6371;
@@ -214,18 +205,15 @@ public class MapDataService {
     }
 
     // use REST API to get x and y coordinate of the specific location then compute the distance between two places
-    public void distanceLocationsMap (Property property, List<Location> locationList, DistanceLocationsMapResponseListener distanceLocationsMapResponseListener) {
-        if (property.getxCoordinates().equals("null") || property.getyCoordinates().equals("null"))
-        {
+    public void distanceLocationsMap(Property property, List<Location> locationList, DistanceLocationsMapResponseListener distanceLocationsMapResponseListener) {
+        if (property.getxCoordinates().equals("null") || property.getyCoordinates().equals("null")) {
             double distanceBetween = -1.0;
             Map<String, Double> mrtHashMap = new HashMap<>();
 
             mrtHashMap.put("unavailable", distanceBetween);
 
             distanceLocationsMapResponseListener.onResponse("unavailable", distanceBetween);
-        }
-        else
-        {
+        } else {
             double distanceBetween;
             coordinatesConverter(property.getxCoordinates(), property.getyCoordinates(), new CoordinatesConverterResponseListener() {
                 Map<String, Double> mrtHashMap = new HashMap<>();
@@ -249,7 +237,7 @@ public class MapDataService {
                         double dLat = locationLatitude - propertyLatitude;
                         double dLon = locationLongitude - propertyLongitude;
 
-                        double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(propertyLatitude) * Math.cos(locationLatitude) * Math.pow(Math.sin(dLon / 2),2);
+                        double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(propertyLatitude) * Math.cos(locationLatitude) * Math.pow(Math.sin(dLon / 2), 2);
                         double c = 2 * Math.asin(Math.sqrt(a));
 
                         double r = 6371;
@@ -281,7 +269,7 @@ public class MapDataService {
         void onResponse(Property property, List<Location> locationList);
     }
 
-    public void callNearbyTrainStations (Property property, CallNearbyTrainStationsResponseListener callNearbyTrainStationsResponseListener) {
+    public void callNearbyTrainStations(Property property, CallNearbyTrainStationsResponseListener callNearbyTrainStationsResponseListener) {
         List<Location> locationList = new ArrayList<>();
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, LIVE_QUERY_FOR_ALL_TRAIN_STATIONS, null, new Response.Listener<JSONArray>() {
@@ -330,7 +318,7 @@ public class MapDataService {
     }
 
     // use REST API to get the distance between
-    public void distanceListLocations (Property property, DistanceListLocationsResponseListener distanceListLocationsResponseListener) {
+    public void distanceListLocations(Property property, DistanceListLocationsResponseListener distanceListLocationsResponseListener) {
 
         callNearbyTrainStations(property, new CallNearbyTrainStationsResponseListener() {
             @Override

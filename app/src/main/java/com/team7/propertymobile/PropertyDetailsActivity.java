@@ -86,13 +86,10 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             @Override
             public void onResponse(String nearestLocation, double nearestDistance) {
                 distanceProgressBar.setVisibility(View.GONE);
-                if (nearestDistance == -1.00)
-                {
+                if (nearestDistance == -1.00) {
                     distanceFromTrain.setText("GPS Coordinates Unavailable");
                     distanceFromTrain.setVisibility(View.VISIBLE);
-                }
-                else
-                {
+                } else {
                     DecimalFormat df = new DecimalFormat("0.00");
                     df.setRoundingMode(RoundingMode.UP);
 
@@ -101,7 +98,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
                     double time = nearestDistance / 5 * 60;
 
-                    String mrtDistance = nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk" ;
+                    String mrtDistance = nearestLocation + "\n(" + df.format(nearestDistance) + " KM)\n~ " + df2.format(time) + " minutes walk";
                     distanceFromTrain.setText(mrtDistance);
                     distanceFromTrain.setVisibility(View.VISIBLE);
                 }
@@ -145,7 +142,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         readCompare();
 
-        if (!compare1.equals("-") & !compare2.equals("-")){
+        if (!compare1.equals("-") & !compare2.equals("-")) {
             clearAddButton.setVisibility(View.VISIBLE);
             compareButton.setVisibility(View.INVISIBLE);
         }
@@ -176,9 +173,8 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 districtInfoTextView.setVisibility(View.VISIBLE);
                 transactionDistrict = transactions;
 
-                if (districtInfoTextView != null)
-                {
-                    districtInfoTextView.setText("District "+transactionDistrict.getDistrict());
+                if (districtInfoTextView != null) {
+                    districtInfoTextView.setText("District " + transactionDistrict.getDistrict());
 
                     recommendDataService.callRecommendProjects(transactionDistrict.getDistrict(), new RecommendDataService.RecommendResponseListener() {
                         @Override
@@ -195,14 +191,12 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                             TextView recommendTextView2 = findViewById(R.id.recommendTextView2);
                             propertyList = projects;
 
-                            if (recommendTextView1 != null)
-                            {
+                            if (recommendTextView1 != null) {
                                 recommendTextView1.setText(propertyList.get(0).getPropertyName());
                                 recommendTextView1.setVisibility(View.VISIBLE);
                             }
 
-                            if (recommendTextView2 != null)
-                            {
+                            if (recommendTextView2 != null) {
                                 recommendTextView2.setText(propertyList.get(1).getPropertyName());
                                 recommendTextView2.setVisibility(View.VISIBLE);
                             }
@@ -257,8 +251,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         if (selectedUserId == -1) {
             fave.setChecked(false);
-        }
-        else {
+        } else {
             ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
             progressBar.setVisibility(View.VISIBLE);
 
@@ -271,11 +264,9 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 @Override
                 public void onResponse(boolean isSaved) {
                     progressBar.setVisibility(View.INVISIBLE);
-                    if (isSaved)
-                    {
+                    if (isSaved) {
                         fave.setChecked(true);
-                    }
-                    else {
+                    } else {
                         fave.setChecked(false);
                     }
                 }
@@ -286,20 +277,17 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         int id = v.getId();
 
-        if(id == R.id.transactionButton)
-        {
+        if (id == R.id.transactionButton) {
             Intent intent = new Intent(this, TransactionListActivity.class);
             intent.putExtra("Property", selectedProperty);
 
             startActivity(intent);
         }
 
-        if (id == R.id.priceEstimatorButton)
-        {
+        if (id == R.id.priceEstimatorButton) {
             Intent intent = new Intent(this, PriceEstimatorActivity.class);
             intent.putExtra("Property", selectedProperty);
 
@@ -315,8 +303,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             setComparisonProperty();
         }
 
-        if (id == R.id.recommendTextView1)
-        {
+        if (id == R.id.recommendTextView1) {
             Property recommendProperty1 = propertyList.get(0);
             Intent intent = new Intent(this, PropertyDetailsActivity.class);
             intent.putExtra("Property", recommendProperty1);
@@ -325,8 +312,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
         }
 
-        if (id == R.id.recommendTextView2)
-        {
+        if (id == R.id.recommendTextView2) {
             Property recommendProperty2 = propertyList.get(1);
             Intent intent = new Intent(this, PropertyDetailsActivity.class);
             intent.putExtra("Property", recommendProperty2);
@@ -343,13 +329,11 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
             if (selectedUserId == -1) {
                 Intent intent = new Intent(PropertyDetailsActivity.this, LoginActivity.class);
                 startActivity(intent);
-            }
-            else {
+            } else {
                 saveFavourites(selectedProperty);
                 if (fave.isChecked()) {
                     fave.setChecked(true);
-                }
-                else {
+                } else {
                     fave.setChecked(false);
                 }
             }
@@ -366,11 +350,10 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
 
     private void setComparisonProperty() {
         readCompare();
-        if (compare1.equals(String.valueOf(selectedProperty.getProjectId())) || compare2.equals(String.valueOf(selectedProperty.getProjectId()))){
+        if (compare1.equals(String.valueOf(selectedProperty.getProjectId())) || compare2.equals(String.valueOf(selectedProperty.getProjectId()))) {
             Toast toast = Toast.makeText(this, "This property is already selected", Toast.LENGTH_LONG);
             toast.show();
-        }
-        else {
+        } else {
             if (compare1.equals("-")) {
                 SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
                 SharedPreferences.Editor editor = setPref.edit();
@@ -378,8 +361,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
                 editor.commit();
                 Toast toast = Toast.makeText(this, "Added to comparison as 1", Toast.LENGTH_LONG);
                 toast.show();
-            }
-            else if (compare2.equals("-")){
+            } else if (compare2.equals("-")) {
                 SharedPreferences setPref = getSharedPreferences("compare", MODE_PRIVATE);
                 SharedPreferences.Editor editor = setPref.edit();
                 editor.putString("compare2", String.valueOf(selectedProperty.getProjectId()));
@@ -404,7 +386,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
     }
 
 
-    String segmentToRegion (String segment){
+    String segmentToRegion(String segment) {
         String region = "";
 
         switch (segment) {
@@ -423,7 +405,7 @@ public class PropertyDetailsActivity extends AppCompatActivity implements View.O
     }
 
     // store user and project id for adding the property to shortlist
-    public void saveFavourites (Property selectedProperty) {
+    public void saveFavourites(Property selectedProperty) {
         ProgressBar progressBar = findViewById(R.id.isSavedLoadProgressBar);
         progressBar.setVisibility(View.VISIBLE);
 

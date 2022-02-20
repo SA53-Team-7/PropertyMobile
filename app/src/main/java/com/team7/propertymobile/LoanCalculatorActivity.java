@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class LoanCalculatorActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoanCalculatorActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class LoanCalculatorActivity extends AppCompatActivity implements View.On
     }
 
     @Override
-    public void onClick (View view){
+    public void onClick(View view) {
         int id = view.getId();
 
         if (id == R.id.calculateButton) {
@@ -51,7 +51,7 @@ public class LoanCalculatorActivity extends AppCompatActivity implements View.On
             int numberOfPayments = Integer.valueOf(loanLengthInput.getText().toString()) * 12;
             double interestRate = Double.valueOf(interestRateInput.getText().toString()) / 1200;
 
-            double monthlyPayment = (amountToLoan * interestRate * Math.pow((1+interestRate), numberOfPayments)) / (Math.pow((1+interestRate), numberOfPayments) - 1);
+            double monthlyPayment = (amountToLoan * interestRate * Math.pow((1 + interestRate), numberOfPayments)) / (Math.pow((1 + interestRate), numberOfPayments) - 1);
 
             TextView result = findViewById(R.id.monthlyPaymentView);
             Locale sg = new Locale("en", "SG");
