@@ -4,16 +4,9 @@ import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PredictionDataService {
 
@@ -36,21 +29,14 @@ public class PredictionDataService {
 
     // use REST API to get resale property model
     public void callPrediction(JSONArray data, PredictionDataService.PredictionResponseListener predictionResponseListener) {
-        String url = QUERY_FOR_PREDICTION;
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, url, data, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, QUERY_FOR_PREDICTION, data, response -> {
 
-                String predictionResponse = response.toString();
-                predictionResponseListener.onResponse(predictionResponse);
+            String predictionResponse = response.toString();
+            predictionResponseListener.onResponse(predictionResponse);
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        }, error -> {
 
-            }
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(

@@ -35,16 +35,16 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         TextView priceTextView = view.findViewById(R.id.priceTextView);
         Locale sg = new Locale("en", "SG");
         NumberFormat formatter = NumberFormat.getCurrencyInstance(sg);
-        priceTextView.setText("Price: " + formatter.format(transactionList.get(position).getPrice()));
+        priceTextView.setText(String.format("Price: %s", formatter.format(transactionList.get(position).getPrice())));
 
         TextView dateTextView = view.findViewById(R.id.dateTextView);
-        dateTextView.setText("Date: " + transactionList.get(position).getContractDate());
+        dateTextView.setText(String.format("Date: %s", transactionList.get(position).getContractDate()));
 
         TextView floorRangeTextView = view.findViewById(R.id.floorRangeTextView);
-        floorRangeTextView.setText("Floor Range: " + transactionList.get(position).getFloorRange());
+        floorRangeTextView.setText(String.format("Floor Range: %s", transactionList.get(position).getFloorRange()));
 
         TextView floorAreaTextView = view.findViewById(R.id.floorAreaTextView);
-        floorAreaTextView.setText("Floor Area: " + Double.toString(transactionList.get(position).getFloorArea()) + " sq m");
+        floorAreaTextView.setText(String.format("Floor Area: %s sq m", transactionList.get(position).getFloorArea()));
 
         return view;
     }

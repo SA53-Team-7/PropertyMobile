@@ -4,15 +4,11 @@ import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,36 +32,30 @@ public class NewPropertyDataService {
     public void callAllNewProjects(NewProjectsResponseListener newProjectsResponseListener) {
         List<NewProperty> newProjectsList = new ArrayList<>();
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, LIVE_QUERY_FOR_NEW_PROJECTS, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject jsonProperty = response.getJSONObject(i);
-                        NewProperty newProperty = new NewProperty();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, LIVE_QUERY_FOR_NEW_PROJECTS, null, response -> {
+            try {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject jsonProperty = response.getJSONObject(i);
+                    NewProperty newProperty = new NewProperty();
 
-                        newProperty.setNewProjectId(jsonProperty.getInt("id"));
-                        newProperty.setPropertyName(jsonProperty.getString("projectName"));
+                    newProperty.setNewProjectId(jsonProperty.getInt("id"));
+                    newProperty.setPropertyName(jsonProperty.getString("projectName"));
 
-                        newProperty.setDate(jsonProperty.getString("landTxnDate"));
+                    newProperty.setDate(jsonProperty.getString("landTxnDate"));
 
-                        newProperty.setLandPrice(jsonProperty.getDouble("landTxnPrice"));
-                        newProperty.setPredictedPrice(jsonProperty.getDouble("predictPrice"));
+                    newProperty.setLandPrice(jsonProperty.getDouble("landTxnPrice"));
+                    newProperty.setPredictedPrice(jsonProperty.getDouble("predictPrice"));
 
-                        newProjectsList.add(newProperty);
-                    }
-
-                    newProjectsResponseListener.onResponse(newProjectsList);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    newProjectsList.add(newProperty);
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
+                newProjectsResponseListener.onResponse(newProjectsList);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+        }, error -> {
+
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(

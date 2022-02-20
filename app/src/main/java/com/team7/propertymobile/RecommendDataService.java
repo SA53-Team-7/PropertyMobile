@@ -4,11 +4,8 @@ import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,33 +43,27 @@ public class RecommendDataService {
         List<Property> projects = new ArrayList<>();
         String url = LIVE_QUERY_PROJECT_Recommendation + district;
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject jsonProperty = response.getJSONObject(i);
-                        Property property = new Property();
-                        property.setProjectId(jsonProperty.getInt("projectId"));
-                        property.setPropertyName(jsonProperty.getString("name"));
-                        property.setRegion(jsonProperty.getString("segment"));
-                        property.setStreet(jsonProperty.getString("street"));
-                        property.setxCoordinates(jsonProperty.getString("x"));
-                        property.setyCoordinates(jsonProperty.getString("y"));
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            try {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject jsonProperty = response.getJSONObject(i);
+                    Property property = new Property();
+                    property.setProjectId(jsonProperty.getInt("projectId"));
+                    property.setPropertyName(jsonProperty.getString("name"));
+                    property.setRegion(jsonProperty.getString("segment"));
+                    property.setStreet(jsonProperty.getString("street"));
+                    property.setxCoordinates(jsonProperty.getString("x"));
+                    property.setyCoordinates(jsonProperty.getString("y"));
 
-                        projects.add(property);
-                    }
-                    recommendResponseListener.onResponse(projects);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    projects.add(property);
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+                recommendResponseListener.onResponse(projects);
 
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+        }, error -> {
+
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -88,39 +79,33 @@ public class RecommendDataService {
     public void recommendDistrictProject(int id, RecommendDistrictResponseListener recommendDistrictResponseListener) {
         String url = LIVE_QUERY_PROJECT_RecommendationDistrict + id;
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
 
-                try {
-                    Transaction transaction = new Transaction();
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject jsonTransaction = response.getJSONObject(i);
-                        transaction.setTransactionId(jsonTransaction.getInt("txnId"));
-                        transaction.setContractDate(jsonTransaction.getString("contractDate"));
-                        transaction.setFloorArea(jsonTransaction.getDouble("floorArea"));
-                        transaction.setPrice(jsonTransaction.getDouble("price"));
-                        transaction.setPropertyType(jsonTransaction.getString("propType"));
-                        transaction.setAreaType(jsonTransaction.getString("areaType"));
-                        transaction.setTenure(jsonTransaction.getString("tenure"));
-                        transaction.setFloorRange(jsonTransaction.getString("floorRange"));
-                        transaction.setDistrict(jsonTransaction.getString("district"));
-                        transaction.setUnitsSold(jsonTransaction.getInt("noOfUnits"));
+            try {
+                Transaction transaction = new Transaction();
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject jsonTransaction = response.getJSONObject(i);
+                    transaction.setTransactionId(jsonTransaction.getInt("txnId"));
+                    transaction.setContractDate(jsonTransaction.getString("contractDate"));
+                    transaction.setFloorArea(jsonTransaction.getDouble("floorArea"));
+                    transaction.setPrice(jsonTransaction.getDouble("price"));
+                    transaction.setPropertyType(jsonTransaction.getString("propType"));
+                    transaction.setAreaType(jsonTransaction.getString("areaType"));
+                    transaction.setTenure(jsonTransaction.getString("tenure"));
+                    transaction.setFloorRange(jsonTransaction.getString("floorRange"));
+                    transaction.setDistrict(jsonTransaction.getString("district"));
+                    transaction.setUnitsSold(jsonTransaction.getInt("noOfUnits"));
 
-                    }
-
-                    recommendDistrictResponseListener.onResponse(transaction);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+                recommendDistrictResponseListener.onResponse(transaction);
 
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+        }, error -> {
+
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(

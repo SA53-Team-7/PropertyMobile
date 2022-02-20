@@ -37,17 +37,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wakePrediction();
 
         // create splash screen
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (springFlag == false) {
-                    error.setVisibility(View.VISIBLE);
-                    retryButton.setVisibility(View.VISIBLE);
-                } else if (flaskFlag == false) {
-                    error.setVisibility(View.VISIBLE);
-                    error.setText("Unable to connect to the Prediction server. Price prediction functions will be unavailable");
-                    continueToApp();
-                }
+        new Handler().postDelayed(() -> {
+            if (!springFlag) {
+                error.setVisibility(View.VISIBLE);
+                retryButton.setVisibility(View.VISIBLE);
+            } else if (!flaskFlag) {
+                error.setVisibility(View.VISIBLE);
+                error.setText(R.string.no_flask_connect);
+                continueToApp();
             }
         }, 30000);
 
@@ -58,15 +55,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         retryButton.setVisibility(View.INVISIBLE);
         wakePrediction();
         wakeSpringWeb();
-        if (flaskFlag == true & springFlag == true) {
+        if (flaskFlag & springFlag) {
             continueToApp();
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                error.setVisibility(View.VISIBLE);
-                retryButton.setVisibility(View.VISIBLE);
-            }
+        new Handler().postDelayed(() -> {
+            error.setVisibility(View.VISIBLE);
+            retryButton.setVisibility(View.VISIBLE);
         }, 10000);
     }
 

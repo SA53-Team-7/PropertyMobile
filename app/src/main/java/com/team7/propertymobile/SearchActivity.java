@@ -1,6 +1,5 @@
 package com.team7.propertymobile;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -17,16 +16,12 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SharedPreferences sharedPreferences;
     public static final String USER_CREDENTIALS = "user_credentials";
     public static final String USER_KEY = "user_key";
     public static final String NAME_KEY = "name_key";
-
-    private String token;
 
 
     @Override
@@ -36,8 +31,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.search_toolbar);
         setSupportActionBar(myToolbar);
-
-        ActionBar ab = getSupportActionBar();
 
         Button searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(this);
@@ -74,7 +67,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         TextView welcomeBack = findViewById(R.id.welcomeBackTextView);
 
         // set the token for displaying login/logout, my shortlist, and user's name
-        token = sharedPreferences.getString(USER_KEY, null);
+        String token = sharedPreferences.getString(USER_KEY, null);
         JSONObject user = new JSONObject();
         try {
             user.put("email", token);
@@ -91,7 +84,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
             myListButton.setVisibility(View.VISIBLE);
             String name = sharedPreferences.getString(NAME_KEY, null);
 
-            welcomeBack.setText("Welcome back, \n" + name + "!");
+            welcomeBack.setText(String.format("Welcome back, \n%s!", name));
             welcomeBack.setVisibility(View.VISIBLE);
 
         }

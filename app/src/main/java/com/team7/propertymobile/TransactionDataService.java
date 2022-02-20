@@ -1,15 +1,11 @@
 package com.team7.propertymobile;
 
 import android.content.Context;
-import android.widget.ProgressBar;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,39 +35,33 @@ public class TransactionDataService {
 
         String url = LIVE_QUERY_FOR_TRANSACTIONS_BY_ID + id;
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    for (int i = 0; i < response.length(); i++) {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            try {
+                for (int i = 0; i < response.length(); i++) {
 
-                        JSONObject jsonTransaction = response.getJSONObject(i);
-                        Transaction transaction = new Transaction();
-                        transaction.setTransactionId(jsonTransaction.getInt("txnId"));
-                        transaction.setContractDate(jsonTransaction.getString("contractDate"));
-                        transaction.setFloorArea(jsonTransaction.getDouble("floorArea"));
-                        transaction.setPrice(jsonTransaction.getDouble("price"));
-                        transaction.setPropertyType(jsonTransaction.getString("propType"));
-                        transaction.setAreaType(jsonTransaction.getString("areaType"));
-                        transaction.setTenure(jsonTransaction.getString("tenure"));
-                        transaction.setFloorRange(jsonTransaction.getString("floorRange"));
-                        transaction.setDistrict(jsonTransaction.getString("district"));
-                        transaction.setUnitsSold(jsonTransaction.getInt("noOfUnits"));
+                    JSONObject jsonTransaction = response.getJSONObject(i);
+                    Transaction transaction = new Transaction();
+                    transaction.setTransactionId(jsonTransaction.getInt("txnId"));
+                    transaction.setContractDate(jsonTransaction.getString("contractDate"));
+                    transaction.setFloorArea(jsonTransaction.getDouble("floorArea"));
+                    transaction.setPrice(jsonTransaction.getDouble("price"));
+                    transaction.setPropertyType(jsonTransaction.getString("propType"));
+                    transaction.setAreaType(jsonTransaction.getString("areaType"));
+                    transaction.setTenure(jsonTransaction.getString("tenure"));
+                    transaction.setFloorRange(jsonTransaction.getString("floorRange"));
+                    transaction.setDistrict(jsonTransaction.getString("district"));
+                    transaction.setUnitsSold(jsonTransaction.getInt("noOfUnits"));
 
-                        transactionList.add(transaction);
-                    }
-
-                    transactionResponseListener.onResponse(transactionList);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    transactionList.add(transaction);
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
+                transactionResponseListener.onResponse(transactionList);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+        }, error -> {
+
         });
 
         request.setRetryPolicy(new DefaultRetryPolicy(

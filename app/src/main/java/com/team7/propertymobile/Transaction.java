@@ -18,19 +18,6 @@ public class Transaction implements Serializable {
     public Transaction() {
     }
 
-    public Transaction(int transactionId, String contractDate, double floorArea, double price, String propertyType, String areaType, String tenure, String floorRange, String saleType, String district, int unitsSold) {
-        this.transactionId = transactionId;
-        this.contractDate = contractDate;
-        this.floorArea = floorArea;
-        this.price = price;
-        this.propertyType = propertyType;
-        this.areaType = areaType;
-        this.tenure = tenure;
-        this.floorRange = floorRange;
-        this.saleType = saleType;
-        this.district = district;
-        this.unitsSold = unitsSold;
-    }
 
     public String getSaleType() {
         return saleType;

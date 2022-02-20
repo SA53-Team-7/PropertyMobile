@@ -42,10 +42,10 @@ public class NewPropertyAdapter extends ArrayAdapter<Property> {
         NumberFormat formatter = NumberFormat.getCurrencyInstance(sg);
 
         TextView textView2 = view.findViewById(R.id.landTransactionTextView);
-        textView2.setText("Land Price/SqFt: " + formatter.format(propertyList.get(position).getLandPrice()));
+        textView2.setText(String.format("Land Price/SqFt: %s", formatter.format(propertyList.get(position).getLandPrice())));
 
         TextView textView3 = view.findViewById(R.id.predictedPriceTextView);
-        textView3.setText("Predicted Price/SqFt: " + formatter.format(propertyList.get(position).getPredictedPrice()));
+        textView3.setText(String.format("Predicted Price/SqFt: %s", formatter.format(propertyList.get(position).getPredictedPrice())));
 
         return view;
     }

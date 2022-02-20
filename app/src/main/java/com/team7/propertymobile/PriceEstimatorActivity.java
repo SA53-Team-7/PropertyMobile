@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +22,6 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Currency;
 import java.util.List;
 
 public class PriceEstimatorActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
@@ -170,7 +168,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         String inputYear = currentDate.substring(2, 4);
 
         String inputMonth;
-        if (currentDate.substring(5, 6).equals("0")) {
+        if (currentDate.charAt(5) == '0') {
             inputMonth = currentDate.substring(6, 7);
         } else {
             inputMonth = currentDate.substring(5, 7);
@@ -189,7 +187,6 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         data.put("month", inputMonth);
 
         request.put(data);
-        String debugRequest = request.toString();
         return request;
     }
 
@@ -198,11 +195,9 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
             return "1";
         } else {
             if (range.charAt(0) == '0') {
-                String floor = range.substring(1, 2);
-                return floor;
+                return range.substring(1, 2);
             } else {
-                String floor = range.substring(0, 2);
-                return floor;
+                return range.substring(0, 2);
             }
         }
     }
@@ -226,8 +221,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
         formatter.setRoundingMode(RoundingMode.UP);
         predict = predict.substring(2, predict.length() - 2);
         Double price = Double.parseDouble(predict);
-        String display = formatter.format(price);
-        return display;
+        return formatter.format(price);
 
     }
 
@@ -244,7 +238,7 @@ public class PriceEstimatorActivity extends AppCompatActivity implements Adapter
             @Override
             public void onResponse(String response) {
                 estimateView.setVisibility(View.VISIBLE);
-                estimateView.setText("Estimated price: " + formatPrice(response));
+                estimateView.setText(String.format("%s%s", getString(R.string.estimated_price), formatPrice(response)));
             }
         });
     }
