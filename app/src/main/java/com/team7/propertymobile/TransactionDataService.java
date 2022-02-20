@@ -21,6 +21,7 @@ public class TransactionDataService {
     Context context;
 
     public static final String QUERY_FOR_TRANSACTIONS_BY_ID = "http://10.0.2.2:8080/api/mobile/transactions/";
+    public static final String LIVE_QUERY_FOR_TRANSACTIONS_BY_ID = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/transactions/";
 
     public TransactionDataService(Context context) {
         this.context = context;
@@ -37,7 +38,7 @@ public class TransactionDataService {
     {
         List<Transaction> transactionList = new ArrayList<>();
 
-        String url = QUERY_FOR_TRANSACTIONS_BY_ID + id;
+        String url = LIVE_QUERY_FOR_TRANSACTIONS_BY_ID + id;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override

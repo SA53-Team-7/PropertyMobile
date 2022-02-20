@@ -20,8 +20,11 @@ public class FavouritesDataService {
 
     Context context;
     public static final String QUERY_FOR_MY_LIST = "http://10.0.2.2:8080/api/mobile/favourites/list/";
+    public static final String LIVE_QUERY_FOR_MY_LIST = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/favourites/list/";
     public static final String IS_FAVE_SAVED = "http://10.0.2.2:8080/api/mobile/favourites/check";
+    public static final String LIVE_IS_FAVE_SAVED = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/favourites/check";
     public static final String SAVE_OR_UPDATE = "http://10.0.2.2:8080/api/mobile/favourites/save";
+    public static final String LIVE_SAVE_OR_UPDATE = "https://propertypredict-propertypredictweb.azuremicroservices.io/api/mobile/favourites/save";
 
     public FavouritesDataService(Context context) {
         this.context = context;
@@ -37,7 +40,7 @@ public class FavouritesDataService {
     public void callAllProjects(int userId, CallMyListResponseListener callMyListResponseListener) {
         List<Property> projects = new ArrayList<>();
 
-        String url = QUERY_FOR_MY_LIST + userId;
+        String url = LIVE_QUERY_FOR_MY_LIST + userId;
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -87,7 +90,7 @@ public class FavouritesDataService {
     // use REST API to check the shortlist info
     public void isSaved (JSONObject userAndProject, SaveResponseListener saveResponseListener) {
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, IS_FAVE_SAVED, userAndProject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_IS_FAVE_SAVED, userAndProject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -124,7 +127,7 @@ public class FavouritesDataService {
 
     // use REST API to update the shortlist info
     public void save(JSONObject userAndProject, SaveResponseListener saveResponseListener) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, SAVE_OR_UPDATE, userAndProject, new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, LIVE_SAVE_OR_UPDATE, userAndProject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
